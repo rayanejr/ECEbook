@@ -1,93 +1,101 @@
-CREATE TABLE utilisateur(
-   id_user VARCHAR(50),
-   nom VARCHAR(50),
-   prenom VARCHAR(50),
-   image VARCHAR(50),
-   ville VARCHAR(50),
-   adressemail VARCHAR(50),
-   mdp VARCHAR(50),
-   roll VARCHAR(50),
-   promo VARCHAR(50),
-   datedenaissance DATE,
-   description VARCHAR(50),
-   pseudo VARCHAR(50),
-   PRIMARY KEY(id_user)
-);
+-- phpMyAdmin SQL Dump
+-- version 5.1.1
+-- https://www.phpmyadmin.net/
+--
+-- Hôte : 127.0.0.1:3306
+-- Généré le : mer. 15 mars 2023 à 10:33
+-- Version du serveur : 8.0.27
+-- Version de PHP : 7.4.26
 
-CREATE TABLE post(
-   id_post VARCHAR(50),
-   message VARCHAR(50),
-   image VARCHAR(50),
-   likes VARCHAR(50),
-   commantaires VARCHAR(50),
-   nomcrea VARCHAR(50),
-   titre VARCHAR(50),
-   id_user VARCHAR(50),
-   pseudo VARCHAR(50),
-   publique BINARY(50),
-   PRIMARY KEY(id_post)
-);
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
 
-CREATE TABLE message(
-   id_message VARCHAR(50),
-   id_receveur VARCHAR(50),
-   date_mes DATETIME,
-   text VARCHAR(50),
-   id_envoye VARCHAR(50),
-   PRIMARY KEY(id_message)
-);
 
-CREATE TABLE abonnemer(
-   id_abonnement VARCHAR(50),
-   id_user VARCHAR(50),
-   PRIMARY KEY(id_abonnement)
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
-CREATE TABLE likes(
-   Id_likes COUNTER,
-   id_user VARCHAR(50),
-   id_post VARCHAR(50),
-   likes_post BINARY(50),
-   dislikes_post VARCHAR(50),
-   PRIMARY KEY(Id_likes)
-);
+--
+-- Base de données : `ecebook`
+--
 
-CREATE TABLE creer(
-   id_user VARCHAR(50),
-   id_post VARCHAR(50),
-   PRIMARY KEY(id_user, id_post),
-   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user),
-   FOREIGN KEY(id_post) REFERENCES post(id_post)
-);
+-- --------------------------------------------------------
 
-CREATE TABLE envoyer(
-   id_user VARCHAR(50),
-   id_message VARCHAR(50),
-   PRIMARY KEY(id_user, id_message),
-   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user),
-   FOREIGN KEY(id_message) REFERENCES message(id_message)
-);
+--
+-- Structure de la table `abonnemer`
+--
 
-CREATE TABLE abonner(
-   id_user VARCHAR(50),
-   id_abonnement VARCHAR(50),
-   PRIMARY KEY(id_user, id_abonnement),
-   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user),
-   FOREIGN KEY(id_abonnement) REFERENCES abonnemer(id_abonnement)
-);
+DROP TABLE IF EXISTS `abonnemer`;
+CREATE TABLE IF NOT EXISTS `abonnemer` (
+  `id_abonnement` varchar(50) NOT NULL,
+  `id_user` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_abonnement`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE aimer(
-   id_user VARCHAR(50),
-   Id_likes INT,
-   PRIMARY KEY(id_user, Id_likes),
-   FOREIGN KEY(id_user) REFERENCES utilisateur(id_user),
-   FOREIGN KEY(Id_likes) REFERENCES likes(Id_likes)
-);
+-- --------------------------------------------------------
 
-CREATE TABLE appartenir(
-   id_post VARCHAR(50),
-   Id_likes INT,
-   PRIMARY KEY(id_post, Id_likes),
-   FOREIGN KEY(id_post) REFERENCES post(id_post),
-   FOREIGN KEY(Id_likes) REFERENCES likes(Id_likes)
-);
+--
+-- Structure de la table `message`
+--
+
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE IF NOT EXISTS `message` (
+  `id_message` varchar(50) NOT NULL,
+  `id_receveur` varchar(50) DEFAULT NULL,
+  `date_mes` datetime DEFAULT NULL,
+  `text` varchar(50) DEFAULT NULL,
+  `id_envoye` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_message`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `post`
+--
+
+DROP TABLE IF EXISTS `post`;
+CREATE TABLE IF NOT EXISTS `post` (
+  `id_post` varchar(50) NOT NULL,
+  `message` varchar(50) DEFAULT NULL,
+  `image` varchar(50) DEFAULT NULL,
+  `likes` varchar(50) DEFAULT NULL,
+  `commantaires` varchar(50) DEFAULT NULL,
+  `nomcrea` varchar(50) DEFAULT NULL,
+  `titre` varchar(50) DEFAULT NULL,
+  `id_user` varchar(50) DEFAULT NULL,
+  `pseudo` varchar(50) DEFAULT NULL,
+  `publique` binary(50) DEFAULT NULL,
+  PRIMARY KEY (`id_post`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `utilisateur`
+--
+
+DROP TABLE IF EXISTS `utilisateur`;
+CREATE TABLE IF NOT EXISTS `utilisateur` (
+  `id_user` varchar(50) NOT NULL,
+  `nom` varchar(50) DEFAULT NULL,
+  `prenom` varchar(50) DEFAULT NULL,
+  `image` varchar(50) DEFAULT NULL,
+  `ville` varchar(50) DEFAULT NULL,
+  `adressemail` varchar(50) DEFAULT NULL,
+  `mdp` varchar(50) DEFAULT NULL,
+  `roll` varchar(50) DEFAULT NULL,
+  `promo` varchar(50) DEFAULT NULL,
+  `datedenaissance` date DEFAULT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `pseudo` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`id_user`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
