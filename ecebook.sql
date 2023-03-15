@@ -24,11 +24,11 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Structure de la table `abonnemer`
+-- Structure de la table `abonement`
 --
 
-DROP TABLE IF EXISTS `abonnemer`;
-CREATE TABLE IF NOT EXISTS `abonnemer` (
+DROP TABLE IF EXISTS `abonement`;
+CREATE TABLE IF NOT EXISTS `abonement` (
   `id_abonnement` varchar(50) NOT NULL,
   `id_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_abonnement`)
