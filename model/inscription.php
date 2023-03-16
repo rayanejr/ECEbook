@@ -1,20 +1,45 @@
 <?php
 require("../controller/database.php");
-if (isset($_POST["nom"]) && isset($_POST["prenom"]) && isset($_POST["image"]) && isset($_POST["naissance"]) && isset($_POST["ville"]) && isset($_POST["promo"]) && isset($_POST["role"]) && isset($_POST["username"]) && isset($_POST["email"]) && isset($_POST["motdepasse"]) && isset($_POST["description"])){
-    $nomUser = $_POST["nom"];
-    $prenomUser = $_POST["prenom"];
-    $imageUser = $_POST["image"];
-    $naissanceUser = $_POST["naissance"];
-    $villeUser = $_POST["ville"];
-    $promoUser = $_POST["promo"];
-    $roleUser = $_POST["role"];
-    $usernameUser = $_POST["username"];
-    $emailUser = $_POST["email"];
-    $mdpUser = $_POST["motdepasse"];
-    $descriptionUser = $_POST["description"];
 
-    $pers = new Database();
-    $pers->AddUser($nomUser, $prenomUser, $imageUser, $naissanceUser, $villeUser, $promoUser, $roleUser, $usernameUser, $emailUser, $mdpUser, $descriptionUser);
-    echo "Welcome";
+if(isset($_POST["submit"])){
     
+    $errors = [];
+
+    $nomUser = htmlspecialchars($_POST["nom"] ?? '');
+    $prenomUser = htmlspecialchars($_POST["prenom"] ?? '');
+    $imageUser = htmlspecialchars($_POST["image"] ?? '');
+    $naissanceUser = htmlspecialchars($_POST["naissance"] ?? '');
+    $villeUser = htmlspecialchars($_POST["ville"] ?? '');
+    $promoUser = htmlspecialchars($_POST["promo"] ?? '');
+    $roleUser = htmlspecialchars($_POST["role"] ?? '');
+    $usernameUser = htmlspecialchars($_POST["username"] ?? '');
+    $emailUser = filter_var($_POST["email"] ?? '', FILTER_SANITIZE_EMAIL);
+    $mdpUser = htmlspecialchars($_POST["motdepasse"] ?? '');
+    $descriptionUser = htmlspecialchars($_POST["description"] ?? '');
+
+ // Vérifier que l'adresse e-mail est issue d'un domaine  ece valide
+    $validDomains = ['edu.ece.fr', 'omnes.intervenant.fr'];
+    $domain = substr(strrchr($emailUser, "@"), 1);
+    if (!in_array($domain, $validDomains)) {
+        $errors[] = "L'adresse e-mail doit être de domaine edu.ece.fr ou omnes.intervenant.fr";
+    }
+
+       // Vérifier que l'adresse e-mail est valide
+    if (!filter_var($emailUser, FILTER_VALIDATE_EMAIL)) {
+        $errors[] = "L'adresse e-mail n'est pas valide";
+    }
+
+    if (count($errors) == 0) {
+        $pers = new Database();
+        $pers->AddUser($nomUser, $prenomUser, $imageUser, $naissanceUser, $villeUser, $promoUser, $roleUser, $usernameUser, $emailUser, $mdpUser, $descriptionUser);
+        echo "Welcome";
+        header("location: ../views/connexion.html");
+    } else {
+        // Afficher les erreurs
+        echo "<ul>";
+        foreach ($errors as $error) {
+            echo "<li>" . $error . "</li>";
+        }
+        echo "</ul>";
+    }
 }
