@@ -21,6 +21,7 @@ if(isset($_POST["submit"])){
             $_SESSION['description'] = $user['description'];
             $_SESSION['logged_in'] = true;
             echo "vous etes connecté ".$_SESSION['nom']  . " " .$_SESSION["prenom"];
+          
             exit();
         } else {
             echo "Utilisateur non trouvé ou mot de passe incorrect";
