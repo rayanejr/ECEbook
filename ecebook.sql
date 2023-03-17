@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 DROP TABLE IF EXISTS `abonement`;
 CREATE TABLE IF NOT EXISTS `abonement` (
-  `id_abonnement` varchar(50) NOT NULL,
+  `id_abonnement` int NOT NULL AUTO_INCREMENT,
   `id_user` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id_abonnement`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `abonement` (
 
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE IF NOT EXISTS `message` (
-  `id_message` varchar(50) NOT NULL,
+  `id_message` int NOT NULL AUTO_INCREMENT,
   `id_receveur` varchar(50) DEFAULT NULL,
   `date_mes` datetime DEFAULT NULL,
   `text` varchar(50) DEFAULT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `message` (
 
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE IF NOT EXISTS `post` (
-  `id_post` varchar(50) NOT NULL,
+  `id_post` int NOT NULL AUTO_INCREMENT,
   `message` varchar(50) DEFAULT NULL,
   `image` varchar(50) DEFAULT NULL,
   `likes` varchar(50) DEFAULT NULL,
