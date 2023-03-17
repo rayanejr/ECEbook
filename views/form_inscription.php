@@ -16,7 +16,7 @@
     </nav>
     <hr>
     <h1 class="text-dark text-center moving-heading">INSCRIPTION</h1>
-    <form action="../model/inscription.php" method="post">
+    <form action="../model/inscription.php" method="POST">
 
         <div class="container mt-5">
             <div class="row">
@@ -53,48 +53,44 @@
                                     <input class="form-control" type="text" name="ville" placeholder="Ville" required><br><br>
                                 </div>
                             </div>
+
                             <div class="form-group mb-3">
                                 <div class="input-group input-group mb-3 w-100 flex-nowrap">
-
-                                    <span class="input-group-text">Promo</span>
-                                    <select name="promo" id="inlineFormCustomSelect">
-                                            <option value="ING1">ING1</option>
-                                            <option value="ING2">ING2</option>
-                                            <option value="ING3">ING3</option>
-                                            <option value="ING4">ING4</option>
-                                        <option value="ING5">ING5</option>
-                                        <option value="B1">B1</option>
-                                        <option value="B2">B2</option>
-                                        <option value="B3">B3</option>
-                                        <option value="M1">M1</option>
-                                        <option value="M2">M2</option>
+                                    <span class="input-group-text">Email</span>
+                                    <input class="form-control" type="email" id="email" name="email" placeholder="Tapez votre email..." required><br><br>
+                                </div>
+                            </div>
+                   
+                       
+                                <div class="form-group mb-3" id="promo-group" style="display:none">
+                                    <label for="promo">Promo:</label>
+                                    <select name="promo" multiple id="selectPromo">
+                                    <option value="ING1">ING1</option>
+                                    <option value="ING2">ING2</option>
+                                    <option value="ING3">ING3</option>
+                                    <option value="ING4">ING4</option>
+                                    <option value="ING5">ING5</option>
+                                    <option value="B1">B1</option>
+                                    <option value="B2">B2</option>
+                                    <option value="B3">B3</option>
+                                    <option value="M1">M1</option>
+                                    <option value="M2">M2</option>
                                     </select>
-
                                 </div>
-                            </div>
-                            <div class="form-group mb-3">
-                                <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                       
+                    
 
-                                    <span class="input-group-text">Type d'utilisateur</span>
-                                    <select name="role" id="inlineFormCustomSelect">
-                                            <option value="Etudiant">Etudiant</option>
-                                            <option value="Enseignant">Enseignant</option>
-                                        </select>
 
-                                </div>
-                            </div>
+                     
+
+
                             <div class="form-group mb-3">
                                 <div class="input-group input-group mb-3 w-100 flex-nowrap">
                                     <span class="input-group-text">Username</span>
                                     <input class="form-control" type="text" name="username" placeholder="Votre username" required><br><br>
                                 </div>
                             </div>
-                            <div class="form-group mb-3">
-                                <div class="input-group input-group mb-3 w-100 flex-nowrap">
-                                    <span class="input-group-text">Email</span>
-                                    <input class="form-control" type="email" name="email" placeholder="Tapez votre email..." required><br><br>
-                                </div>
-                            </div>
+                           
                             <div class="form-group mb-3">
                                 <div class="input-group input-group mb-3 w-100 flex-nowrap">
                                     <span class="input-group-text">Password</span>
@@ -116,6 +112,33 @@
         </div>
     </form>
     <p style="margin-left: 43%; color: white;">@Powered by Groupe 1 Bachelor 2 ECE</p>
+
+    
+    <script>
+const emailInput = document.getElementById('email');
+const promoGroup = document.getElementById('promo-group');
+
+emailInput.addEventListener('blur', () => {
+    const email = emailInput.value.trim();
+    const domain = email.split('@')[1];
+
+    const promoGroup = document.getElementById('promo-group');
+
+    if (domain === 'omnes.intervenant.fr') {
+      promoGroup.style.display = 'block';
+    } else {
+      promoGroup.style.display = 'none';
+    }
+  });
+
+
+
+
+
+
+</script>
+
+
 </body>
 
 </html>
