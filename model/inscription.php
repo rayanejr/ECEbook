@@ -14,7 +14,7 @@ if(isset($_POST["submit"])){
     $roleUser = htmlspecialchars($_POST["role"] ?? '');
     $usernameUser = htmlspecialchars($_POST["username"] ?? '');
     $emailUser = filter_var($_POST["email"] ?? '', FILTER_SANITIZE_EMAIL);
-    $mdpUser = htmlspecialchars($_POST["motdepasse"] ?? '');
+    $mdpUser = password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); // Hash the password
     $descriptionUser = htmlspecialchars($_POST["description"] ?? '');
 
  // Vérifier que l'adresse e-mail est issue d'un domaine  ece valide

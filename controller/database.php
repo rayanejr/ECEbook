@@ -46,4 +46,30 @@ class Database{
         }
     }
 
+
+
+    public function Login($email, $password)
+{
+    try {
+        $sql = "SELECT * FROM `utilisateur` WHERE `adressemail` = :email";
+        $statement = self::$database->prepare($sql);
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+        $user = $statement->fetch(PDO::FETCH_ASSOC);
+        return $user;
+    } catch(PDOException $e) {
+        echo "Erreur lors de la connexion: " . $e->getMessage();
+        die();
+    }
+}
+
+
+
+
+
+
+
+
+    
+
 }
