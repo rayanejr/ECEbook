@@ -20,21 +20,29 @@ if(isset($_POST["submit"])){
                 header("location: ../views/dashboard.html");
             }
             else{
-                
-                $_SESSION['id_user'] = $user['id_user'];
-                $_SESSION['nom'] = $user['nom'];
-                $_SESSION['prenom'] = $user['prenom'];
-                $_SESSION['email'] = $user['adressemail'];
-                $_SESSION['role'] = $user['roll'];
-                $_SESSION['promo'] = $user['promo'];
-                $_SESSION['image'] = $user['image'];
-                $_SESSION['description'] = $user['description'];
-                $_SESSION['logged_in'] = true;
-                echo "vous etes connecté ".$_SESSION['nom']  . " " .$_SESSION["prenom"];
-                echo "<img src='../uploads/" . $_SESSION['image'] . "' alt='user image'>";
+                if($user["confirmer"] = 1){
 
-                
-                exit();
+                    
+                    $_SESSION['id_user'] = $user['id_user'];
+                    $_SESSION['nom'] = $user['nom'];
+                    $_SESSION['prenom'] = $user['prenom'];
+                    $_SESSION['email'] = $user['adressemail'];
+                    $_SESSION['role'] = $user['roll'];
+                    $_SESSION['promo'] = $user['promo'];
+                    $_SESSION['image'] = $user['image'];
+                    $_SESSION['description'] = $user['description'];
+                    $_SESSION['logged_in'] = true;
+                    echo "vous etes connecté ".$_SESSION['nom']  . " " .$_SESSION["prenom"];
+                    echo "<img src='../uploads/" . $_SESSION['image'] . "' alt='user image'>";
+                    
+                    
+                    exit();
+                }
+                else{
+                    echo "votre compte n'est pas encore verifé";
+                    header("location: ../connexion.html");
+                    exit();
+                }
             }
         } else {
             echo "Utilisateur non trouvé ou mot de passe incorrect";
