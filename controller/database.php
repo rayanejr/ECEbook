@@ -126,6 +126,16 @@ public function ConfirmUser($user_id) {
 }
 
 
+public function GetUserById($id) {
+    $database = self::getInstance();
+    $query = "SELECT * FROM utilisateur WHERE id_user=:id";
+    $statement = $database->prepare($query);
+    $statement->bindParam(":id", $id);
+    $statement->execute();
+    $user=$statement->fetch();
+    return $user;
+
+}
 
 
 
