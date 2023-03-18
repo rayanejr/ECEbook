@@ -16,7 +16,7 @@
     </nav>
     <hr>
     <h1 class="text-dark text-center moving-heading">INSCRIPTION</h1>
-    <form action="../model/inscription.php" method="POST">
+    <form action="../model/inscription.php" method="POST" enctype="multipart/form-data">
 
         <div class="container mt-5">
             <div class="row">
@@ -37,8 +37,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <div class="input-group input-group mb-3 w-100 flex-nowrap">
-                                    <span class="input-group-text">Image</span>
-                                    <input class="form-control" type="text" name="image" placeholder="Mettez l'URL de votre image" required><br><br>
+                                    <input class="form-control" type="file" name="image"  required><br><br>
                                 </div>
                             </div>
                             <div class="form-group mb-3">
@@ -113,7 +112,7 @@
     </form>
     <p style="margin-left: 43%; color: white;">@Powered by Groupe 1 Bachelor 2 ECE</p>
 
-    
+
     <script>
 const emailInput = document.getElementById('email');
 const promoGroup = document.getElementById('promo-group');

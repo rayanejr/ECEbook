@@ -21,23 +21,23 @@ class Database{
         }
     }
 
-    public function AddUser($nomU, $prenomU, $imageU, $naissanceU, $villeU, $promoU, $roleU, $usernameU, $emailU, $mdpU, $descriptionU)
+    public function AddUser($nomU, $prenomU, $naissanceU, $villeU, $promoU, $roleU, $usernameU, $emailU, $mdpU, $descriptionU, $imageU)
     {
         try {
-            $sql = "INSERT INTO `utilisateur` (`nom`, `prenom`, `image`, `ville`, `adressemail`, `mdp`, `roll`, `promo`, `datedenaissance`, `description`, `pseudo`)
-                    VALUES (:nomU, :prenomU, :imageU, :villeU, :emailU, :mdpU, :roleU, :promoU, :naissanceU, :descriptionU, :usernameU)";
+            $sql = "INSERT INTO `utilisateur` (`nom`, `prenom`, `datedenaissance`, `ville`, `promo`, `roll`, `pseudo`, `adressemail`, `mdp`, `description`, `image`)
+                    VALUES (:nomU, :prenomU, :naissanceU, :villeU, :promoU, :roleU, :usernameU, :emailU, :mdpU, :descriptionU, :imageU)";
             $statement = self::$database->prepare($sql);
             $statement->bindParam(':nomU', $nomU);
             $statement->bindParam(':prenomU', $prenomU);
-            $statement->bindParam(':imageU', $imageU);
+            $statement->bindParam(':naissanceU', $naissanceU);
             $statement->bindParam(':villeU', $villeU);
+            $statement->bindParam(':promoU', $promoU);
+            $statement->bindParam(':roleU', $roleU);
+            $statement->bindParam(':usernameU', $usernameU);
             $statement->bindParam(':emailU', $emailU);
             $statement->bindParam(':mdpU', $mdpU);
-            $statement->bindParam(':roleU', $roleU);
-            $statement->bindParam(':promoU', $promoU);
-            $statement->bindParam(':naissanceU', $naissanceU);
             $statement->bindParam(':descriptionU', $descriptionU);
-            $statement->bindParam(':usernameU', $usernameU);
+            $statement->bindParam(':imageU', $imageU);
             $statement->execute();
             echo "Welcome";
         } catch(PDOException $e) {
@@ -45,6 +45,7 @@ class Database{
             die();
         }
     }
+    
     
 
 

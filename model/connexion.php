@@ -1,4 +1,6 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
+
 session_start();
 require_once("../controller/database.php");
 
@@ -11,7 +13,8 @@ if(isset($_POST["submit"])){
         $user = $db->Login($email, $password);
         if($user && password_verify($password, $user['mdp'])) { // check if user exists and password is correct
            
-            if($user["roll" === "admin"]){
+            if($user["roll"] === "admin"){
+
                 $_SESSION["id_user"] = $user["id_user"];
                 $_SESSION["admin"] = true;
                 header("location: ../views/dashboard.html");
@@ -28,6 +31,8 @@ if(isset($_POST["submit"])){
                 $_SESSION['description'] = $user['description'];
                 $_SESSION['logged_in'] = true;
                 echo "vous etes connecté ".$_SESSION['nom']  . " " .$_SESSION["prenom"];
+                echo "<img src='../uploads/" . $_SESSION['image'] . "' alt='user image'>";
+
                 
                 exit();
             }

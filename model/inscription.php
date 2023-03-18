@@ -2,20 +2,20 @@
 require_once("../controller/database.php");
 
 if(isset($_POST["submit"])){
-    
+
     $errors = [];
 
     $nomUser = $_POST["nom"] ?? '';
     $prenomUser = $_POST["prenom"] ?? '';
-    $imageUser = $_POST["image"] ?? '';
     $naissanceUser = $_POST["naissance"] ?? '';
     $villeUser = $_POST["ville"] ?? '';
     $promoUser = $_POST["promo"] ?? '';
-  /*   $roleUser = $_POST["role"] ?? ''; */
     $usernameUser = $_POST["username"] ?? '';
     $emailUser = filter_var($_POST["email"] ?? '', FILTER_VALIDATE_EMAIL);
     $mdpUser = password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); // Hash the password
     $descriptionUser = $_POST["description"] ?? '';
+    $imageUser = $_FILES['image']['name'];
+    $filetmpname = $_FILES['image']['tmp_name'];
 
     // Check if email is valid and from a valid domain
     if (!$emailUser) {
@@ -37,21 +37,15 @@ if(isset($_POST["submit"])){
         }
     }
 
+    $db = new Database();
+    
+    $folder = '../uploads/';
+    move_uploaded_file($filetmpname, $folder . $imageUser);
 
- 
-
-    if(empty($emailUser)){
-        echo "<style>.promo {display:none}</style>";
-    }
-    else{
-        echo "<style>.promo {display:block}</style>";
-    }
-
+    $db->AddUser($nomUser, $prenomUser, $naissanceUser, $villeUser, $promoUser, $roleUser, $usernameUser, $emailUser, $mdpUser, $descriptionUser, $imageUser);
 
     // Check if there are any errors
     if (count($errors) == 0) {
-        $db = new Database();
-        $db->AddUser($nomUser, $prenomUser, $imageUser, $naissanceUser, $villeUser, $promoUser, $roleUser, $usernameUser, $emailUser, $mdpUser, $descriptionUser);
 
         if($domain === "admin.fr" ) {
             header("location: ../views/dashborad.php");
