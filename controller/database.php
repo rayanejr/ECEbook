@@ -95,7 +95,7 @@ class Database{
 
 public function GetUserByEmailAndCode($email, $code) {
     $database = self::getInstance();
-    $query = "SELECT * FROM utilisateur WHERE adressemail=:email AND code_confirmation=:code AND confimrer=0";
+    $query = "SELECT * FROM utilisateur WHERE adressemail=:email AND code_confirmation=:code AND confirmer=0";
     $statement = $database->prepare($query);
     $statement->bindParam(":email", $email);
     $statement->bindParam(":code", $code);
@@ -119,21 +119,20 @@ public function GetUserByCode($code) {
 
 public function ConfirmUser($user_id) {
     $database = self::getInstance();
-    $query = "UPDATE utilisateur SET confimrer = 1 WHERE id_user =:id";
+    $query = "UPDATE utilisateur SET confirmer = 1 WHERE id_user =:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $user_id);
     $statement->execute();
 }
 
 
-public function GetUserById($id) {
+public function GetUserById($user_id) {
     $database = self::getInstance();
     $query = "SELECT * FROM utilisateur WHERE id_user=:id";
     $statement = $database->prepare($query);
-    $statement->bindParam(":id", $id);
+    $statement->bindParam(":id", $user_id);
     $statement->execute();
-    $user=$statement->fetch();
-    return $user;
+   return $statement->fetch();
 
 }
 

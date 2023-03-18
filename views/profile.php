@@ -10,12 +10,14 @@ require("../model/profil.php");
     <title>Profil</title>
 </head>
 <body>
-    <h1>Bienvenue sur votre profiles</h1>
+    <h1>Bienvenue sur votre profile</h1>
     <?php
-        foreach($usr as $user):?>
-             <p><?= $usr['nom'] ?> </p>;
-        
-    <?php endforeach; ?>
+ while ($row = mysqli_fetch_assoc($user)) : ?>
+    <p><?= $row["nom"] ?></p>;
+
+    <?php
+        endwhile;
+    ?>
 
 
 </body>

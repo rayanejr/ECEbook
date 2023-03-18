@@ -1,9 +1,11 @@
 <?php
-
+require('../controller/database.php');
 session_start();
-if(!isset($_SESSION["user_id"])){
+if(!isset($_SESSION["id_user"])){
     header("Location:../views/connexion.html");
-}
+    exit();
+}else{
 $db=new Database();
-$db->GetUserById($_SESSION['user_id']);
+$user= $db->GetUserById($_SESSION['id_user']);
+}
 ?>
