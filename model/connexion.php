@@ -32,7 +32,7 @@ if(isset($_POST["submit"])){
                     $_SESSION['image'] = $user['image'];
                     $_SESSION['description'] = $user['description'];
                     $_SESSION['logged_in'] = true;
-                    header("location: ../views/profil.php");
+                    header("location: ../views/profile.php");
                     
                     exit();
                 }
