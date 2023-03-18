@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,9 +13,7 @@
 </head>
 
 <body>
-    <nav>
-        <p>Logo + nom du réseau</p>
-    </nav>
+
     <hr>
     <h1 class="text-dark text-center moving-heading">INSCRIPTION</h1>
     <form action="../model/inscription.php" method="POST" enctype="multipart/form-data">

@@ -32,9 +32,7 @@ if(isset($_POST["submit"])){
                     $_SESSION['image'] = $user['image'];
                     $_SESSION['description'] = $user['description'];
                     $_SESSION['logged_in'] = true;
-                    echo "vous etes connecté ".$_SESSION['nom']  . " " .$_SESSION["prenom"];
-                    echo "<img src='../uploads/" . $_SESSION['image'] . "' alt='user image'>";
-                    
+                    header("location: ../views/profil.php");
                     
                     exit();
                 }

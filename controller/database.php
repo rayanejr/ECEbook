@@ -128,12 +128,12 @@ public function ConfirmUser($user_id) {
 
 public function GetUserById($user_id) {
     $database = self::getInstance();
-    $query = "SELECT * FROM utilisateur WHERE id_user=:id";
+    $query = "SELECT * FROM utilisateur WHERE id_user = ?";
     $statement = $database->prepare($query);
-    $statement->bindParam(":id", $user_id);
+    $statement->bindParam(1, $user_id, PDO::PARAM_INT);
     $statement->execute();
-   return $statement->fetch();
-
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+    return $user;
 }
 
 public function deleteUserById($user_id) {
