@@ -1,4 +1,11 @@
 <?php 
+session_start();
+
+if(!isset($_SESSION["id_user"])){
+    header("location:../views/connexion.html");
+    exit();
+}
+
 require("../controller/database.php");
 $db = new Database();
 $posts = $db->getAllPosts() ; 

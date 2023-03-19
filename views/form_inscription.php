@@ -1,4 +1,12 @@
 
+<?php 
+session_start();
+if(isset($_SESSION["id_user"])){
+    // Si l'utilisateur est déjà connecté, rediriger vers la page d'accueil
+    header("Location: ../views/index2.php");
+    exit();
+} 
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,6 +21,7 @@
 </head>
 
 <body>
+
 
     <hr>
     <h1 class="text-dark text-center moving-heading">INSCRIPTION</h1>
