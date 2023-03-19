@@ -25,12 +25,11 @@ if(isset($_POST["submit"])){
     $naissanceUser = $_POST["naissance"] ?? '';
     $villeUser = $_POST["ville"] ?? '';
     $usernameUser = $_POST["username"] ?? '';
-    $emailUser = filter_var($_POST["email"] ?? '', FILTER_VALIDATE_EMAIL);
     $mdpUser = password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); // Hash the password
     $descriptionUser = $_POST["description"] ?? '';
 
 
-    $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$emailUser,$mdpUser,$descriptionUser);
+    $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser);
 
     header("location: ../views/updateUser.php");
 

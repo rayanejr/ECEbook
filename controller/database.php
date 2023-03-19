@@ -156,25 +156,70 @@ public function GetUserById($user_id) {
     return $user;
 }
 
+public function GetUserByEmail($email) {
+    $database = self::getInstance();
+    $query = "SELECT * FROM utilisateur WHERE adressemail = ?";
+    $statement = $database->prepare($query);
+    $statement->bindParam(1, $email, PDO::PARAM_INT);
+    $statement->execute();
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+    return $user;
+}
 
 
 public function deleteUserById($user_id) {
     $database = self::getInstance();
-    $query = "DELETE FROM utilisateur WHERE id_user=:id";
+    $query = "DELETE FROM utilisateur WHERE id_user=?";
     $statement = $database->prepare($query);
-    $statement->bindParam(":id", $user_id);
+    $statement->bindParam(1, $user_id, PDO::PARAM_INT);
     $statement->execute();
-    return $statement->fetch();
+    return $statement->fetch(PDO::FETCH_ASSOC);
 }
 
 
-
-
-public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU, $emailU, $mdpU, $descriptionU) {
+public function AddConfirmationCode($email, $confirmation_code){
     $database = self::getInstance();
-    $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?, adressemail=?, mdp=?, description=?  WHERE id_user=?";
+    $query = "UPDATE utilisateur SET code_confirmation=? WHERE adressemail=?";
     $statement = $database->prepare($query);
-    $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $emailU, $mdpU, $descriptionU, $user_id]);
+    $statement->execute([$confirmation_code, $email]);
+    return $statement->rowCount() > 0;
+}
+
+public function VerifyConfirmationCode($email, $code){
+    $database = self::getInstance();
+    $query = "SELECT * FROM utilisateur WHERE adressemail=? AND code_confirmation=?";
+    $statement = $database->prepare($query);
+    $statement->execute([$email, $code]);
+    return $statement->rowCount() > 0;
+}
+
+public function updateVericiationCodeByEmail($email,$verification_code){
+    $database = self::getInstance();
+    $query = "UPDATE utilisateur SET code_confirmation=? WHERE adressemail=?";
+    $statement = $database->prepare($query);
+    $statement->execute([$verification_code, $email]);
+    return $statement->rowCount() > 0;
+}
+public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU,$mdpU, $descriptionU) {
+    $database = self::getInstance();
+    $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?, mdp=?, description=?  WHERE id_user=?";
+    $statement = $database->prepare($query);
+    $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $mdpU, $descriptionU, $user_id]);
+    return $statement->rowCount() > 0;
+}
+public function UpdatePassword($email, $mdpU){
+    $database = self::getInstance();
+    $query = "UPDATE utilisateur SET mdp=? WHERE adressemail=?";
+    $statement = $database->prepare($query);
+    $statement->execute([$mdpU, $email]);
+    return $statement->rowCount() > 0;
+}
+
+public function updateMdpByEmail($email,$mdpU) {
+    $database = self::getInstance();
+    $query = "UPDATE utilisateur SET  mdp=?WHERE adressemail=?";
+    $statement = $database->prepare($query);
+    $statement->execute([ $mdpU, $email]);
     return $statement->rowCount() > 0;
 }
 
