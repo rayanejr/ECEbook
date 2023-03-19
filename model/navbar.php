@@ -1,12 +1,20 @@
 <?php 
-require("../model/profil.php") ; 
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+require_once("../controller/database.php");
+
+$db = new Database();
+$user = $db->GetUserById($_SESSION["id_user"]);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Beautiful Bootstrap Navbar with Menu Icons</title>
+<title></title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -33,7 +41,7 @@ require("../model/profil.php") ;
 		</form>
 
 		<div class="navbar-nav ml-auto">
-			<a href="#" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Acceuil</span></a>
+			<a href="../views/index2.php" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Acceuil</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Projects</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>Team</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-pie-chart"></i><span>Reports</span></a>
@@ -44,8 +52,6 @@ require("../model/profil.php") ;
 				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"><img src="../uploads/<?=  $user["image"] ?>" class="avatar" alt="Avatar"> <?=  $user["pseudo"] ?> </a>
 				<div class="dropdown-menu">
 					<a href="../views/profile.php" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
-					<a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a>
-					<a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a>
 					<div class="divider dropdown-divider"></div>
 					<a href="../model/logout.php" class="dropdown-item"><i class="material-icons">&#xE8AC;</i> Logout</a>
 				</div>

@@ -36,7 +36,8 @@ require_once("../model/profil.php");
 
           <ul class="nav nav-pills nav-stacked">
               <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
-              <li><a href="#"> <i class="fa fa-edit"></i> modifier profile</a></li>
+              <li><a href="../views/updateUser.php"> <i class="fa fa-edit"></i> modifier profile</a></li>
+              <li><a href="../model/deleteUser.php"> <i class="fa fa-edit"></i> supprimer le profil</a></li>
           </ul>
       </div>
   </div>

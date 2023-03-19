@@ -117,13 +117,33 @@ public function GetUserByCode($code) {
 
 
 
-public function ConfirmUser($user_id) {
+public function confirmUser($email) {
     $database = self::getInstance();
-    $query = "UPDATE utilisateur SET confirmer = 1 WHERE id_user =:id";
+    $query = "UPDATE utilisateur SET confirmer = 1 WHERE adressemail = :email";
     $statement = $database->prepare($query);
-    $statement->bindParam(":id", $user_id);
-    $statement->execute();
+    $statement->bindParam(":email", $email, PDO::PARAM_INT);
+    
+    try {
+        $statement->execute();
+        $affectedRows = $statement->rowCount();
+        
+        if ($affectedRows == 0) {
+            throw new Exception("Invalid email  provided.");
+        }
+        
+        return true;
+    } catch (PDOException $e) {
+        // Handle database errors
+        error_log("Database error: " . $e->getMessage());
+        return false;
+    } catch (Exception $e) {
+        // Handle other errors
+        error_log("Error: " . $e->getMessage());
+        return false;
+    }
 }
+
+
 
 
 public function GetUserById($user_id) {
@@ -140,30 +160,25 @@ public function deleteUserById($user_id) {
     $database = self::getInstance();
     $query = "DELETE FROM utilisateur WHERE id_user=:id";
     $statement = $database->prepare($query);
-    $statement->bindParam(":id", $user_id);
+    $statement->bindParam(':id', $user_id, PDO::PARAM_INT);
     $statement->execute();
-    return $statement->fetch();
+    return $statement->rowCount(); // returns the number of affected rows
 }
 
-public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU, $promoU, $roleU, $usernameU, $emailU, $mdpU, $descriptionU, $imageU) {
+
+
+
+public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU, $emailU, $mdpU, $descriptionU) {
     $database = self::getInstance();
-    $query = "UPDATE utilisateur SET nom=:nomU, prenom=:prenomU, datedenaissance=:naissanceU, ville=:villeU, promo=:promoU, roll=:roleU, pseudo=:usernameU, adressemail=:emailU, mdp=:mdpU, description=:descriptionU, image=:imageU WHERE id_user=:id";
+    $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?, adressemail=?, mdp=?, description=?  WHERE id_user=?";
     $statement = $database->prepare($query);
-    $statement->bindParam(":id", $user_id);
-    $statement->bindParam(':nomU', $nomU);
-    $statement->bindParam(':prenomU', $prenomU);
-    $statement->bindParam(':naissanceU', $naissanceU);
-    $statement->bindParam(':villeU', $villeU);
-    $statement->bindParam(':promoU', $promoU);
-    $statement->bindParam(':roleU', $roleU);
-    $statement->bindParam(':usernameU', $usernameU);
-    $statement->bindParam(':emailU', $emailU);
-    $statement->bindParam(':mdpU', $mdpU);
-    $statement->bindParam(':descriptionU', $descriptionU);
-    $statement->bindParam(':imageU', $imageU);
-    $statement->execute();
-    return $statement->fetch();
+    $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $emailU, $mdpU, $descriptionU, $user_id]);
+    return $statement->rowCount() > 0;
 }
+
+
+
+
 
 public function AddPost($id_user, $titre, $description, $image, $date)
 {
@@ -202,13 +217,14 @@ public function GetPostByUserId($id_user) {
     return $statement->fetchAll();
 }
 
-public function GetPost() {
-    $database = self::getInstance();
-    $query = "SELECT * FROM post";
-    $statement = $database->prepare($query);
+function getAllPosts() {
+    $pdo = self::getInstance();
+    $sql = "SELECT * FROM post";
+    $statement = $pdo->prepare($sql);
     $statement->execute();
-    return $statement->fetchAll();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
 
 
 public function deletePostById($id_post) {
@@ -361,8 +377,55 @@ public function GetLike() {
 
 
 
+public function UpdateUserStatuts($user_id, $status){
+    $database = self::getInstance();
+    $query = "UPDATE utilisateur SET status = :status WHERE id_user = :user_id";
+    $statement = $database->prepare($query);
+    $statement->bindParam(":user_id", $user_id);
+    $statement->bindParam(":status", $status);
+    $statement->execute();
+    return $statement->rowCount();
+}
 
 
+
+
+
+
+
+function insertPost($user_id, $titre, $pseudo, $message) {
+    $database = self::getInstance();
+    $sql = "INSERT INTO post (id_user, titre, pseudo, message) 
+            VALUES (:user_id, :titre, :pseudo, :message)";
+    try {
+        $statement = $database->prepare($sql);
+        $statement->bindParam(':user_id', $user_id);
+        $statement->bindParam(':titre', $title);
+        $statement->bindParam(':pseudo', $pseudo);
+        $statement->bindParam(':message', $message);
+
+    
+        $statement->execute();
+        echo "Post added successfully";
+    } catch(PDOException $e) {
+        echo "Error adding post: " . $e->getMessage();
+        die();
+    }
+}
+
+
+
+
+
+public function getUserFromPost($post_id) {
+    $database = self::getInstance();
+    $query = "SELECT utilisateur.* FROM utilisateur INNER JOIN post ON post.id_user = utilisateur.id_user WHERE post.id_post = ?";
+    $statement = $database->prepare($query);
+    $statement->bindParam(1, $post_id, PDO::PARAM_INT);
+    $statement->execute();
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+    return $user;
+}
 
 
 
