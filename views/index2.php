@@ -76,7 +76,7 @@ $posts = $db->getAllPosts() ;
                     <div class="card-header">
                         <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">publiez </a>
+                                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Publiez </a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a>
@@ -91,7 +91,7 @@ $posts = $db->getAllPosts() ;
                                     <input class="form-control" type="text" name="titre" placeholder="entrez un titre" required><br><br>
                                 </div>
                                 <div class="form-group">
-                                    <label class="sr-only" for="message">post</label>
+                                    <label class="sr-only" for="message">Post</label>
                                     <textarea class="form-control" name="message" id="message" rows="3" placeholder="entrez un message ?"></textarea>
                                 </div>
 
@@ -108,7 +108,7 @@ $posts = $db->getAllPosts() ;
                         </div>
                         <div class="btn-toolbar justify-content-between">
                             <div class="btn-group">
-                                <button type="submit" name="submit" class="btn btn-primary">publier</button>
+                                <button type="submit" name="submit" class="btn btn-primary">Publier</button>
                             </div>
                           
                         </div>

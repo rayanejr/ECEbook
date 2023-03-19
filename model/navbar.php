@@ -41,7 +41,7 @@ $user = $db->GetUserById($_SESSION["id_user"]);
 		</form>
 
 		<div class="navbar-nav ml-auto">
-			<a href="../views/index2.php" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Acceuil</span></a>
+			<a href="../views/index2.php" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Accueil</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Projects</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>Team</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-pie-chart"></i><span>Reports</span></a>
