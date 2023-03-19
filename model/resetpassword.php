@@ -18,13 +18,12 @@ if(isset($_POST["submit"])){
     $newpassword =  password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); 
     $db = new Database();
     
-    $email = $_POST["email"] ?? '';
+    $email = $_GET["email"] ?? '';
     $db->UpdatePassword($email, $newpassword);
 
 
+   header("location:../views/connexion.php");
    
-
-    header("Location: ../views/connexion.php");
     exit();
 
 }

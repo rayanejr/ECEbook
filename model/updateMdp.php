@@ -61,7 +61,7 @@ if(isset($_POST["submit"])){
         $mail->addAddress($email);
     //Finally send email
         if ( $mail->send() ) {
-            echo "Email Sent..!";
+            echo "le mail a été envoyé a $email";
         }else{
             echo "Message could not be sent. Mailer Error: ";
             var_dump($email);

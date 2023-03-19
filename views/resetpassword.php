@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form action="../model/resetpassword.php" method="post">
+    <form action="../model/resetpassword.php?email=<?= $_GET["email"] ?>" method="post">
     <div class="form-group mb-3">
                                 <div class="input-group input-group mb-3 w-100 flex-nowrap">
                                     <span class="input-group-text">Password</span>
