@@ -27,11 +27,16 @@ if(isset($_SESSION["id_user"])){
     <h1 style="text-align: center" class="text-dark text-center moving-heading">INSCRIPTION</h1>
     <form action="../model/inscription.php"  method="POST" enctype="multipart/form-data">
 
+
+  
         <div class="container mt-5">
             <div class="row">
                 <div class="col-sm-5 m-auto">
                     <div class="card">
                         <div class="card-body">
+
+                                  
+                       
                             <div class="form-group mb-3">
                                 <div class="input-group input-group mb-3 w-100 flex-nowrap">
                                     <span class="input-group-text">Nom</span>
@@ -114,12 +119,14 @@ if(isset($_SESSION["id_user"])){
                             <input class="btn btn-primary btn-lg" style="margin-left: 39%;" type="submit" name="submit" value="S'inscrire"><br><br>
                             <a href="connexion.php" style="margin-left: 36%;">J'ai déjà un compte</a><br><br>
                         </div>
+                        
                     </div>
                 </div>
             </div>
         </div>
     </form>
     <p style="margin-left: 43%; color: white;">@Powered by Groupe 1 Bachelor 2 ECE</p>
+    
 
 
     <script>

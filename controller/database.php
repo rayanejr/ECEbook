@@ -472,6 +472,15 @@ public function UpdateUserStatuts($user_id, $status){
 }
 
 
+public function getAllEmails()
+{
+    $database = self::getInstance();
+    $query = "SELECT adressemail FROM utilisateur";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $emails = $statement->fetchAll(PDO::FETCH_COLUMN);
+    return $emails;
+}
 
 
 

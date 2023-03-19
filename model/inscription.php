@@ -53,6 +53,14 @@ if(isset($_POST["submit"])){
 
 
 
+     // vérifie si l'adresse e-mail existe déjà
+     $db = new Database();
+     $emailList = $db->getAllEmails();
+     if (in_array($emailUser, $emailList)){
+         $errors[] = "Cette adresse e-mail est déjà utilisée";
+     }
+     
+
 
     $code_confirmation = uniqid();
 
@@ -63,6 +71,11 @@ if(isset($_POST["submit"])){
     
     $folder = '../uploads/';
     move_uploaded_file($filetmpname, $folder . $imageUser);
+
+
+     // Check if there are any errors
+     if (count($errors) == 0) {
+
 
     $db->AddUser($nomUser, $prenomUser, $naissanceUser, $villeUser, $promoUser, $roleUser, $usernameUser, $emailUser, $mdpUser, $descriptionUser, $imageUser, $code_confirmation);
 
@@ -118,20 +131,17 @@ L'équipe EceBook";
 
 
 
+    if($domain === "admin.fr" ) {
+        header("location: ../views/dashborad.php");
+        exit();
+    } else {
+        header("location: ../views/connexion.php");
+        exit();
+    } 
 
 
 
-
-    // Check if there are any errors
-    if (count($errors) == 0) {
-
-        if($domain === "admin.fr" ) {
-            header("location: ../views/dashborad.php");
-            exit();
-        } else {
-            header("location: ../views/connexion.php");
-            exit();
-        } 
+   
     } else {
         // Display the errors
         echo "<ul>";
