@@ -129,7 +129,7 @@ L'équipe EceBook";
             header("location: ../views/dashborad.php");
             exit();
         } else {
-            header("location: ../views/connexion.html");
+            header("location: ../views/connexion.php");
             exit();
         } 
     } else {

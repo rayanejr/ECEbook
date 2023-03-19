@@ -5,8 +5,11 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 require_once("../controller/database.php");
 
-$db = new Database();
-$user = $db->GetUserById($_SESSION["id_user"]);
+if(isset($_SESSION["id_user"])){
+	
+	$db = new Database();
+	$user = $db->GetUserById($_SESSION["id_user"]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,13 +36,17 @@ $user = $db->GetUserById($_SESSION["id_user"]);
 	</button>
 	<!-- Collection of nav links, forms, and other content for toggling -->
 	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">		
+		<?php if(isset($_SESSION["id_user"])) : ?>
 		<form class="navbar-form form-inline">
 			<div class="input-group search-box">								
 				<input type="text" id="search" class="form-control" placeholder="Search here...">
 				<span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
 			</div>
 		</form>
+		<?php endif ; ?>
+		
 
+		<?php if(isset($_SESSION["id_user"])) : ?>
 		<div class="navbar-nav ml-auto">
 			<a href="../views/index2.php" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Accueil</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Projects</span></a>
@@ -49,7 +56,9 @@ $user = $db->GetUserById($_SESSION["id_user"]);
 			<a href="#" class="nav-item nav-link"><i class="fa fa-envelope"></i><span>Messages</span></a>		
 			<a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a>
 			<div class="nav-item dropdown">
-				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"><img src="../uploads/<?=  $user["image"] ?>" class="avatar" alt="Avatar"> <?=  $user["pseudo"] ?> </a>
+				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"> 
+						
+				<img src="../uploads/<?=  $user["image"] ?>" class="avatar" alt="Avatar"> <?=  $user["pseudo"] ?> </a>
 				<div class="dropdown-menu">
 					<a href="../views/profile.php" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
 					<div class="divider dropdown-divider"></div>
@@ -57,7 +66,25 @@ $user = $db->GetUserById($_SESSION["id_user"]);
 				</div>
 			</div>
 		</div>
-        
+        <?php endif ; ?>
+
+
+
+
+
+
+
+		<?php if(!isset($_SESSION["id_user"])) : ?>
+		<div class="navbar-nav ml-auto">
+			<a href="../index.php" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Acceuill</span></a>
+			<a href="../views/connexion.php" class="nav-item nav-link"><i class="fa fa-gears"></i><span>connexion</span></a>
+			<a href="../views/form_inscription.php" class="nav-item nav-link"><i class="fa fa-users"></i><span>inscription</span></a>
+		</div>
+        <?php endif ; ?>
+
+
+
+
 		
 
    

@@ -4,7 +4,7 @@ require("../controller/database.php");
 session_start();
 
 if(!isset($_SESSION["id_user"])){
-    header("location: ../views/connexion.html");
+    header("location: ../views/connexion.php");
     exit();
 }
 

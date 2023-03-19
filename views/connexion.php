@@ -11,9 +11,7 @@
 </head>
 
 <body>
-    <nav>
-        <p class="font-weight-bold text-light" style="font-size: 20px;">Nom du réseau</p>
-    </nav>
+
     <div class="rest-of-page">
         <hr>
         <h1 class="text-light text-center">Identification</h1><br><br>

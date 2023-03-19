@@ -24,7 +24,7 @@ if(isset($_POST["submit"])){
 
    
 
-    header("Location: ../views/connexion.html");
+    header("Location: ../views/connexion.php");
     exit();
 
 }

@@ -38,7 +38,7 @@ if(isset($_POST["submit"])){
                 }
                 else{
                     echo "votre compte n'est pas encore verifé";
-                    header("location: ../views/connexion.html");
+                    header("location: ../views/connexion.php");
                     exit();
                 }
             }

@@ -22,10 +22,10 @@ if(isset($_SESSION["id_user"])){
 
 <body>
 
-
+    <?php   require("../model/navbar.php") ?>
     <hr>
-    <h1 class="text-dark text-center moving-heading">INSCRIPTION</h1>
-    <form action="../model/inscription.php" method="POST" enctype="multipart/form-data">
+    <h1 style="text-align: center" class="text-dark text-center moving-heading">INSCRIPTION</h1>
+    <form action="../model/inscription.php"  method="POST" enctype="multipart/form-data">
 
         <div class="container mt-5">
             <div class="row">
@@ -112,7 +112,7 @@ if(isset($_SESSION["id_user"])){
                                 </div>
                             </div>
                             <input class="btn btn-primary btn-lg" style="margin-left: 39%;" type="submit" name="submit" value="S'inscrire"><br><br>
-                            <a href="connexion.html" style="margin-left: 36%;">J'ai déjà un compte</a><br><br>
+                            <a href="connexion.php" style="margin-left: 36%;">J'ai déjà un compte</a><br><br>
                         </div>
                     </div>
                 </div>
