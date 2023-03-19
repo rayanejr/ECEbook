@@ -156,13 +156,15 @@ public function GetUserById($user_id) {
     return $user;
 }
 
+
+
 public function deleteUserById($user_id) {
     $database = self::getInstance();
     $query = "DELETE FROM utilisateur WHERE id_user=:id";
     $statement = $database->prepare($query);
-    $statement->bindParam(':id', $user_id, PDO::PARAM_INT);
+    $statement->bindParam(":id", $user_id);
     $statement->execute();
-    return $statement->rowCount(); // returns the number of affected rows
+    return $statement->fetch();
 }
 
 
