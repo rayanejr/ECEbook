@@ -404,6 +404,8 @@ public function updateCommentById($id_comment, $commentaire) {
     return $statement->fetch();
 }
 
+//--------------------LIKE------------------------------------
+
 public function AddLike($id_user, $id_post)
 {
     try {
@@ -459,7 +461,7 @@ public function GetLike() {
 
 
 
-
+//-------------------------------------------------------------------------------------
 
 public function UpdateUserStatuts($user_id, $status){
     $database = self::getInstance();
@@ -523,10 +525,10 @@ public function getUserFromPost($post_id) {
 
 //--------------------------ABONNEMENT-------------------------
 
-public function addSubcriber($user_id,$id_abonnement)
+public function addSubcriber($id_user, $id_abonnement)
 {
     $database = self::getInstance();
-    $query = "INSERT INTO abonement (id_abonnement, id_user) VALUES (:id_abonnement, :user_id)";
+    $query = "INSERT INTO abonement (id_user, id_abonnement) VALUES (:id_user, :id_abonnement)";
     try{
         $statement = $database->prepare($query);
         $statement->bindParam(':id_abonnement', $id_abonnement);
