@@ -67,6 +67,7 @@ $posts = $db->getAllPosts() ;
         }
 </style>
 
+
        
 <?php  require("../model/navbar.php") ?>
 
@@ -175,6 +176,7 @@ $posts = $db->getAllPosts() ;
          
         </div>
     </div>
+    
 
 
 

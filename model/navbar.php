@@ -39,10 +39,14 @@ if(isset($_SESSION["id_user"])){
 		<?php if(isset($_SESSION["id_user"])) : ?>
 		<form class="navbar-form form-inline">
 			<div class="input-group search-box">								
-				<input type="text" id="search" class="form-control" placeholder="Search here...">
-				<span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
+				<input type="text" class="form-control" id="live_search" autocomplete="off" placeholder="Search...">
+				
 			</div>
+			
 		</form>
+		<div id="searchresult"></div>
+		
+		
 		<?php endif ; ?>
 		
 
@@ -91,4 +95,28 @@ if(isset($_SESSION["id_user"])){
 	</div>
 </nav>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#live_search").keyup(function(){
+                var input = $(this).val();
+                //alert(input);
+                if (input != ""){
+                    $.ajax({
+                        url:"livesearch.php",
+                        method:"POST",
+                        data:{input:input},
+
+                        success:function(data){
+                            $("#searchresult").html(data);
+                            $("#searchresult").css("display","block");
+                        }
+                    });
+                }else{
+                    $("#searchresult").css("display","none");
+                }
+            });
+        });
+    </script>
 </html>

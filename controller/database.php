@@ -9,7 +9,7 @@ class Database{
 
     public function __construct()
     {
-        self::$dns = "mysql:host=localhost;dbname=ecebook;port=3306"; // À changer selon vos configurations
+        self::$dns = "mysql:host=localhost;dbname=ecebook_3;port=3306"; // À changer selon vos configurations
         self::$user = "root"; // À changer selon vos configurations
         self::$password = ""; // À changer selon vos configurations
         try {
