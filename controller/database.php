@@ -493,7 +493,7 @@ function insertPost($user_id, $titre, $pseudo, $message) {
     try {
         $statement = $database->prepare($sql);
         $statement->bindParam(':user_id', $user_id);
-        $statement->bindParam(':titre', $title);
+        $statement->bindParam(':titre', $titre);
         $statement->bindParam(':pseudo', $pseudo);
         $statement->bindParam(':message', $message);
 

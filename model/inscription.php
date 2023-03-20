@@ -98,7 +98,7 @@ if(isset($_POST["submit"])){
 //Set gmail username
 	$mail->Username = "sami.abdulhalim.pro@gmail.com";
 //Set gmail password
-	$mail->Password = "gxtydovmphxxhsnu";
+	$mail->Password = "bnkovmlwivpfngkb";
 //Email subject
 $mail->Subject = 'Confirmation de votre compte EceBook';
 
