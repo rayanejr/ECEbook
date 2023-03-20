@@ -525,14 +525,14 @@ public function getUserFromPost($post_id) {
 
 //--------------------------ABONNEMENT-------------------------
 
-public function addSubcriber($id_user, $id_abonnement)
+public function addSubcriber($id_user1, $id_user2)
 {
     $database = self::getInstance();
-    $query = "INSERT INTO abonement (id_user, id_abonnement) VALUES (:id_user, :id_abonnement)";
+    $query = "INSERT INTO abonnement (id_user1, id_user2) VALUES (:id_user1, :id_user2)";
     try{
         $statement = $database->prepare($query);
-        $statement->bindParam(':id_abonnement', $id_abonnement);
-        $statement->bindParam(':id_user', $id_user);
+        $statement->bindParam(':user1_id', $id_user1);
+        $statement->bindParam(':user2_id', $id_user2);
         $statement->execute();
     }catch(PDOException $e){
         echo "Error adding subscriber: " . $e->getMessage();
@@ -543,11 +543,11 @@ public function addSubcriber($id_user, $id_abonnement)
 public function getSubsByUserId($user_id)
 {
     $database = self::getInstance();
-    $query = "SELECT * FROM abonement WHERE id_user = :user_id";
+    $query = "SELECT * FROM abonnement WHERE id_user1 = :user_id1";
 
     try{
         $statement = $database->prepare($query);
-        $statement->bindParam(':user_id', $user_id);
+        $statement->bindParam(':user1_id ', $user_id1);
         $statement->execute();
     }catch(PDOException $e){
         echo "Error getting the subscribers: " . $e->getMessage();
@@ -555,14 +555,14 @@ public function getSubsByUserId($user_id)
     }
 }
 
-public function unsubByAbonnementId($id_abonnement)
+public function unsubByAbonnementId($id_user2)
 {
     $database = self::getInstance();
-    $query = " DELETE * FROM abonement where id_abonnement = :id_abonnement";
+    $query = " DELETE * FROM abonnnement where id_user2 = :id_user2";
 
     try{
         $statement = $database->prepare($query);
-        $statement->bindParam(':id_abonnement', $id_abonnement);
+        $statement->bindParam(':user2_id ', $id_user2);
         $statement->execute();
     }catch(PDOException $e){
         echo "Error deleting a subscriber: " . $e->getMessage();
