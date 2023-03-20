@@ -11,6 +11,7 @@ require("../controller/database.php");
 $db = new Database();
 $posts = $db->getAllPosts() ; 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -162,7 +163,36 @@ $posts = $db->getAllPosts() ;
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                        <a href="#" class="card-link"><i class="fa fa-gittip">Like</i> 
+                      
+                                <!-- $like = $db->getLike($post['id'], $user_id);
+                                if ($like == 1) {
+                                     echo '<i class="fa fa-thumbs-up"></i> Dislike';
+                                } else {
+                                     echo '<i class="fa fa-thumbs-up"></i> Like';
+                                };
+                             -->
+                            
+                        </a>
+                       
+
+
+                       
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                         <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
                     </div>
                 </div>
