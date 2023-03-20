@@ -521,6 +521,54 @@ public function getUserFromPost($post_id) {
 }
 
 
+//--------------------------ABONNEMENT-------------------------
+
+public function addSubcriber($user_id,$id_abonnement)
+{
+    $database = self::getInstance();
+    $query = "INSERT INTO abonement (id_abonnement, id_user) VALUES (:id_abonnement, :user_id)";
+    try{
+        $statement = $database->prepare($query);
+        $statement->bindParam(':id_abonnement', $id_abonnement);
+        $statement->bindParam(':id_user', $id_user);
+        $statement->execute();
+    }catch(PDOException $e){
+        echo "Error adding subscriber: " . $e->getMessage();
+        die();
+    }
+}  
+
+public function getSubsByUserId($user_id)
+{
+    $database = self::getInstance();
+    $query = "SELECT * FROM abonement WHERE id_user = :user_id";
+
+    try{
+        $statement = $database->prepare($query);
+        $statement->bindParam(':user_id', $user_id);
+        $statement->execute();
+    }catch(PDOException $e){
+        echo "Error getting the subscribers: " . $e->getMessage();
+        die();
+    }
+}
+
+public function unsubByAbonnementId($id_abonnement)
+{
+    $database = self::getInstance();
+    $query = " DELETE * FROM abonement where id_abonnement = :id_abonnement";
+
+    try{
+        $statement = $database->prepare($query);
+        $statement->bindParam(':id_abonnement', $id_abonnement);
+        $statement->execute();
+    }catch(PDOException $e){
+        echo "Error deleting a subscriber: " . $e->getMessage();
+        die();
+    }
+}
+
+
 
 
     
