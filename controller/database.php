@@ -272,55 +272,43 @@ function getAllPosts() {
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-public function likePost($postId, $userId, $type) {
-    $pdo = self::getInstance();
-    
-    // Vérifie si l'utilisateur a déjà liké ou disliké le post
-    $query = "SELECT id_like, type FROM likes WHERE id_post = :postId AND id_user = :userId";
+function addOrUpdateLikeDislike($postId, $userId, $like, $dislike) {
+    // Vérifier si l'utilisateur a déjà aimé ou n'aime pas ce post
+    $pdo = self::getInstance(); 
+    $query = "SELECT id_like FROM likes WHERE id_post = :postId AND id_user = :userId";
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(':postId', $postId);
     $stmt->bindParam(':userId', $userId);
     $stmt->execute();
-    $like = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    // Met à jour la base de données en conséquence
-    if ($like) {
-        if ($like['type'] == $type) {
-            // L'utilisateur a déjà liké ou disliké le post de la même manière, donc on retire son like ou dislike
-            $query = "DELETE FROM likes WHERE id_like = :likeId";
-            $stmt = $pdo->prepare($query);
-            $stmt->bindParam(':likeId', $like['id_like']);
-            $stmt->execute();
-        } else {
-            // L'utilisateur a déjà liké ou disliké le post de manière opposée, donc on met à jour son like ou dislike
-            $query = "UPDATE likes SET type = :type WHERE id_like = :likeId";
-            $stmt = $pdo->prepare($query);
-            $stmt->bindParam(':type', $type);
-            $stmt->bindParam(':likeId', $like['id_like']);
-            $stmt->execute();
-        }
-    } else {
-        // L'utilisateur n'a pas encore liké ou disliké le post, donc on ajoute son like ou dislike
-        $query = "INSERT INTO likes (id_post, id_user, type) VALUES (:postId, :userId, :type)";
-        $stmt = $pdo->prepare($query);
-        $stmt->bindParam(':postId', $postId);
-        $stmt->bindParam(':userId', $userId);
-        $stmt->bindParam(':type', $type);
-        $stmt->execute();
-    }
-    
-    // Compte le nombre de likes et de dislikes
-    $query = "SELECT COUNT(*) AS count FROM likes WHERE id_post = :postId AND type = :type";
-    $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':postId', $postId);
-    $stmt->bindParam(':type', $type);
-    $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
-    
-    // Retourne le nombre de likes ou de dislikes
-    return $result['count'];
-}
 
+    // check
+
+    $sql = "SELECT id_like FROM likes WHERE id_post = :postId AND id_user = :userId";
+    $statement= self::$database->prepare($sql);
+    $statement->execute(array( $userId, $postId,$like));
+    
+
+    if ( sizeof($statement->fetchAll()) == 0 ) {
+
+        $sql = "INSERT INTO `likes` (`like`, `id_post`, `id_user`) 
+        VALUES ('1',?,?)";
+        $statement = self::$database->prepare($sql);
+        $statement->execute(array(":id_post" => $postId, ":id_user" => $userId));
+        
+    }else{
+        $sql = "DELETE FROM `like` 
+        WHERE `like`.`id_post` = :postId
+        AND `like`.`id_user` = :userId";
+
+        $statement = self::$database->prepare($sql);
+        $statement->execute(array(":postId" => $postId, ":userId" => $userId));
+        
+
+    }
+
+
+}
 
 
 public function deletePostById($id_post) {

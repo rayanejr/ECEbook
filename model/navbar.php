@@ -30,7 +30,7 @@ if(isset($_SESSION["id_user"])){
 </head> 
 <body>
 <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
-	<a href="../views/index2.php" class="navbar-brand"><i class="fa fa-cube"></i>ECE<b>BOOK</b></a>  		
+	<a href="#" class="navbar-brand"><i class="fa fa-cube"></i>ECE<b>BOOK</b></a>  		
 	<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
 		<span class="navbar-toggler-icon"></span>
 	</button>
@@ -76,7 +76,7 @@ if(isset($_SESSION["id_user"])){
 
 		<?php if(!isset($_SESSION["id_user"])) : ?>
 		<div class="navbar-nav ml-auto">
-			
+			<a href="../index.php" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Acceuill</span></a>
 			<a href="../views/connexion.php" class="nav-item nav-link"><i class="fa fa-gears"></i><span>connexion</span></a>
 			<a href="../views/form_inscription.php" class="nav-item nav-link"><i class="fa fa-users"></i><span>inscription</span></a>
 		</div>
