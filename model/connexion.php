@@ -20,7 +20,7 @@ if(isset($_POST["submit"])){
                 header("location: ../views/dashboard.html");
             }
             else{
-                if($user["confirmer"] = 1){
+                if($user["confirmer"] == 1){
 
                     
                     $_SESSION['id_user'] = $user['id_user'];
@@ -38,6 +38,7 @@ if(isset($_POST["submit"])){
                 }
                 else{
                     echo "votre compte n'est pas encore verifé";
+                    
                     header("location: ../views/connexion.php");
                     exit();
                 }
