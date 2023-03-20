@@ -29,3 +29,8 @@ body {
 .hidden {
     display: none;
 }
+
+.input-group-text {
+    width: auto;
+    height: 38px;
+}

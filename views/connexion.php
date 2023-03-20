@@ -17,7 +17,7 @@
         <h1 class="text-light text-center">Identification</h1><br><br>
 
         <form action="../model/connexion.php" method="POST">
-            <div class="container mt-5">
+            <div  class="container mt-5">
                 <div class="row">
                     <div class="col-sm-5 m-auto">
                         <div class="card">
