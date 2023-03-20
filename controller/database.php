@@ -227,15 +227,15 @@ public function updateMdpByEmail($email,$mdpU) {
 
 
 
-public function AddPost($id_user, $titre, $description, $image, $date)
+public function AddPost($id_user, $titre, $message, $image, $date)
 {
     try {
-        $sql = "INSERT INTO `post` (`id_user`, `titre`, `description`, `image`, `date`)
-        VALUES (:id_user, :titre, :description, :image, :date)";
+        $sql = "INSERT INTO `post` (`id_user`, `titre`, `message`, `image`, `date`)
+        VALUES (:id_user, :titre, :message, :image, :date)";
         $statement = self::$database->prepare($sql);
         $statement->bindParam(':id_user', $id_user);
         $statement->bindParam(':titre', $titre);
-        $statement->bindParam(':description', $description);
+        $statement->bindParam(':message', $message);
         $statement->bindParam(':image', $image);
         $statement->bindParam(':date', $date);
         $statement->execute();
@@ -266,7 +266,7 @@ public function GetPostByUserId($id_user) {
 
 function getAllPosts() {
     $pdo = self::getInstance();
-    $sql = "SELECT * FROM post";
+    $sql = "SELECT * FROM post ORDER BY date DESC";
     $statement = $pdo->prepare($sql);
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -486,16 +486,17 @@ public function getAllEmails()
 
 
 
-function insertPost($user_id, $titre, $pseudo, $message) {
+function insertPost($user_id, $titre, $pseudo, $message,$date) {
     $database = self::getInstance();
-    $sql = "INSERT INTO post (id_user, titre, pseudo, message) 
-            VALUES (:user_id, :titre, :pseudo, :message)";
+    $sql = "INSERT INTO post (id_user, titre, pseudo, message,date) 
+            VALUES (:user_id, :titre, :pseudo, :message,:date)";
     try {
         $statement = $database->prepare($sql);
         $statement->bindParam(':user_id', $user_id);
         $statement->bindParam(':titre', $titre);
         $statement->bindParam(':pseudo', $pseudo);
         $statement->bindParam(':message', $message);
+        $statement->bindParam(':date', $date);
 
     
         $statement->execute();
