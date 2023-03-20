@@ -162,8 +162,10 @@ $posts = $db->getAllPosts() ;
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+                    <a href="" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>
+                
                         <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
+                        <button > <a href="" class="card-link">ajouter un like </a></button>
                     </div>
                 </div>
                 <?php endforeach ; ?>
