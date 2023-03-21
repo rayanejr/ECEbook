@@ -1,19 +1,6 @@
 <?php
-require_once("../controller/database.php");
 
-
-
-require_once("../vendor/phpmailer/phpmailer/src/PHPMailer.php");
-require_once("../vendor/phpmailer/phpmailer/src/SMTP.php");
-require_once("../vendor/phpmailer/phpmailer/src/Exception.php");
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-use PHPMailer\PHPMailer\SMTP;
-
-
-require '../vendor/autoload.php';
-
+require("../controller/database.php");
 
 if(isset($_POST["submit"])){
 
@@ -59,13 +46,9 @@ if(isset($_POST["submit"])){
      if (in_array($emailUser, $emailList)){
          $errors[] = "Cette adresse e-mail est déjà utilisée";
      }
-     
-
+    
 
     $code_confirmation = uniqid();
-
-
-
     
     $db = new Database();
     
@@ -78,68 +61,7 @@ if(isset($_POST["submit"])){
 
 
     $db->AddUser($nomUser, $prenomUser, $naissanceUser, $villeUser, $promoUser, $roleUser, $usernameUser, $emailUser, $mdpUser, $descriptionUser, $imageUser, $code_confirmation);
-
-
-    $mail = new PHPMailer(true);
-
-
-
-    $mail = new PHPMailer();
-//Set mailer to use smtp
-	$mail->isSMTP();
-//Define smtp host
-	$mail->Host = "smtp.gmail.com";
-//Enable smtp authentication
-	$mail->SMTPAuth = true;
-//Set smtp encryption type (ssl/tls)
-	$mail->SMTPSecure = "tls";
-//Port to connect smtp
-	$mail->Port = "587";
-//Set gmail username
-	$mail->Username = "sami.abdulhalim.pro@gmail.com";
-//Set gmail password
-	$mail->Password = "cvecdgcdfxeaupbd";
-//Email subject
-$mail->Subject = 'Confirmation de votre compte EceBook';
-
-//Set sender email
-	$mail->setFrom('sami.abdulhalim.pro@gmail.com');
-//Enable HTML
-	$mail->isHTML(true);
-//Attachment
-	
-//Email body
-$mail->Body    = "Bonjour $usernameUser,<br><br>
-Veuillez cliquer sur le lien suivant pour confirmer votre compte EceBook:<br>
-<a href='http://localhost/ECEbook/model/confirmation.php?email=$emailUser&code=$code_confirmation'>http://localhost/ECEbook/model/confirmation.php?email=$emailUser&code=$code_confirmation</a><br><br>
-Cordialement,<br>
-L'équipe EceBook";
-//Add recipient
-	$mail->addAddress($emailUser);
-//Finally send email
-	if ( $mail->send() ) {
-		echo "Email Sent..!";
-	}else{
-		echo "Message could not be sent. Mailer Error: ";
-        var_dump($emailUser);
-        var_dump($code_confirmation);
-	}
-//Closing smtp connection
-	$mail->smtpClose();
-
-
-
-
-
-    if($domain === "admin.fr" ) {
-        header("location: ../views/dashborad.php");
-        exit();
-    } else {
-        header("location: ../views/connexion.php");
-        exit();
-    } 
-
-
+    header("location:../views/dashborad.php");
 
    
     } else {
