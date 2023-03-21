@@ -15,9 +15,4 @@ require_once("../controller/database.php");
    
     header("location:../views/index2.php"); 
 
-
-}
-
-
-
 ?>

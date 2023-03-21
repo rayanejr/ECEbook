@@ -360,14 +360,7 @@ public function updateCommentById($id_comment, $commentaire) {
     $statement->execute();
     return $statement->fetch();
 }
-public function GetLikeByPostId($id_post){
-    $database = self::getInstance();
-    $query = "SELECT * FROM likes WHERE id_post=:id_post";
-    $statement = $database->prepare($query);
-    $statement->bindParam(":id_post", $id_post);
-    $statement->execute();
-    return $statement->fetch();
-}
+
 public function AddLike($id_post, $id_user, $type)
 {
     try {
@@ -386,12 +379,9 @@ public function AddLike($id_post, $id_user, $type)
 
 //--------------------LIKE------------------------------------
 
-}
-
-
 public function GetLikeById($id_like) {
     $database = self::getInstance();
-    $query = "SELECT * FROM like WHERE id_like=:id";
+    $query = "SELECT * FROM likes WHERE id_like=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_like);
     $statement->execute();
@@ -400,7 +390,7 @@ public function GetLikeById($id_like) {
 
 public function GetLikeByUserId($id_user) {
     $database = self::getInstance();
-    $query = "SELECT * FROM like WHERE id_user=:id";
+    $query = "SELECT * FROM likes WHERE id_user=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_user);
     $statement->execute();
@@ -410,7 +400,7 @@ public function GetLikeByUserId($id_user) {
 
 public function GetLikeByPostId($id_post) {
     $database = self::getInstance();
-    $query = "SELECT * FROM like WHERE id_post=:id";
+    $query = "SELECT * FROM likes WHERE id_post=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_post);
     $statement->execute();
@@ -419,7 +409,7 @@ public function GetLikeByPostId($id_post) {
 
 public function GetLike() {
     $database = self::getInstance();
-    $query = "SELECT * FROM like";
+    $query = "SELECT * FROM likes";
     $statement = $database->prepare($query);
     $statement->execute();
     return $statement->fetchAll();
