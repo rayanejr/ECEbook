@@ -18,7 +18,7 @@ for ($i = 0; $i < count($cles); $i++)
 {
     foreach($subs as $sub)
     {
-        if($posts[$i]['id_user'] != $sub['user2_id'])
+        if($posts[$i]['id_user'] != $sub['user2_id'] && !$posts[$i]['publique'])
         {
             unset($posts[$i]);
         }
