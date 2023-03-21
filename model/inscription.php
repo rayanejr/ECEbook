@@ -23,7 +23,7 @@ if(isset($_POST["submit"])){
     $prenomUser = $_POST["prenom"] ?? '';
     $naissanceUser = $_POST["naissance"] ?? '';
     $villeUser = $_POST["ville"] ?? '';
-    $promoUser = $_POST["promo"] ?? '';
+    $promoUser = $_POST["choixPromo"] ?? '';
     $usernameUser = $_POST["username"] ?? '';
     $emailUser = filter_var($_POST["email"] ?? '', FILTER_VALIDATE_EMAIL);
     $mdpUser = password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); // Hash the password
@@ -98,7 +98,7 @@ if(isset($_POST["submit"])){
 //Set gmail username
 	$mail->Username = "sami.abdulhalim.pro@gmail.com";
 //Set gmail password
-	$mail->Password = "gxtydovmphxxhsnu";
+	$mail->Password = "cvecdgcdfxeaupbd";
 //Email subject
 $mail->Subject = 'Confirmation de votre compte EceBook';
 
@@ -132,7 +132,7 @@ L'équipe EceBook";
 
 
     if($domain === "admin.fr" ) {
-        header("location: ../views/dashborad.php");
+        header("location: ../views/dashboard.php");
         exit();
     } else {
         header("location: ../views/connexion.php");

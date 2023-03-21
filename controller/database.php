@@ -170,12 +170,22 @@ public function GetUserByEmail($email) {
 
 public function deleteUserById($user_id) {
     $database = self::getInstance();
-    $query = "DELETE FROM utilisateur WHERE id_user=?";
+    $query = "DELETE FROM utilisateur WHERE id_user = :user_id";
     $statement = $database->prepare($query);
-    $statement->bindParam(1, $user_id, PDO::PARAM_INT);
+    $statement->bindParam(":user_id", $user_id);
     $statement->execute();
-    return $statement->fetch(PDO::FETCH_ASSOC);
+    return $statement->rowCount();
 }
+
+public function deletePostById($id_post) {
+    $database = self::getInstance();
+    $query = "DELETE FROM post WHERE id_post=:post_id";
+    $statement = $database->prepare($query);
+    $statement->bindParam(":post_id", $id_post);
+    $statement->execute();
+    return $statement->fetch();
+}
+
 
 
 public function AddConfirmationCode($email, $confirmation_code){
@@ -226,27 +236,6 @@ public function updateMdpByEmail($email,$mdpU) {
 
 
 
-
-
-public function AddPost($id_user, $titre, $description, $image, $date)
-{
-    try {
-        $sql = "INSERT INTO `post` (`id_user`, `titre`, `description`, `image`, `date`)
-        VALUES (:id_user, :titre, :description, :image, :date)";
-        $statement = self::$database->prepare($sql);
-        $statement->bindParam(':id_user', $id_user);
-        $statement->bindParam(':titre', $titre);
-        $statement->bindParam(':description', $description);
-        $statement->bindParam(':image', $image);
-        $statement->bindParam(':date', $date);
-        $statement->execute();
-        echo "Welcome";
-    } catch(PDOException $e) {
-        echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();
-        die();
-    }
-}
-
 public function GetPostById($id_post) {
     $database = self::getInstance();
     $query = "SELECT * FROM post WHERE id_post=:id";
@@ -267,13 +256,23 @@ public function GetPostByUserId($id_user) {
 
 function getAllPosts() {
     $pdo = self::getInstance();
-    $sql = "SELECT * FROM post";
+    $sql = "SELECT * FROM post ORDER BY date DESC";
     $statement = $pdo->prepare($sql);
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
-// j'ai l'impression que ya des fonction en double
+
+function getAllUsers() {
+    $pdo = self::getInstance();
+    $sql = "SELECT * FROM utilisateur ";
+    $statement = $pdo->prepare($sql);
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
+
 function addOrUpdateLikeDislike($postId, $userId, $like, $dislike) {
     // Vérifier si l'utilisateur a déjà aimé ou n'aime pas ce post
     $pdo = self::getInstance(); 
@@ -312,15 +311,6 @@ function addOrUpdateLikeDislike($postId, $userId, $like, $dislike) {
 
 }
 
-
-public function deletePostById($id_post) {
-    $database = self::getInstance();
-    $query = "DELETE FROM post WHERE id_post=:id";
-    $statement = $database->prepare($query);
-    $statement->bindParam(":id", $id_post);
-    $statement->execute();
-    return $statement->fetch();
-}
 
 public function updatePostById($id_post, $titre, $description, $image) {
     $database = self::getInstance();
@@ -409,16 +399,14 @@ public function updateCommentById($id_comment, $commentaire) {
 
 //--------------------LIKE------------------------------------
 
-public function AddLike($id_user, $id_post)
+public function AddLike($id_post, $id_user)
 {
     try {
-        $sql = "INSERT INTO `like` (`id_user`, `id_post`)
-        VALUES (:id_user, :id_post)";
+        $sql = "INSERT INTO `likes` (`id_post`,`id_user`)VALUES (?,?)";
         $statement = self::$database->prepare($sql);
-        $statement->bindParam(':id_user', $id_user);
-        $statement->bindParam(':id_post', $id_post);
+        $statement->bindParam('?', $id_post);
+        $statement->bindParam('?', $id_user);
         $statement->execute();
-        echo "Welcome";
     } catch(PDOException $e) {
         echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();
         die();
@@ -477,6 +465,28 @@ public function UpdateUserStatuts($user_id, $status){
 }
 
 
+public function getUserCount() {
+    $database = self::getInstance();
+    $query = "SELECT COUNT(*) as count FROM utilisateur";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    return $row['count'];
+}
+
+
+public function getPostCount() {
+    $database = self::getInstance();
+    $query = "SELECT COUNT(*) as count FROM post";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    return $row['count'];
+}
+
+
+
+
 public function getAllEmails()
 {
     $database = self::getInstance();
@@ -491,16 +501,17 @@ public function getAllEmails()
 
 
 
-function insertPost($user_id, $titre, $pseudo, $message) {
+function insertPost($user_id, $titre, $pseudo, $message,$date) {
     $database = self::getInstance();
-    $sql = "INSERT INTO post (id_user, titre, pseudo, message) 
-            VALUES (:user_id, :titre, :pseudo, :message)";
+    $sql = "INSERT INTO post (id_user, titre, pseudo, message,date) 
+            VALUES (:user_id, :titre, :pseudo, :message,:date)";
     try {
         $statement = $database->prepare($sql);
         $statement->bindParam(':user_id', $user_id);
-        $statement->bindParam(':titre', $title);
+        $statement->bindParam(':titre', $titre);
         $statement->bindParam(':pseudo', $pseudo);
         $statement->bindParam(':message', $message);
+        $statement->bindParam(':date', $date);
 
     
         $statement->execute();

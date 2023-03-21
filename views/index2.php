@@ -107,7 +107,7 @@ $posts = $db->getAllPosts() ;
                             <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
                                 <div class="form-group">
                                     <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile">
+                                        <input type="file" class="custom-file-input" id="customFile" name="image">
                                         <label class="custom-file-label" for="customFile">Upload image</label>
                                     </div>
                                 </div>
@@ -152,7 +152,7 @@ $posts = $db->getAllPosts() ;
 
                     </div>
                     <div class="card-body">
-                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>10 min ago</div>
+                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i><?= $post["date"]?></div>
                         <a class="card-link" href="#">
                             <h5 class="card-title"><?= $post["titre"] ?></h5>
                         </a>
@@ -164,6 +164,7 @@ $posts = $db->getAllPosts() ;
                     <div class="card-footer">
                         <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
                         <a href="tempo_ajout_commentaire.php?id_post=<?php echo $post["id_post"]?>" class="card-link"><i class="fa fa-comment"></i> Comment</a>
+                        <button > <a href="" class="card-link">ajouter un like </a></button>
                     </div>
                 </div>
                 <?php endforeach ; ?>

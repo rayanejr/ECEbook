@@ -11,6 +11,9 @@ use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\SMTP;
 
 
+require '../vendor/autoload.php';
+
+
 if(isset($_POST["submit"])){
 
 
@@ -27,7 +30,7 @@ if(isset($_POST["submit"])){
 
 
 
-        $mail = new PHPMailer();
+      
     //Set mailer to use smtp
         $mail->isSMTP();
     //Define smtp host
@@ -41,7 +44,7 @@ if(isset($_POST["submit"])){
     //Set gmail username
         $mail->Username = "sami.abdulhalim.pro@gmail.com";
     //Set gmail password
-        $mail->Password = "gxtydovmphxxhsnu";
+        $mail->Password = "cvecdgcdfxeaupbd";
     //Email subject
     $mail->Subject = 'réinitialisation de votre mot de passe EceBook';
     
@@ -63,9 +66,10 @@ if(isset($_POST["submit"])){
         if ( $mail->send() ) {
             echo "le mail a été envoyé a $email";
         }else{
-            echo "Message could not be sent. Mailer Error: ";
+            echo "Message could not be sent. Mailer Error: $mail->ErrorInfo";
             var_dump($email);
             var_dump($verification_code );
+            var_dump($mail->send());
         }
     //Closing smtp connection
         $mail->smtpClose();
