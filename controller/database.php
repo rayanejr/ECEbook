@@ -356,7 +356,22 @@ public function GetLikeByPostId($id_post){
     $statement = $database->prepare($query);
     $statement->bindParam(":id_post", $id_post);
     $statement->execute();
-    return $statement->fetchAll();
+    return $statement->fetch();
+}
+public function AddLike($id_post, $id_user, $type)
+{
+    try {
+        $sql = "INSERT INTO `likes` (`id_post`, `id_user`, `type`) VALUES (:id_post, :id_user, :type)
+        ON DUPLICATE KEY UPDATE `type` = :type";
+        $statement = self::$database->prepare($sql);
+        $statement->bindParam(':id_post', $id_post);
+        $statement->bindParam(':id_user', $id_user);
+        $statement->bindParam(':type', $type);
+        $statement->execute();
+    } catch(PDOException $e) {
+        echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();
+        die();
+    }
 }
 
 public function getAllPostsByIduser($id_user){
@@ -368,19 +383,7 @@ public function getAllPostsByIduser($id_user){
     return $statement->fetchAll();
 
 }
-public function AddLike($id_post, $id_user)
-{
-    try {
-        $sql = "INSERT INTO `likes` (`id_post`, `id_user`, `type`) VALUES (:id_post, :id_user, 1)";
-        $statement = self::$database->prepare($sql);
-        $statement->bindParam(':id_post', $id_post);
-        $statement->bindParam(':id_user', $id_user);
-        $statement->execute();
-    } catch(PDOException $e) {
-        echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();
-        die();
-    }
-}
+
 
 public function GetLikeById($id_like) {
     $database = self::getInstance();

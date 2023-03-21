@@ -128,58 +128,58 @@ $posts = $db->getAllPosts() ;
 
                 <!--- \\\\\\\Post-->
                 <?php foreach ($posts as $post): ?>
-                        <?php       
+                    <?php       
 
                     // Get user information
                     $user_id = $post['id_user'];
                     $user = $db->getUserById($user_id);
 
-                        ?>
-                <div class="card gedf-card">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="mr-2">
-                                    <img class="rounded-circle" width="45" src="../uploads/<?= $user["image"]  ?>" alt="">
-                                </div>
-                                <div class="ml-2">
-                                    <div class="h5 m-0"><?=  $user["pseudo"] ?></div>
-                                </div>
-                            </div>
-                            <div>
-                             
-                            </div>
-                        </div>
-
-                    </div>
-                    <div class="card-body">
-                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i><?= $post["date"]?></div>
-                        <a class="card-link" href="#">
-                            <h5 class="card-title"><?= $post["titre"] ?></h5>
-                        </a>
-
-                        <p class="card-text">
-                           <?=  $post["message"] ?>
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                       
-                        <?php
-                         $likes=$db->GetLikeByPostId($post["id_post"]); 
-                        if($likes && $likes["type"] == 1): // If there is an existing like of type 1 (like), display the dislike button.
                     ?>
-                            <a href="../model/addLike.php?post_id=<?= $post["id_post"] ?>&user_id=<?= $post["id_user"] ?>&type=2" class="card-link"><i class="fa fa-gittip" name="dislike"></i> Like</a>
-                            <?php endif; ?>      
-                            ?>
-                    <a href="../model/addLike.php?post_id=<?= $post["id_post"]   ?>&user_id=<?=  $post["id_user"] ?>" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>
-                   
-                    <?php if($post["type"] == 1): ?>
-                    <a href="../model/addLike.php?post_id=<?= $post["id_post"]   ?>&user_id=<?=  $post["id_user"] ?>" class="card-link"><i class="fa fa-gittip" name="like"></i> Dislike</a>
-                    <?php endif; ?>
-                    <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                </div>
-                    
-                </div>
+                    <div class="card gedf-card">
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="mr-2">
+                                        <img class="rounded-circle" width="45" src="../uploads/<?= $user["image"]  ?>" alt="">
+                                    </div>
+                                    <div class="ml-2">
+                                        <div class="h5 m-0"><?=  $user["pseudo"] ?></div>
+                                    </div>
+                                </div>
+                                <div>
+                                
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-body">
+                            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i><?= $post["date"]?></div>
+                            <a class="card-link" href="#">
+                                <h5 class="card-title"><?= $post["titre"] ?></h5>
+                            </a>
+
+                            <p class="card-text">
+                            <?=  $post["message"] ?>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                        
+                            <?php
+                            $likes = $db->GetLikeByPostId($post["id_post"]);
+                            if(isset($likes["type"])){
+                                if($likes["type"] == 0) {
+                                    echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
+                                } else if($likes["type"] == 1) {
+                                    echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=0" class="card-link"><i class="fa fa-gittip" name="like"></i> Dislike</a>';
+                                }
+                            } else {
+                                echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=0" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
+                            }
+                            ?>  
+                        <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
+                    </div>
+                        
+                    </div>
                 <?php endforeach ; ?>
                 <!-- Post /////-->
 
