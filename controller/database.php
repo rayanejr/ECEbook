@@ -273,6 +273,7 @@ function getAllPosts() {
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
 
+// j'ai l'impression que ya des fonction en double
 function addOrUpdateLikeDislike($postId, $userId, $like, $dislike) {
     // Vérifier si l'utilisateur a déjà aimé ou n'aime pas ce post
     $pdo = self::getInstance(); 
@@ -333,27 +334,28 @@ public function updatePostById($id_post, $titre, $description, $image) {
     return $statement->fetch();
 }
 
-public function AddComment($id_user, $id_post, $commentaire, $date)
+//-------------------Commentaire-------------------------------------------
+
+public function AddComment($id_user, $id_post, $commentaire)
 {
     try {
-        $sql = "INSERT INTO `commentaire` (`id_user`, `id_post`, `commentaire`, `date`)
-        VALUES (:id_user, :id_post, :commentaire, :date)";
+        $sql = "INSERT INTO `commentaires` (`id_user`, `id_post`, `commentaire_text`)
+        VALUES (:id_user, :id_post, :commentaire)";
         $statement = self::$database->prepare($sql);
         $statement->bindParam(':id_user', $id_user);
         $statement->bindParam(':id_post', $id_post);
         $statement->bindParam(':commentaire', $commentaire);
-        $statement->bindParam(':date', $date);
         $statement->execute();
         echo "Welcome";
     } catch(PDOException $e) {
-        echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();
+        echo "Erreur lors de l'ajout du commentaire: " . $e->getMessage();
         die();
     }
 }
 
 public function GetCommentById($id_comment) {
     $database = self::getInstance();
-    $query = "SELECT * FROM commentaire WHERE id_comment=:id";
+    $query = "SELECT * FROM commentaires WHERE id=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_comment);
     $statement->execute();
@@ -362,7 +364,7 @@ public function GetCommentById($id_comment) {
 
 public function GetCommentByUserId($id_user) {
     $database = self::getInstance();
-    $query = "SELECT * FROM commentaire WHERE id_user=:id";
+    $query = "SELECT * FROM commentaires WHERE id_user=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_user);
     $statement->execute();
@@ -371,7 +373,7 @@ public function GetCommentByUserId($id_user) {
 
 public function GetCommentByPostId($id_post) {
     $database = self::getInstance();
-    $query = "SELECT * FROM commentaire WHERE id_post=:id";
+    $query = "SELECT * FROM commentaires WHERE id_post=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_post);
     $statement->execute();
@@ -380,7 +382,7 @@ public function GetCommentByPostId($id_post) {
 
 public function GetComment() {
     $database = self::getInstance();
-    $query = "SELECT * FROM commentaire";
+    $query = "SELECT * FROM commentaires";
     $statement = $database->prepare($query);
     $statement->execute();
     return $statement->fetchAll();
@@ -388,7 +390,7 @@ public function GetComment() {
 
 public function deleteCommentById($id_comment) {
     $database = self::getInstance();
-    $query = "DELETE FROM commentaire WHERE id_comment=:id";
+    $query = "DELETE FROM commentaires WHERE id=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_comment);
     $statement->execute();
@@ -397,7 +399,7 @@ public function deleteCommentById($id_comment) {
 
 public function updateCommentById($id_comment, $commentaire) {
     $database = self::getInstance();
-    $query = "UPDATE commentaire SET commentaire=:commentaire WHERE id_comment=:id";
+    $query = "UPDATE commentaires SET commentaire_text=:commentaire WHERE id=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_comment);
     $statement->bindParam(':commentaire', $commentaire);
@@ -541,14 +543,15 @@ public function addSubcriber($id_user1, $id_user2)
     }
 }  
 
-public function getSubsByUserId($user_id)
+//prendre les abonnement d'un utilisateur
+public function getSubsByUser1Id($user_id)
 {
     $database = self::getInstance();
     $query = "SELECT * FROM abonnement WHERE user1_id = :user_id1";
 
     try{
         $statement = $database->prepare($query);
-        $statement->bindParam(':user1_id ', $user_id1);
+        $statement->bindParam(':user1_id ', $user_id);
         $statement->execute();
     }catch(PDOException $e){
         echo "Error getting the subscribers: " . $e->getMessage();
@@ -556,18 +559,36 @@ public function getSubsByUserId($user_id)
     }
 }
 
-public function unsubByAbonnementId($id_user2)
+//prendre les abonnés d'un utilisateur
+public function getSubsByUser2Id($user_id)
 {
     $database = self::getInstance();
-    $query = " DELETE * FROM abonnnement where user2_id = :id_user2";
+    $query = "SELECT * FROM abonnement WHERE user2_id = :user_id2";
+
+    try{
+        $statement = $database->prepare($query);
+        $statement->bindParam(':user2_id ', $user_id);
+        $statement->execute();
+    }catch(PDOException $e){
+        echo "Error getting the subscribers: " . $e->getMessage();
+        die();
+    }
+}
+
+public function unsubByAbonnementId($id_user1, $id_user2)
+{
+    $database = self::getInstance();
+    $query = " DELETE * FROM abonnnement where user2_id = :id_user2 AND user1_id = :id_user1";
 
     try{
         $statement = $database->prepare($query);
         $statement->bindParam(':user2_id ', $id_user2);
+        $statement->bindParam(':user1_id ', $id_user1);
         $statement->execute();
     }catch(PDOException $e){
         echo "Error deleting a subscriber: " . $e->getMessage();
         die();
     }
 }
+
 }

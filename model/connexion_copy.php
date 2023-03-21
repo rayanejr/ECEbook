@@ -15,7 +15,7 @@ if(1){
            
             if(1){
 
-                $_SESSION["id_user"] = 1;
+                $_SESSION["id_user"] = 93;
                 $_SESSION['nom'] = "chatel";
                 $_SESSION['prenom'] = "andreas";
                 $_SESSION['email'] = "andreas.chatel@edu.ece.fr";

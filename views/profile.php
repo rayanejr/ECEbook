@@ -28,7 +28,7 @@ require_once("../model/profil.php");
       <div class="panel">
           <div class="user-heading round">
               <a href="#">
-                  <img src="../uploads/<?= $user["image"]  ?>" alt=""> //comprend pas d'ou le $user sort
+                  <img src="../uploads/<?= $user["image"]  ?>" alt=""> 
               </a>
               <h1><?=  $user["nom"] . " " . $user["prenom"] ?></h1>
               <p><?=  $user["adressemail"] ?></p>
