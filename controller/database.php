@@ -176,6 +176,16 @@ public function deleteUserById($user_id) {
     return $statement->rowCount();
 }
 
+public function deletePostById($id_post) {
+    $database = self::getInstance();
+    $query = "DELETE FROM post WHERE id_post=:post_id";
+    $statement = $database->prepare($query);
+    $statement->bindParam(":post_id", $id_post);
+    $statement->execute();
+    return $statement->fetch();
+}
+
+
 
 public function AddConfirmationCode($email, $confirmation_code){
     $database = self::getInstance();
@@ -224,27 +234,6 @@ public function updateMdpByEmail($email,$mdpU) {
 }
 
 
-
-
-
-public function AddPost($id_user, $titre, $message, $image, $date)
-{
-    try {
-        $sql = "INSERT INTO `post` (`id_user`, `titre`, `message`, `image`, `date`)
-        VALUES (:id_user, :titre, :message, :image, :date)";
-        $statement = self::$database->prepare($sql);
-        $statement->bindParam(':id_user', $id_user);
-        $statement->bindParam(':titre', $titre);
-        $statement->bindParam(':message', $message);
-        $statement->bindParam(':image', $image);
-        $statement->bindParam(':date', $date);
-        $statement->execute();
-        echo "Welcome";
-    } catch(PDOException $e) {
-        echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();
-        die();
-    }
-}
 
 public function GetPostById($id_post) {
     $database = self::getInstance();
@@ -321,15 +310,6 @@ function addOrUpdateLikeDislike($postId, $userId, $like, $dislike) {
 
 }
 
-
-public function deletePostById($id_post) {
-    $database = self::getInstance();
-    $query = "DELETE FROM post WHERE id_post=:id";
-    $statement = $database->prepare($query);
-    $statement->bindParam(":id", $id_post);
-    $statement->execute();
-    return $statement->fetch();
-}
 
 public function updatePostById($id_post, $titre, $description, $image) {
     $database = self::getInstance();
@@ -415,16 +395,14 @@ public function updateCommentById($id_comment, $commentaire) {
     return $statement->fetch();
 }
 
-public function AddLike($id_user, $id_post)
+public function AddLike($id_post, $id_user)
 {
     try {
-        $sql = "INSERT INTO `like` (`id_user`, `id_post`)
-        VALUES (:id_user, :id_post)";
+        $sql = "INSERT INTO `likes` (`id_post`,`id_user`)VALUES (?,?)";
         $statement = self::$database->prepare($sql);
-        $statement->bindParam(':id_user', $id_user);
-        $statement->bindParam(':id_post', $id_post);
+        $statement->bindParam('?', $id_post);
+        $statement->bindParam('?', $id_user);
         $statement->execute();
-        echo "Welcome";
     } catch(PDOException $e) {
         echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();
         die();

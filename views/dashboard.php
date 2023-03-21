@@ -4,8 +4,16 @@ require("../model/dashboard.php");
 require("../controller/database.php");
 
 
-if($_SESSION["admin"] != true){
+// if($_SESSION["admin"] != true){
+//     header("location:../views/connexion.php");
+// }
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if(!isset($_SESSION["id_user"]) &&
+ $_SESSION(["admin"] != true)){
     header("location:../views/connexion.php");
+    exit();
 }
 
 
@@ -184,6 +192,8 @@ $post_count = $db->getPostCount();
                 <div id="post" class="card shadow border-0 mb-7">
                     <div class="card-header">
                         <h5 class="mb-0">Post</h5>
+                        <a class="btn btn-primary" data-toggle="modal" href='#post-form'>Ajouter un post</a>
+
                     </div>
                     <div class="table-responsive">
                         <table class="table table-hover table-nowrap">
@@ -217,7 +227,7 @@ $post_count = $db->getPostCount();
                                     <td class="text-end">
                                         <a href="#" class="btn btn-sm btn-neutral">modifier</a>
                                        
-                                        <a class="btn btn-sm btn-square btn-danger text-danger-hover" href="../model/deleteUserAdmin.php?user_id=<?= $user["id_user"]  ?>"> <i class="bi bi-trash"></i> </a>
+                                        <a class="btn btn-sm btn-square btn-danger text-danger-hover" href="../model/deletePostAdmin.php?post_id=<?= $post["id_post"]  ?>"> <i class="bi bi-trash"></i> </a>
                                     </td>
                                     
                                 </tr>
@@ -371,6 +381,89 @@ $post_count = $db->getPostCount();
         </main>
     </div>
 </div>
+
+
+
+
+
+
+<!-- modal add post -->
+<div class="text-center jumbotron">
+</div>
+		<div class="modal fade" id="post-form">
+			<div class="modal-dialog shadow-lg p-3 mb-5 bg-white rounded">
+				<div class="modal-content sub-bg">
+					<div class="modal-header subs-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<!-- <h4 class="modal-title">Modal title</h4> -->
+					</div>
+					<div class="modal-body">
+						<div class="text-center">
+						</div>
+					
+						<div class="row">
+							<div class="col-md-12">
+                            <form action="../model/AddPostAdmin.php"  method="POST" enctype="multipart/form-data">
+
+
+  
+                        <div class="container mt-5">
+                            <div class="row">
+                                <div class="col-sm-30 m-auto">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                          
+               
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">titre</span>
+                            <input class="form-control" type="text" name="titre" placeholder="entrez un titre" required><br><br>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">Post</span>
+                            <input class="form-control" type="text" name="message" placeholder="entrez un post" required><br><br>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                        <input type="file" class="form-control" id="customFile" name="image">
+                            <label class="custom-file-label" for="customFile">Upload image</label>
+                        </div>
+                    </div>
+                    <input class="btn btn-primary btn-lg" style="margin-left: 39%;" type="submit" name="submit" value="Ajouter"><br><br>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="post-form-thank">
+			<div class="modal-dialog">
+				<div class="modal-content sub-bg shadow-lg">
+					<div class="modal-header subs-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<!-- <h4 class="modal-title">Modal title</h4> -->
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+
+
+            </div>
+        </main>
+    </div>
 
 
 

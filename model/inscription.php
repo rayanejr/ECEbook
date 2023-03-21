@@ -132,7 +132,7 @@ L'équipe EceBook";
 
 
     if($domain === "admin.fr" ) {
-        header("location: ../views/dashborad.php");
+        header("location: ../views/dashboard.php");
         exit();
     } else {
         header("location: ../views/connexion.php");

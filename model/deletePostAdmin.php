@@ -11,7 +11,7 @@ if(!isset($_SESSION["admin"])){
 $db = new Database();
 
 
-    $db->deleteUserById($_GET["user_id"]);
+    $db->deletePostById($_GET["post_id"]);
    
     header("location: ../views/dashboard.php");
     exit();

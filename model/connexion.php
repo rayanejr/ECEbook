@@ -17,7 +17,7 @@ if(isset($_POST["submit"])){
 
                 $_SESSION["id_user"] = $user["id_user"];
                 $_SESSION["admin"] = true;
-                header("location: ../views/dashborad.php");
+                header("location: ../views/dashboard.php");
             }
             else{
                 if($user["confirmer"] == 1){

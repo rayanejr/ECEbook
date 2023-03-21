@@ -61,7 +61,7 @@ if(isset($_POST["submit"])){
 
 
     $db->AddUser($nomUser, $prenomUser, $naissanceUser, $villeUser, $promoUser, $roleUser, $usernameUser, $emailUser, $mdpUser, $descriptionUser, $imageUser, $code_confirmation);
-    header("location:../views/dashborad.php");
+    header("location:../views/dashboard.php");
 
    
     } else {
