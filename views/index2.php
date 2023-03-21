@@ -163,12 +163,16 @@ $posts = $db->getAllPosts() ;
                         </p>
                     </div>
                     <div class="card-footer">
-                        <?php  $likes=$db->GetLikeByPostId($post["id_post"]);
-                        if($likes["type"]): 
-                       var_dump($likes["type"]);
+                       
+                        <?php
+                         $likes=$db->GetLikeByPostId($post["id_post"]); 
+                        if($likes && $likes["type"] == 1): // If there is an existing like of type 1 (like), display the dislike button.
+                    ?>
+                            <a href="../model/addLike.php?post_id=<?= $post["id_post"] ?>&user_id=<?= $post["id_user"] ?>&type=2" class="card-link"><i class="fa fa-gittip" name="dislike"></i> Like</a>
+                            <?php endif; ?>      
                             ?>
                     <a href="../model/addLike.php?post_id=<?= $post["id_post"]   ?>&user_id=<?=  $post["id_user"] ?>" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>
-                    <?php endif; ?>
+                   
                     <?php if($post["type"] == 1): ?>
                     <a href="../model/addLike.php?post_id=<?= $post["id_post"]   ?>&user_id=<?=  $post["id_user"] ?>" class="card-link"><i class="fa fa-gittip" name="like"></i> Dislike</a>
                     <?php endif; ?>

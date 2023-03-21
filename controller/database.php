@@ -264,43 +264,7 @@ function getAllUsers() {
 
 
 
-function addOrUpdateLikeDislike($postId, $userId, $like, $dislike) {
-    // Vérifier si l'utilisateur a déjà aimé ou n'aime pas ce post
-    $pdo = self::getInstance(); 
-    $query = "SELECT id_like FROM likes WHERE id_post = :postId AND id_user = :userId";
-    $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':postId', $postId);
-    $stmt->bindParam(':userId', $userId);
-    $stmt->execute();
-    $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // check
-
-    $sql = "SELECT id_like FROM likes WHERE id_post = :postId AND id_user = :userId";
-    $statement= self::$database->prepare($sql);
-    $statement->execute(array( $userId, $postId,$like));
-    
-
-    if ( sizeof($statement->fetchAll()) == 0 ) {
-
-        $sql = "INSERT INTO `likes` (`like`, `id_post`, `id_user`) 
-        VALUES ('1',?,?)";
-        $statement = self::$database->prepare($sql);
-        $statement->execute(array(":id_post" => $postId, ":id_user" => $userId));
-        
-    }else{
-        $sql = "DELETE FROM `like` 
-        WHERE `like`.`id_post` = :postId
-        AND `like`.`id_user` = :userId";
-
-        $statement = self::$database->prepare($sql);
-        $statement->execute(array(":postId" => $postId, ":userId" => $userId));
-        
-
-    }
-
-
-}
 
 
 public function updatePostById($id_post, $titre, $description, $image) {
@@ -407,12 +371,10 @@ public function getAllPostsByIduser($id_user){
 public function AddLike($id_post, $id_user)
 {
     try {
-        $sql = "INSERT INTO `likes` (`id_post`,`id_user`,`type`)VALUES (:id_post,:id_user)";
+        $sql = "INSERT INTO `likes` (`id_post`, `id_user`, `type`) VALUES (:id_post, :id_user, 1)";
         $statement = self::$database->prepare($sql);
         $statement->bindParam(':id_post', $id_post);
         $statement->bindParam(':id_user', $id_user);
-      
-      
         $statement->execute();
     } catch(PDOException $e) {
         echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();
