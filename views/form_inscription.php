@@ -73,9 +73,17 @@ if(isset($_SESSION["id_user"])){
                                     <input class="form-control" type="email" id="email" name="email" placeholder="Tapez votre email..." required><br><br>
                                 </div>
                             </div>
+                            <div class="form-group mb-3" id="promo-group">
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo">
+                                    <option selected>Promo</option>
+                                    <option value="1">Bachelor 1</option>
+                                    <option value="2">Bachelor 2</option>
+                                    <option value="3">Bachelor 3</option>
+                                </select>
+                            </div>
                    
-                       
-                                <div class="form-group mb-3" id="promo-group" style="display:none">
+                                <!--
+                                <div class="form-group mb-3" id="promo-group" style="display:block">
                                     <label for="promo">Promo:</label>
                                     <select name="promo" multiple id="selectPromo">
                                     <option value="ING1">ING1</option>
@@ -89,7 +97,7 @@ if(isset($_SESSION["id_user"])){
                                     <option value="M1">M1</option>
                                     <option value="M2">M2</option>
                                     </select>
-                                </div>
+                                </div>-->
                        
                     
 
@@ -130,8 +138,22 @@ if(isset($_SESSION["id_user"])){
 
 
     <script>
+
 const emailInput = document.getElementById('email');
 const promoGroup = document.getElementById('promo-group');
+
+// DEBUT CODE JORDAN POUR LISTE PROMO
+var selectPromo = document.getElementById('select-group-promo');
+selectPromo.disabled = true;
+emailInput.addEventListener("input", function(){
+    if (emailInput.value.length > 0){
+        selectPromo.disabled = false;
+    } else {
+        selectPromo.disabled = true;
+    }
+});
+// FIN CODE JORDAN
+
 
 emailInput.addEventListener('blur', () => {
     const email = emailInput.value.trim();
@@ -141,7 +163,13 @@ emailInput.addEventListener('blur', () => {
 
     if (domain === 'omnes.intervenant.fr') {
       promoGroup.style.display = 'block';
-    } else {
+      // CODE JORDAN DEBUT
+      selectPromo.multiple = true;
+    } else if (domain === 'edu.ece.fr') {
+        promoGroup.style.display = 'block';
+        selectPromo.multiple = false;
+    } // FIN CODE JORDAN 
+    else {
       promoGroup.style.display = 'none';
     }
   });
