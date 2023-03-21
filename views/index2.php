@@ -130,7 +130,7 @@ $posts = $db->getAllPosts() ;
                         <?php       
 
                     // Get user information
-                    $user_id = $post['id_user'];
+                    $user_id = $post['id_user']; //comprend pas d'ou ça sort
                     $user = $db->getUserById($user_id);
 
                         ?>

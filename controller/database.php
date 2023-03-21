@@ -83,6 +83,7 @@ class Database{
         $statement->bindParam(':email', $email);
         $statement->execute();
         $user = $statement->fetch(PDO::FETCH_ASSOC);
+        echo $user['email'];
         return $user;
     } catch(PDOException $e) {
         echo "Erreur lors de la connexion: " . $e->getMessage();
@@ -528,7 +529,7 @@ public function getUserFromPost($post_id) {
 public function addSubcriber($id_user1, $id_user2)
 {
     $database = self::getInstance();
-    $query = "INSERT INTO abonnement (id_user1, id_user2) VALUES (:id_user1, :id_user2)";
+    $query = "INSERT INTO abonnement (user1_id, user2_id) VALUES (:user1_id, :user2_id)";
     try{
         $statement = $database->prepare($query);
         $statement->bindParam(':user1_id', $id_user1);
@@ -543,7 +544,7 @@ public function addSubcriber($id_user1, $id_user2)
 public function getSubsByUserId($user_id)
 {
     $database = self::getInstance();
-    $query = "SELECT * FROM abonnement WHERE id_user1 = :user_id1";
+    $query = "SELECT * FROM abonnement WHERE user1_id = :user_id1";
 
     try{
         $statement = $database->prepare($query);
@@ -558,7 +559,7 @@ public function getSubsByUserId($user_id)
 public function unsubByAbonnementId($id_user2)
 {
     $database = self::getInstance();
-    $query = " DELETE * FROM abonnnement where id_user2 = :id_user2";
+    $query = " DELETE * FROM abonnnement where user2_id = :id_user2";
 
     try{
         $statement = $database->prepare($query);
@@ -569,10 +570,4 @@ public function unsubByAbonnementId($id_user2)
         die();
     }
 }
-
-
-
-
-    
-
 }

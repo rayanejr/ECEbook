@@ -5,10 +5,10 @@
     require("../controller/database.php");
     
     
-    $id_user = 92;
-    $id_abonnement = 95;
+    $id_user1 = 92;
+    $id_user2 = 93;
 
     $db = new Database();
-    $db->addSubcriber($id_user, $id_abonnement);
+    $db->addSubcriber($id_user1, $id_user2);
 
 ?>
