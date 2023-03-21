@@ -43,7 +43,7 @@ if(isset($_SESSION["id_user"])){
             		placeholder="Search...">
 			</div>
 		</form>
-		<div id="searchresult">
+		<div id="searchresult"> </div>
 		<?php endif ; ?>
 		
 

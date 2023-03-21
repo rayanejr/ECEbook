@@ -170,7 +170,7 @@ $post_count = $db->getPostCount();
                                     </td>
                                     <?php if($user["roll"] != "admin") : ?>
                                     <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-neutral">modifier</a>
+                                    <a class="btn btn-primary" data-toggle="modal" href='#modifierU'>modifier</a>
                                        
                                         <a class="btn btn-sm btn-square btn-danger text-danger-hover" href="../model/deleteUserAdmin.php?user_id=<?= $user["id_user"]  ?>"> <i class="bi bi-trash"></i> </a>
                                     </td>
@@ -464,6 +464,163 @@ $post_count = $db->getPostCount();
             </div>
         </main>
     </div>
+
+
+
+
+
+
+<?php
+foreach($users as $user):
+?>
+
+<!-- modal modif user -->
+<div class="text-center jumbotron">
+</div>
+		<div class="modal fade" id="modifierU">
+			<div class="modal-dialog shadow-lg p-3 mb-5 bg-white rounded">
+				<div class="modal-content sub-bg">
+					<div class="modal-header subs-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<!-- <h4 class="modal-title">Modal title</h4> -->
+					</div>
+					<div class="modal-body">
+						<div class="text-center">
+						</div>
+					
+						<div class="row">
+							<div class="col-md-12">
+                            <form action="../model/updateUserAdmin.php"  method="POST" enctype="multipart/form-data">
+
+
+  
+                        <div class="container mt-5">
+                            <div class="row">
+                                <div class="col-sm-30 m-auto">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                          
+               
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">Nom</span>
+                            <input class="form-control" type="text" name="nom" placeholder="Tapez votre nom..." value='<?= $users["nom"]  ?>' required><br><br>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">Prénom</span>
+                            <input class="form-control" type="text" name="prenom" placeholder="Tapez votre prénom..." value='<?= $users["prenom"]  ?>' required><br><br>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <input class="form-control" type="file" name="image"  ><br><br>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">Date de naissance</span>
+                            <input class="form-control" type="date" name="naissance" placeholder="Date" value='<?= $users["datedenaissance"]  ?>' required><br><br>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">Ville</span>
+                            <input class="form-control" type="text" name="ville" placeholder="Ville" value='<?= $user["ville"]  ?>' required><br><br>
+                        </div>
+                    </div>
+
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">Email</span>
+                            <input class="form-control" type="email" id="email" name="email" placeholder="Tapez votre email..." value='<?= $user["adressemail"]  ?>' required><br><br>
+                        </div>
+                    </div>
+           
+               
+                        <div class="form-group mb-3" id="promo-group" style="display:none">
+                            <label for="promo">Promo:</label>
+                            <select name="promo" multiple id="selectPromo">
+                            <option value="ING1">ING1</option>
+                            <option value="ING2">ING2</option>
+                            <option value="ING3">ING3</option>
+                            <option value="ING4">ING4</option>
+                            <option value="ING5">ING5</option>
+                            <option value="B1">B1</option>
+                            <option value="B2">B2</option>
+                            <option value="B3">B3</option>
+                            <option value="M1">M1</option>
+                            <option value="M2">M2</option>
+                            </select>
+                        </div>
+               
+            
+
+
+             
+
+
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">Username</span>
+                            <input class="form-control" type="text" name="username" placeholder="Votre username" value='<?= $user["pseudo"]  ?>' required><br><br>
+                        </div>
+                    </div>
+                   
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">Password</span>
+                            <input class="form-control" type="password" name="motdepasse" placeholder="Tapez votre mot de passe..." value='<?= $user["mdp"]  ?>' minlength="10"><br><br>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">Description</span>
+                            <input class="form-control" type="text" name="description" placeholder="Tapez votre description..." value='<?= $user["description"]  ?>'><br><br>
+                        </div>
+                    </div>
+                    <input class="btn btn-primary btn-lg" style="margin-left: 39%;" type="submit" name="submit" value="Ajouter"><br><br>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="susbc-form-thank">
+			<div class="modal-dialog">
+				<div class="modal-content sub-bg shadow-lg">
+					<div class="modal-header subs-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<!-- <h4 class="modal-title">Modal title</h4> -->
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+
+
+            </div>
+        </main>
+    </div>
+</div>
+<?php endforeach; ?>
+
+
+
+
+
+
+
 
 
 

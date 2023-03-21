@@ -143,46 +143,59 @@ for ($i = 0; $i < count($cles); $i++)
 
                 <!--- \\\\\\\Post-->
                 <?php foreach ($posts as $post): ?>
-                        <?php       
+                    <?php       
 
                     // Get user information
                     $user_id = $post['id_user'];
                     $user = $db->getUserById($user_id);
 
-                        ?>
-                <div class="card gedf-card">
-                    <div class="card-header">
-                        <div class="d-flex justify-content-between align-items-center">
+                    ?>
+                    <div class="card gedf-card">
+                        <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
-                                <div class="mr-2">
-                                    <img class="rounded-circle" width="45" src="../uploads/<?= $user["image"]  ?>" alt="">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="mr-2">
+                                        <img class="rounded-circle" width="45" src="../uploads/<?= $user["image"]  ?>" alt="">
+                                    </div>
+                                    <div class="ml-2">
+                                        <div class="h5 m-0"><?=  $user["pseudo"] ?></div>
+                                    </div>
                                 </div>
-                                <div class="ml-2">
-                                    <div class="h5 m-0"><?=  $user["pseudo"] ?></div>
+                                <div>
+                                
                                 </div>
                             </div>
-                            <div>
-                             
-                            </div>
+
                         </div>
+                        <div class="card-body">
+                            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i><?= $post["date"]?></div>
+                            <a class="card-link" href="#">
+                                <h5 class="card-title"><?= $post["titre"] ?></h5>
+                            </a>
+
+                            <p class="card-text">
+                            <?=  $post["message"] ?>
+                            </p>
+                        </div>
+                        <div class="card-footer">
+                        
+                            <?php
+                            $likes = $db->GetLikeByPostId($post["id_post"]);
+                            if(isset($likes["type"])){
+                                if($likes["type"] == 0) {
+                                    echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
+                                } else if($likes["type"] == 1) {
+                                    echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=0" class="card-link"><i class="fa fa-gittip" name="like"></i> Dislike</a>';
+                                }
+                            } else {
+                                echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=0" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
+                            }
+                            ?>  
+                            <a href="tempo_ajout_commentaire.php?id_post=<?php echo $post["id_post"]?>" class="card-link"><i class="fa fa-comment"></i> Comment</a>
 
                     </div>
-                    <div class="card-body">
-                        <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i><?= $post["date"]?></div>
-                        <a class="card-link" href="#">
-                            <h5 class="card-title"><?= $post["titre"] ?></h5>
-                        </a>
-
-                        <p class="card-text">
-                           <?=  $post["message"] ?>
-                        </p>
+                        
                     </div>
-                    <div class="card-footer">
-                        <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
-                        <a href="tempo_ajout_commentaire.php?id_post=<?php echo $post["id_post"]?>" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                        <button > <a href="" class="card-link">ajouter un like </a></button>
-                    </div>
-                </div>
                 <?php endforeach ; ?>
                 <!-- Post /////-->
 
