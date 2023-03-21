@@ -1,3 +1,12 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if(isset($_SESSION["id_user"])){
+    header("location:../views/profile.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -38,7 +47,7 @@
                                     </div>
                                 </div>
                                 <br><br><input style="margin-left: 37%;" class="btn btn-primary btn-lg" name="submit" type="submit" value="Connexion"><br><br>
-                                <a href="form_inscription.php" style="margin-left: 36%;">Vous souhaitez créer un compte ?</a><br><br>
+                                <a href="./form_inscription.php" style="margin-left: 36%;">Vous souhaitez créer un compte ?</a><br><br>
                                 <a href="../views/updateMdp.php" style="margin-left: 36%;">Réinitialisé votre mdp</a><br><br>
                             </div>
                         </div>
