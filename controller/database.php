@@ -169,11 +169,11 @@ public function GetUserByEmail($email) {
 
 public function deleteUserById($user_id) {
     $database = self::getInstance();
-    $query = "DELETE FROM utilisateur WHERE id_user=?";
+    $query = "DELETE FROM utilisateur WHERE id_user = :user_id";
     $statement = $database->prepare($query);
-    $statement->bindParam(1, $user_id, PDO::PARAM_INT);
+    $statement->bindParam(":user_id", $user_id);
     $statement->execute();
-    return $statement->fetch(PDO::FETCH_ASSOC);
+    return $statement->rowCount();
 }
 
 
@@ -271,6 +271,17 @@ function getAllPosts() {
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
 }
+
+
+function getAllUsers() {
+    $pdo = self::getInstance();
+    $sql = "SELECT * FROM utilisateur ";
+    $statement = $pdo->prepare($sql);
+    $statement->execute();
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 
 function addOrUpdateLikeDislike($postId, $userId, $like, $dislike) {
     // Vérifier si l'utilisateur a déjà aimé ou n'aime pas ce post
@@ -470,6 +481,28 @@ public function UpdateUserStatuts($user_id, $status){
     $statement->execute();
     return $statement->rowCount();
 }
+
+
+public function getUserCount() {
+    $database = self::getInstance();
+    $query = "SELECT COUNT(*) as count FROM utilisateur";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    return $row['count'];
+}
+
+
+public function getPostCount() {
+    $database = self::getInstance();
+    $query = "SELECT COUNT(*) as count FROM post";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $row = $statement->fetch(PDO::FETCH_ASSOC);
+    return $row['count'];
+}
+
+
 
 
 public function getAllEmails()

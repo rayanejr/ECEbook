@@ -13,11 +13,11 @@ if(isset($_POST["submit"])){
         $user = $db->Login($email, $password);
         if($user && password_verify($password, $user['mdp'])) { // check if user exists and password is correct
            
-            if($user["roll"] === "admin"){
+            if($user["roll"] == "admin"){
 
                 $_SESSION["id_user"] = $user["id_user"];
                 $_SESSION["admin"] = true;
-                header("location: ../views/dashboard.html");
+                header("location: ../views/dashborad.php");
             }
             else{
                 if($user["confirmer"] == 1){
