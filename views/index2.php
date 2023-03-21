@@ -9,7 +9,23 @@ if(!isset($_SESSION["id_user"])){
 
 require("../controller/database.php");
 $db = new Database();
-$posts = $db->getAllPosts() ; 
+$posts = $db->getAllPosts();
+$subs = $db->getSubsByUser1Id($_SESSION["id_user"]);
+
+$cles = array_keys($posts);
+
+for ($i = 0; $i < count($cles); $i++)
+{
+    foreach($subs as $sub)
+    {
+        if($posts[$i]['id_user'] != $sub['user2_id'])
+        {
+            unset($posts[$i]);
+        }
+    }
+}
+
+//$comments = $db->GetCommentByPostId($_GET['id_post']); // je sais pas comment les afficher sous les posts
 
 ?>
 
