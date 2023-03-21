@@ -10,5 +10,11 @@ if(!isset($_SESSION["id_user"])){
     $db = new Database();
     $user_id = $_SESSION['id_user'];
     $user = $db->GetUserById($_SESSION["id_user"]);
+
+    //$nb_abonnement = gettype($db->getSubsByUser2Id($_SESSION["id_user"]));
+    
+    $nb_abonnement = count($db->getSubsByUser2Id($_SESSION["id_user"]));
+    
+
 }
 ?>

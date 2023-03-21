@@ -558,15 +558,19 @@ public function addSubcriber($id_user1, $id_user2)
 }  
 
 //prendre les abonnement d'un utilisateur
-public function getSubsByUser1Id($user_id)
+public function getSubsByUser1Id($user1_id)
 {
     $database = self::getInstance();
-    $query = "SELECT * FROM abonnement WHERE user1_id = :user_id1";
+    $query = "SELECT * FROM abonnement WHERE user1_id=:user1_id";
 
     try{
         $statement = $database->prepare($query);
-        $statement->bindParam(':user1_id ', $user_id);
+        $statement->bindParam(':user1_id', $user1_id);
         $statement->execute();
+
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
     }catch(PDOException $e){
         echo "Error getting the subscribers: " . $e->getMessage();
         die();
@@ -574,15 +578,19 @@ public function getSubsByUser1Id($user_id)
 }
 
 //prendre les abonnés d'un utilisateur
-public function getSubsByUser2Id($user_id)
+public function getSubsByUser2Id($user2_id)
 {
     $database = self::getInstance();
-    $query = "SELECT * FROM abonnement WHERE user2_id = :user_id2";
+    $query = "SELECT * FROM abonnement WHERE user2_id=:user2_id";
 
     try{
         $statement = $database->prepare($query);
-        $statement->bindParam(':user2_id ', $user_id);
+        $statement->bindParam(':user2_id', $user2_id);
         $statement->execute();
+
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
     }catch(PDOException $e){
         echo "Error getting the subscribers: " . $e->getMessage();
         die();

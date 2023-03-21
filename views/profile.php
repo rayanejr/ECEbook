@@ -38,6 +38,8 @@ require_once("../model/profil.php");
               <li class="active"><a href="#"> <i class="fa fa-user"></i> Profile</a></li>
               <li><a href="../views/updateUser.php"> <i class="fa fa-edit"></i> modifier profile</a></li>
               <li><a href="../model/deleteUser.php"> <i class="fa fa-edit"></i> supprimer le profil</a></li>
+              <li><a href="#"> <i class="fa fa-edit"></i> nombre d'abonné : <?php echo $nb_abonnement ?></a></li>
+              
           </ul>
       </div>
   </div>
