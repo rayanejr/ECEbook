@@ -11,6 +11,7 @@ require("../controller/database.php");
 $db = new Database();
 $posts = $db->getAllPosts() ; 
 
+
 ?>
 
 <!DOCTYPE html>
@@ -162,10 +163,19 @@ $posts = $db->getAllPosts() ;
                         </p>
                     </div>
                     <div class="card-footer">
-                        <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
                         <a href="tempo_ajout_commentaire.php?id_post=<?php echo $post["id_post"]?>" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                        <button > <a href="" class="card-link">ajouter un like </a></button>
-                    </div>
+
+                        <?php  $likes=$db->GetLikeByPostId($post["id_post"]);
+                        if($likes["type"]): 
+                       var_dump($likes["type"]);
+                            ?>
+                    <a href="../model/addLike.php?post_id=<?= $post["id_post"]   ?>&user_id=<?=  $post["id_user"] ?>" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>
+                    <?php endif; ?>
+                    <?php if($post["type"] == 1): ?>
+                    <a href="../model/addLike.php?post_id=<?= $post["id_post"]   ?>&user_id=<?=  $post["id_user"] ?>" class="card-link"><i class="fa fa-gittip" name="like"></i> Dislike</a>
+                    <?php endif; ?>
+                </div>
+                    
                 </div>
                 <?php endforeach ; ?>
                 <!-- Post /////-->

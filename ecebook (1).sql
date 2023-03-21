@@ -64,13 +64,22 @@ CREATE TABLE IF NOT EXISTS `commentaires` (
 
 DROP TABLE IF EXISTS `likes`;
 CREATE TABLE IF NOT EXISTS `likes` (
-  `id_like` int NOT NULL AUTO_INCREMENT,
   `id_post` int NOT NULL,
   `id_user` int NOT NULL,
-  `type` tinyint(1) NOT NULL,
+  `id_like` int NOT NULL AUTO_INCREMENT,
+  `type` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_like`),
-  UNIQUE KEY `unique_like` (`id_post`,`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `unique_like` (`id_post`,`id_user`),
+  KEY `id_user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `likes`
+--
+
+INSERT INTO `likes` (`id_post`, `id_user`, `id_like`, `type`) VALUES
+(29, 98, 1, 0),
+(28, 98, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -109,7 +118,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_post`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `post`
@@ -149,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `code_confirmation` varchar(255) NOT NULL,
   `confirmer` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -159,7 +168,26 @@ INSERT INTO `utilisateur` (`id_user`, `nom`, `prenom`, `image`, `ville`, `adress
 (90, 'test', 'testt', 'Acer_Wallpaper_01_5000x2814.jpg', 'Paris', 'test.pro@edu.ece.fr', '$2y$10$5XZKylRdm602RJw5y4GybeNKG7tjZndfKt02HB3X6LB1e4J.Muqp6', 'etudiant', '', '2023-03-16', 'dsqdqsqsdqsdqsdqsdqsdqs', 'kilwa-*75', '6416560e08ca1', 1),
 (92, 'abdulhalim', 'sami', 'sami.jpg', 'Paris', 'sami.abdulhalim@edu.ece.fr', '$2y$10$2uaLj8XH.F/wv3W2oZuuNOhZ5Fpva2Q689WCxriyK22pWsTno7FIW', 'etudiant', '', '2023-03-22', 'je suis un développeur full stack ', 'aboalsim114', '641679f04f224', 1),
 (93, 'Jerbi', 'Rayane', 'download-removebg-preview (1).jpg', 'Cannes', 'rayane.jerbi@edu.ece.fr', '$2y$10$5kSvYS3AJn3MIAmDnszTMO7s1HCXqwTSfDb.f1TGkUaykzZtvHgFu', 'etudiant', '', '2003-04-17', 'Développeur SI et IT', 'Rayane_jrb', '1cfb4fbe48a980c2374020df6a547064', 1),
-(96, 'chatel', 'andreas', 'bonk.jpg', 'paris', 'andreas.chatel@edu.ece.fr', '$2y$10$AM6bU.DNzb8jCEl7PiZRheHOtSNd0x1oJ/j4IBXWTkI.fNKDfDL1e', 'etudiant', '', '2003-05-20', 'test', 'andreas', '6419973ad8d96', 1);
+(96, 'chatel', 'andreas', 'bonk.jpg', 'paris', 'andreas.chatel@edu.ece.fr', '$2y$10$AM6bU.DNzb8jCEl7PiZRheHOtSNd0x1oJ/j4IBXWTkI.fNKDfDL1e', 'etudiant', '', '2003-05-20', 'test', 'andreas', '6419973ad8d96', 1),
+(98, 'Jerbi', 'Rayane', 'download-removebg-preview (1).jpg', 'Cannes', 'rayane@admin.fr', '$2y$10$lm3Ff8lgR23GzvuyqDD.LuyMO2y5TbXLxIkW3i.8bW9800X.OGomO', 'admin', '', '2003-04-17', 'Développeur d\'ECEBook', 'Rayane_jrb', '641948dbdda76', 1),
+(102, 'Jerbi', 'Rayane', 'photo rayane cv.jpg', 'Cannes', 'rayane.jerbi@edu.ece.fr', '$2y$10$Uu4i3v7QhOCbsLC170t3D.gAxuoACdOfQCOl69eZgV6DHflLhXpeq', 'etudiant', '', '2003-04-17', 'Développeur SI et IT', 'rayane_jrb', '182c05631c88aee7ee33178ff455d605', 1);
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `likes`
+--
+ALTER TABLE `likes`
+  ADD CONSTRAINT `id_post` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  ADD CONSTRAINT `id_user` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id_user`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+--
+-- Contraintes pour la table `post`
+--
+ALTER TABLE `post`
+  ADD CONSTRAINT `user_id` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id_user`) ON DELETE CASCADE ON UPDATE RESTRICT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
