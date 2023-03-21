@@ -548,7 +548,10 @@ public function addSubcriber($id_user1, $id_user2)
         $statement->bindParam(':user1_id', $id_user1);
         $statement->bindParam(':user2_id', $id_user2);
         $statement->execute();
+
+        echo "<script>alert('Vous êtes maintenant abonné !');</script>";
     }catch(PDOException $e){
+
         echo "Error adding subscriber: " . $e->getMessage();
         die();
     }

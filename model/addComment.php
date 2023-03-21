@@ -10,6 +10,8 @@ if(!isset($_SESSION["id_user"])){
     header("location: ../views/connexion.html");
 }
 
+if(isset($_POST['submit'])) {
+
 require("../controller/database.php");
 
 
@@ -19,6 +21,7 @@ $commentaire = $_POST['comment'];
 
 $db = new Database();
 $db->AddComment($id_user, $id_post, $commentaire);
+}
 
 header("location: ../views/index2.php");
 
