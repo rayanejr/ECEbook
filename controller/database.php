@@ -245,6 +245,14 @@ public function GetPostById($id_post) {
     return $statement->fetch();
 }
 
+public function GetPostByUserId($id_user) {
+    $database = self::getInstance();
+    $query = "SELECT * FROM post WHERE id_user=:id";
+    $statement = $database->prepare($query);
+    $statement->bindParam(":id", $id_user);
+    $statement->execute();
+    return $statement->fetchAll();
+}
 
 function getAllPosts() {
     $pdo = self::getInstance();
@@ -388,33 +396,16 @@ public function updateCommentById($id_comment, $commentaire) {
     $statement->execute();
     return $statement->fetch();
 }
-public function GetLikeByPostId($id_post){
-    $database = self::getInstance();
-    $query = "SELECT * FROM likes WHERE id_post=:id_post";
-    $statement = $database->prepare($query);
-    $statement->bindParam(":id_post", $id_post);
-    $statement->execute();
-    return $statement->fetchAll();
-}
 
-public function getAllPostsByIduser($id_user){
-    $database = self::getInstance();
-    $query = "SELECT * FROM post WHERE id_user=:id_user";
-    $statement = $database->prepare($query);
-    $statement->bindParam(":id_user", $id_user);
-    $statement->execute();
-    return $statement->fetchAll();
+//--------------------LIKE------------------------------------
 
-}
 public function AddLike($id_post, $id_user)
 {
     try {
-        $sql = "INSERT INTO `likes` (`id_post`,`id_user`,`type`)VALUES (:id_post,:id_user)";
+        $sql = "INSERT INTO `likes` (`id_post`,`id_user`)VALUES (?,?)";
         $statement = self::$database->prepare($sql);
-        $statement->bindParam(':id_post', $id_post);
-        $statement->bindParam(':id_user', $id_user);
-      
-      
+        $statement->bindParam('?', $id_post);
+        $statement->bindParam('?', $id_user);
         $statement->execute();
     } catch(PDOException $e) {
         echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();
@@ -441,7 +432,14 @@ public function GetLikeByUserId($id_user) {
 
 }
 
-
+public function GetLikeByPostId($id_post) {
+    $database = self::getInstance();
+    $query = "SELECT * FROM like WHERE id_post=:id";
+    $statement = $database->prepare($query);
+    $statement->bindParam(":id", $id_post);
+    $statement->execute();
+    return $statement->fetchAll();
+}
 
 public function GetLike() {
     $database = self::getInstance();

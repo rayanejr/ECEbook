@@ -7,7 +7,6 @@ if(!isset($_SESSION["id_user"])){
 }
 
 require_once("../model/profil.php");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,51 +45,46 @@ require_once("../model/profil.php");
   </div>
   <div class="profile-info col-md-9">
 
-        <div class="panel">
-            <div class="bio-graph-heading">
-                <?=  $user["description"] ?>
-            </div>
-            <div class="panel-body bio-graph-info">
-                <h1>Profile informations </h1>
-                <div class="row">
-                    <div class="bio-row">
-                        <p><span>Nom </span>: <?= $user["nom"]  ?></p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span>prenom </span>: <?=  $user["prenom"] ?></p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span>ville </span>: <?= $user["ville"]  ?></p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span>Mail</span>: <?= $user["adressemail"] ?></p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span>role </span>: <?=  $user["roll"] ?> </p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span>promo </span>: <?=  $user["promo"] ?></p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span>Naissance </span>: <?= $user["datedenaissance"] ?></p>
-                    </div>
-                    <div class="bio-row">
-                        <p><span>pseudo </span>: <?=  $user["pseudo"] ?></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-        
-        </div>
-    </div>
-    </div>
-    <?php
-    $post=$db->getAllPostsByIduser($user["id_user"]);
-    ?>
+      <div class="panel">
+          <div class="bio-graph-heading">
+             <?=  $user["description"] ?>
+          </div>
+          <div class="panel-body bio-graph-info">
+              <h1>Profile informations </h1>
+              <div class="row">
+                  <div class="bio-row">
+                      <p><span>Nom </span>: <?= $user["nom"]  ?></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>prenom </span>: <?=  $user["prenom"] ?></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>ville </span>: <?= $user["ville"]  ?></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Mail</span>: <?= $user["adressemail"] ?></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>role </span>: <?=  $user["roll"] ?> </p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>promo </span>: <?=  $user["promo"] ?></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>Naissance </span>: <?= $user["datedenaissance"] ?></p>
+                  </div>
+                  <div class="bio-row">
+                      <p><span>pseudo </span>: <?=  $user["pseudo"] ?></p>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div>
+     
+      </div>
+  </div>
 </div>
-
-
+</div>
 </body>
 </html>
 
