@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : lun. 20 mars 2023 à 20:18
+-- Généré le : mar. 21 mars 2023 à 18:06
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -42,14 +42,22 @@ CREATE TABLE IF NOT EXISTS `abonement` (
 
 DROP TABLE IF EXISTS `likes`;
 CREATE TABLE IF NOT EXISTS `likes` (
-  `id_like` int NOT NULL AUTO_INCREMENT,
   `id_post` int NOT NULL,
   `id_user` int NOT NULL,
-  `type` tinyint(1) NOT NULL,
+  `id_like` int NOT NULL AUTO_INCREMENT,
+  `type` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_like`),
   UNIQUE KEY `unique_like` (`id_post`,`id_user`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `likes`
+--
+
+INSERT INTO `likes` (`id_post`, `id_user`, `id_like`, `type`) VALUES
+(29, 98, 1, 0),
+(28, 98, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -87,25 +95,15 @@ CREATE TABLE IF NOT EXISTS `post` (
   `date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_post`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `post`
 --
 
 INSERT INTO `post` (`id_post`, `message`, `image`, `commantaires`, `nomcrea`, `titre`, `id_user`, `pseudo`, `publique`, `date`) VALUES
-(6, 'je test', NULL, NULL, NULL, NULL, 90, 'test', NULL, NULL),
-(9, 'sami', NULL, NULL, NULL, NULL, 92, 'abdulhalim', NULL, NULL),
-(10, 'fgswtgs', NULL, NULL, NULL, 'eqdgbs', 93, 'Jerbi', NULL, NULL),
-(11, 'dhgndfh', NULL, NULL, NULL, 'jghuhzr', 93, 'Jerbi', NULL, NULL),
-(12, 'fgdghdf', NULL, NULL, NULL, 'fgsxghbgv', 93, 'Jerbi', NULL, NULL),
-(13, 'srfhegdfgsf', NULL, NULL, NULL, 'rfyghesr', 93, 'Jerbi', NULL, NULL),
-(14, 'hfgdxhxd', NULL, NULL, NULL, 'hgfedx', 93, 'Jerbi', NULL, '2023-03-20 13:15:29'),
-(15, 'etyhgdfyghdt', NULL, NULL, NULL, 'thdrfgchtdg', 93, 'Jerbi', NULL, '2023-03-20 13:15:38'),
-(16, 'dghf', NULL, NULL, NULL, 'ffgd', 93, 'Jerbi', NULL, '2023-03-20 13:15:51'),
-(17, 'gfddgdf', NULL, NULL, NULL, 'test', 92, 'abdulhalim', NULL, '2023-03-20 16:51:20'),
-(18, '2 eme post description', NULL, NULL, NULL, '2 eme post titre', 92, 'abdulhalim', NULL, '2023-03-20 16:51:38'),
-(19, 'fdsfsdf', NULL, NULL, NULL, 'fds', 92, 'abdulhalim', NULL, '2023-03-20 19:10:39');
+(28, 'bonjour', NULL, NULL, NULL, 'cv la famille', 98, NULL, NULL, '2023-03-21 06:11:04'),
+(29, 'sghdfh', NULL, NULL, NULL, 'qtgsrgb', 98, NULL, NULL, '2023-03-21 12:18:34');
 
 -- --------------------------------------------------------
 
@@ -130,16 +128,15 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `code_confirmation` varchar(255) NOT NULL,
   `confirmer` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=94 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id_user`, `nom`, `prenom`, `image`, `ville`, `adressemail`, `mdp`, `roll`, `promo`, `datedenaissance`, `description`, `pseudo`, `code_confirmation`, `confirmer`) VALUES
-(90, 'test', 'testt', 'Acer_Wallpaper_01_5000x2814.jpg', 'Paris', 'test.pro@edu.ece.fr', '$2y$10$5XZKylRdm602RJw5y4GybeNKG7tjZndfKt02HB3X6LB1e4J.Muqp6', 'etudiant', '', '2023-03-16', 'dsqdqsqsdqsdqsdqsdqsdqs', 'kilwa-*75', '6416560e08ca1', 1),
-(92, 'abdulhalim', 'sami', 'sami.jpg', 'Paris', 'sami.abdulhalim@edu.ece.fr', '$2y$10$fEqfMsIC9GmtIuZvLw.H4..P1d.5XwVin2SnWt98NlTb9tH8/h8O2', 'etudiant', '', '2023-03-22', 'je suis un développeur full stack ', 'aboalsim114', '5e0249a51a910f64a49b83f4012146fd', 1),
-(93, 'Jerbi', 'Rayane', 'download-removebg-preview (1).jpg', 'Cannes', 'rayane.jerbi@edu.ece.fr', '$2y$10$5kSvYS3AJn3MIAmDnszTMO7s1HCXqwTSfDb.f1TGkUaykzZtvHgFu', 'etudiant', '', '2003-04-17', 'Développeur SI et IT', 'Rayane_jrb', '1cfb4fbe48a980c2374020df6a547064', 1);
+(98, 'Jerbi', 'Rayane', 'download-removebg-preview (1).jpg', 'Cannes', 'rayane@admin.fr', '$2y$10$lm3Ff8lgR23GzvuyqDD.LuyMO2y5TbXLxIkW3i.8bW9800X.OGomO', 'admin', '', '2003-04-17', 'Développeur d\'ECEBook', 'Rayane_jrb', '641948dbdda76', 1),
+(102, 'Jerbi', 'Rayane', 'photo rayane cv.jpg', 'Cannes', 'rayane.jerbi@edu.ece.fr', '$2y$10$Uu4i3v7QhOCbsLC170t3D.gAxuoACdOfQCOl69eZgV6DHflLhXpeq', 'etudiant', '', '2003-04-17', 'Développeur SI et IT', 'rayane_jrb', '182c05631c88aee7ee33178ff455d605', 1);
 
 --
 -- Contraintes pour les tables déchargées
