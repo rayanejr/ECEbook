@@ -398,10 +398,11 @@ public function updateCommentById($id_comment, $commentaire) {
 public function AddLike($id_post, $id_user)
 {
     try {
-        $sql = "INSERT INTO `likes` (`id_post`,`id_user`)VALUES (?,?)";
+        $sql = "INSERT INTO `likes` (`id_post`,`id_user`)VALUES (:id_post,:id_user)";
         $statement = self::$database->prepare($sql);
-        $statement->bindParam('?', $id_post);
-        $statement->bindParam('?', $id_user);
+        $statement->bindParam(':id_post', $id_post);
+        $statement->bindParam(':id_user', $id_user);
+      
         $statement->execute();
     } catch(PDOException $e) {
         echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();

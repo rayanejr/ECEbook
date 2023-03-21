@@ -3,15 +3,18 @@
 
 require_once("../controller/database.php");
 
-$id_post = $_GET['id_post'];
-    $userID = $_SESSION['id_user'];
-if(isset($_POST(["like"]))){
-	
-	$db = new Database();
-    $db->addLike($_SESSION["id_user"], $_GET["id_post"]);
-    header("location:../views/connexion.php");
 
-}
+   
+        $id_post = intval($_GET['post_id']) ;
+        $userID = intval($_GET["user_id"]) ;
+        var_dump($id_post);
+        var_dump($userID);
+	$db = new Database();
+    $db->addLike($id_post,$userID);
+   
+    header("location:../views/index2.php"); 
+
+
 
 
 
