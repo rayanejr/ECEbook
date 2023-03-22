@@ -210,13 +210,15 @@ public function updateVericiationCodeByEmail($email,$verification_code){
     $statement->execute([$verification_code, $email]);
     return $statement->rowCount() > 0;
 }
-public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU,$mdpU, $descriptionU) {
+public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU, $mdpU, $descriptionU, $emailUser) {
     $database = self::getInstance();
-    $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?, mdp=?, description=?  WHERE id_user=?";
+    $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?, mdp=?, description=?, adressemail=?, roll=?  WHERE id_user=?";
+    $roll = (strpos($emailUser, '@admin') !== false) ? 'admin' : 'user'; // check if email contains "@admin"
     $statement = $database->prepare($query);
-    $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $mdpU, $descriptionU, $user_id]);
+    $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $mdpU, $descriptionU, $emailUser, $roll, $user_id]);
     return $statement->rowCount() > 0;
 }
+
 public function UpdatePassword($email, $mdpU){
     $database = self::getInstance();
     $query = "UPDATE utilisateur SET mdp=? WHERE adressemail=?";

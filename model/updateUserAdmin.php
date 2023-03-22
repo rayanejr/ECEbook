@@ -15,6 +15,7 @@ try {
     if(isset($_POST["submit"])){
         $user_id = $_GET["user_id"];
         $nomUser = $_POST["nom"] ?? '';
+        $emailUser = $_POST["email"] ?? '';
         $prenomUser = $_POST["prenom"] ?? '';
         $naissanceUser = $_POST["naissance"] ?? '';
         $villeUser = $_POST["ville"] ?? '';
@@ -22,7 +23,7 @@ try {
         $mdpUser = password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); // Hash the password
         $descriptionUser = $_POST["description"] ?? '';
     
-        $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser);
+        $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser,$emailUser);
     
         header("location: ../views/dashboard.php");
     }
