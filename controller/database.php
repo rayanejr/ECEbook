@@ -235,7 +235,14 @@ public function updateMdpByEmail($email,$mdpU) {
     return $statement->rowCount() > 0;
 }
 
-
+public function getAllPostsByIduser($id_user) {
+    $database = self::getInstance();
+    $query = "SELECT * FROM post WHERE id_user=:user_id";
+    $statement = $database->prepare($query);
+    $statement->bindParam(":user_id", $id_user);
+    $statement->execute();
+    return $statement->fetchAll();
+}
 
 public function GetPostById($id_post) {
     $database = self::getInstance();
@@ -376,15 +383,6 @@ public function AddLike($id_post, $id_user, $type)
     }
 }
 
-public function getAllPostsByIduser($id_user){
-    $database = self::getInstance();
-    $query = "SELECT * FROM post WHERE id_user=:id_user";
-    $statement = $database->prepare($query);
-    $statement->bindParam(":id_user", $id_user);
-    $statement->execute();
-    return $statement->fetchAll();
-
-}
 
 
 public function GetLikeById($id_like) {

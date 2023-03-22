@@ -173,7 +173,7 @@ $posts = $db->getAllPosts() ;
                                     echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=0" class="card-link"><i class="fa fa-gittip" name="like"></i> Dislike</a>';
                                 }
                             } else {
-                                echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=0" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
+                                echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
                             }
                             ?>  
                         <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>

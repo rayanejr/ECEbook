@@ -8,6 +8,10 @@ if(!isset($_SESSION["id_user"])){
 
 require_once("../model/profil.php");
 
+
+// require("../controller/database.php");
+$db = new Database();
+$posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +88,52 @@ require_once("../model/profil.php");
     </div>
     </div>
     <?php
-    $post=$db->getAllPostsByIduser($user["id_user"]);
+    $posts=$db->getAllPostsByIduser($user["id_user"]);
+    foreach($posts as $post){
+        ?>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-white post panel-shadow">
+                    <div class="post-heading">
+                        <div class="pull-left image">
+                            <img src="../uploads/<?= $user["image"]  ?>" class="img-circle avatar" alt="user profile image">
+                        </div>
+                        <div class="pull-left meta">
+                            <div class="title h5">
+                                <a href="#"><b><?=  $user["nom"] . " " . $user["prenom"] ?></b></a>
+                                made a post.
+                            </div>
+                            <h6 class="text-muted time"><?= $post["date"] ?></h6>
+                        </div>
+                    </div> 
+                    <div class="post-description"> 
+                        <p><?= $post["message"] ?></p>
+                        <div class="stats">
+                            <?php
+                        $likes = $db->GetLikeByPostId($post["id_post"]);
+                            if(isset($likes["type"])){
+                                if($likes["type"] == 0) {
+                                    echo '<a href="../model/addLikebyUser.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
+                                } else if($likes["type"] == 1) {
+                                    echo '<a href="../model/addLikebyUser.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=0" class="card-link"><i class="fa fa-gittip" name="like"></i> Dislike</a>';
+                                }
+                            } else {
+                                echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
+                            }
+                            ?>
+                            <!-- <a href="#" class="btn btn-default stat-item">
+                                <i class="fa fa-thumbs-up icon"></i>2
+                            </a>
+                            <a href="#" class="btn btn-default stat-item">
+                                <i class="fa fa-thumbs-down icon"></i>12
+                            </a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <?php
+    }
     ?>
 </div>
 
