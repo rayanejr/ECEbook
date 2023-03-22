@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 21 mars 2023 à 11:45
+-- Généré le : mer. 22 mars 2023 à 16:46
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -36,7 +36,14 @@ CREATE TABLE IF NOT EXISTS `abonnement` (
   UNIQUE KEY `uc_Abonnement` (`user1_id`,`user2_id`),
   KEY `user1_id` (`user1_id`),
   KEY `user2_id` (`user2_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `abonnement`
+--
+
+INSERT INTO `abonnement` (`id_abonnement`, `user1_id`, `user2_id`) VALUES
+(15, 106, 92);
 
 -- --------------------------------------------------------
 
@@ -46,15 +53,21 @@ CREATE TABLE IF NOT EXISTS `abonnement` (
 
 DROP TABLE IF EXISTS `commentaires`;
 CREATE TABLE IF NOT EXISTS `commentaires` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id_commentaire` int NOT NULL AUTO_INCREMENT,
+  `contenu` varchar(255) NOT NULL,
   `id_post` int NOT NULL,
   `id_user` int NOT NULL,
-  `commentaire_text` varchar(255) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  KEY `id_post` (`id_post`),
-  KEY `id_user` (`id_user`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `time_stamp` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id_commentaire`),
+  KEY `fk_commentaires_posts` (`id_post`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `commentaires`
+--
+
+INSERT INTO `commentaires` (`id_commentaire`, `contenu`, `id_post`, `id_user`, `time_stamp`) VALUES
+(1, 'dsfgdsfg', 9, 106, '2023-03-22 16:44:32');
 
 -- --------------------------------------------------------
 
@@ -64,13 +77,22 @@ CREATE TABLE IF NOT EXISTS `commentaires` (
 
 DROP TABLE IF EXISTS `likes`;
 CREATE TABLE IF NOT EXISTS `likes` (
-  `id_like` int NOT NULL AUTO_INCREMENT,
   `id_post` int NOT NULL,
   `id_user` int NOT NULL,
-  `type` tinyint(1) NOT NULL,
+  `id_like` int NOT NULL AUTO_INCREMENT,
+  `type` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id_like`),
-  UNIQUE KEY `unique_like` (`id_post`,`id_user`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  UNIQUE KEY `unique_like` (`id_post`,`id_user`),
+  KEY `id_user` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+--
+-- Déchargement des données de la table `likes`
+--
+
+INSERT INTO `likes` (`id_post`, `id_user`, `id_like`, `type`) VALUES
+(10, 93, 17, 0),
+(6, 90, 22, 1);
 
 -- --------------------------------------------------------
 
@@ -105,26 +127,21 @@ CREATE TABLE IF NOT EXISTS `post` (
   `titre` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `id_user` int DEFAULT NULL,
   `pseudo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `publique` binary(1) DEFAULT NULL,
-  `date` timestamp NULL DEFAULT NULL,
+  `publique` tinyint(1) DEFAULT '0',
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id_post`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `post`
 --
 
 INSERT INTO `post` (`id_post`, `message`, `image`, `nomcrea`, `titre`, `id_user`, `pseudo`, `publique`, `date`) VALUES
-(6, 'je test', NULL, NULL, NULL, 90, 'test', NULL, NULL),
-(9, 'sami', NULL, NULL, NULL, 92, 'abdulhalim', NULL, NULL),
-(10, 'fgswtgs', NULL, NULL, 'eqdgbs', 93, 'Jerbi', NULL, NULL),
-(11, 'dhgndfh', NULL, NULL, 'jghuhzr', 93, 'Jerbi', NULL, NULL),
-(12, 'fgdghdf', NULL, NULL, 'fgsxghbgv', 93, 'Jerbi', NULL, NULL),
-(13, 'srfhegdfgsf', NULL, NULL, 'rfyghesr', 93, 'Jerbi', NULL, NULL),
-(14, 'hfgdxhxd', NULL, NULL, 'hgfedx', 93, 'Jerbi', NULL, '2023-03-20 13:15:29'),
-(15, 'etyhgdfyghdt', NULL, NULL, 'thdrfgchtdg', 93, 'Jerbi', NULL, '2023-03-20 13:15:38'),
-(16, 'dghf', NULL, NULL, 'ffgd', 93, 'Jerbi', NULL, '2023-03-20 13:15:51');
+(6, 'je test', NULL, NULL, NULL, 90, 'test', 0, '2023-03-21 22:48:55'),
+(10, 'fgswtgs', NULL, NULL, 'eqdgbs', 93, 'Jerbi', 0, '2023-03-21 22:48:55'),
+(31, 'premier post publique', NULL, NULL, 'sdkfjklm', 106, 'test', 1, '2023-03-22 09:34:22'),
+(32, '', NULL, NULL, 'sdfqsdfsqdf', 106, 'test', 1, '2023-03-22 11:52:02');
 
 -- --------------------------------------------------------
 
@@ -149,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `code_confirmation` varchar(255) NOT NULL,
   `confirmer` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -159,7 +176,25 @@ INSERT INTO `utilisateur` (`id_user`, `nom`, `prenom`, `image`, `ville`, `adress
 (90, 'test', 'testt', 'Acer_Wallpaper_01_5000x2814.jpg', 'Paris', 'test.pro@edu.ece.fr', '$2y$10$5XZKylRdm602RJw5y4GybeNKG7tjZndfKt02HB3X6LB1e4J.Muqp6', 'etudiant', '', '2023-03-16', 'dsqdqsqsdqsdqsdqsdqsdqs', 'kilwa-*75', '6416560e08ca1', 1),
 (92, 'abdulhalim', 'sami', 'sami.jpg', 'Paris', 'sami.abdulhalim@edu.ece.fr', '$2y$10$2uaLj8XH.F/wv3W2oZuuNOhZ5Fpva2Q689WCxriyK22pWsTno7FIW', 'etudiant', '', '2023-03-22', 'je suis un développeur full stack ', 'aboalsim114', '641679f04f224', 1),
 (93, 'Jerbi', 'Rayane', 'download-removebg-preview (1).jpg', 'Cannes', 'rayane.jerbi@edu.ece.fr', '$2y$10$5kSvYS3AJn3MIAmDnszTMO7s1HCXqwTSfDb.f1TGkUaykzZtvHgFu', 'etudiant', '', '2003-04-17', 'Développeur SI et IT', 'Rayane_jrb', '1cfb4fbe48a980c2374020df6a547064', 1),
-(96, 'chatel', 'andreas', 'bonk.jpg', 'paris', 'andreas.chatel@edu.ece.fr', '$2y$10$AM6bU.DNzb8jCEl7PiZRheHOtSNd0x1oJ/j4IBXWTkI.fNKDfDL1e', 'etudiant', '', '2003-05-20', 'test', 'andreas', '6419973ad8d96', 1);
+(98, 'Jerbi', 'Rayane', 'download-removebg-preview (1).jpg', 'Cannes', 'rayane@admin.fr', '$2y$10$lm3Ff8lgR23GzvuyqDD.LuyMO2y5TbXLxIkW3i.8bW9800X.OGomO', 'admin', '', '2003-04-17', 'Développeur d\'ECEBook', 'Rayane_jrb', '641948dbdda76', 1),
+(102, 'Jerbi', 'Rayane', 'photo rayane cv.jpg', 'Cannes', 'rayane.jerbi@edu.ece.fr', '$2y$10$Uu4i3v7QhOCbsLC170t3D.gAxuoACdOfQCOl69eZgV6DHflLhXpeq', 'etudiant', '', '2003-04-17', 'Développeur SI et IT', 'rayane_jrb', '182c05631c88aee7ee33178ff455d605', 1),
+(106, 'test', 'tset', 'Capture d\'écran_20221027_234213.png', 'paris', 'andreas.chatel@edu.ece.fr', '$2y$10$dgwNPI4BDXLm0WRpns0u.u2GRx4poC7LZtsiQKSeyvTZgVTg5I5oW', 'etudiant', '', '0456-06-20', 'tsetsesesetsetsetsetstsets', 'andreas', '641ad2541ff6f', 1);
+
+--
+-- Contraintes pour les tables déchargées
+--
+
+--
+-- Contraintes pour la table `likes`
+--
+ALTER TABLE `likes`
+  ADD CONSTRAINT `fk_likes_posts` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`) ON DELETE CASCADE ON UPDATE RESTRICT;
+
+--
+-- Contraintes pour la table `post`
+--
+ALTER TABLE `post`
+  ADD CONSTRAINT `fk_posts_utilisateur` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id_user`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

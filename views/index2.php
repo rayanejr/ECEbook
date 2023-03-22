@@ -35,7 +35,7 @@ if (empty($subs)) {
 
 // Ré-indexer les éléments du tableau $posts
 $posts = array_values($posts);
-
+ 
 
 //$comments = $db->GetCommentByPostId($_GET['id_post']); // je sais pas comment les afficher sous les posts
 

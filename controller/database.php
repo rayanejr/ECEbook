@@ -312,7 +312,7 @@ public function updatePostById($id_post, $titre, $message, $image) {
 public function AddComment($id_user, $id_post, $commentaire)
 {
     try {
-        $sql = "INSERT INTO `commentaires` (`id_user`, `id_post`, `commentaire_text`)
+        $sql = "INSERT INTO `commentaires` (`id_user`, `id_post`, `contenu`)
         VALUES (:id_user, :id_post, :commentaire)";
         $statement = self::$database->prepare($sql);
         $statement->bindParam(':id_user', $id_user);
