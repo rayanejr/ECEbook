@@ -1,43 +1,40 @@
 <?php 
 
-
-require("../controller/database.php");
 session_start();
 
+require("../controller/database.php");
 
-if(!isset($_SESSION["id_user"])){
+if(!isset($_SESSION["admin"])){
     header("location: ../views/connexion.php");
     exit();
 }
 
-
-
 $db = new Database();
-$user = $db->GetUserById($_SESSION["id_user"]);
 
+try {
+    if(isset($_POST["submit"])){
+        $user_id = $_GET["user_id"];
+        $nomUser = $_POST["nom"] ?? '';
+        $emailUser = $_POST["email"] ?? '';
+        $prenomUser = $_POST["prenom"] ?? '';
+        $naissanceUser = $_POST["naissance"] ?? '';
+        $villeUser = $_POST["ville"] ?? '';
+        $usernameUser = $_POST["username"] ?? '';
+        $promoUser = $_POST["choixPromo"] ?? '';
+        $confirmerUser = $_POST["confirmer"] ?? '';
+        $mdpUser = password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); // Hash the password
+        $descriptionUser = $_POST["description"] ?? '';
+        $imageUser = $_FILES['image']['name'];
+        $filetmpname = $_FILES['image']['tmp_name'];
 
+        $folder = '../uploads/';
+        move_uploaded_file($filetmpname, $folder . $imageUser);
 
-if(isset($_POST["submit"])){
-
-    $user_id = $_SESSION["id_user"];
-    $nomUser = $_POST["nom"] ?? '';
-    $prenomUser = $_POST["prenom"] ?? '';
-    $naissanceUser = $_POST["naissance"] ?? '';
-    $villeUser = $_POST["ville"] ?? '';
-    $usernameUser = $_POST["username"] ?? '';
-    $mdpUser = password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); // Hash the password
-    $descriptionUser = $_POST["description"] ?? '';
-
-
-    $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser);
-
-    header("location: ../views/dashboard.php");
-
-
-
-
+        $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser,$emailUser,$confirmerUser,$promoUser,$imageUser);
+    
+        header("location: ../views/dashboard.php");
+    }
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
 }
-
-
-
 ?>

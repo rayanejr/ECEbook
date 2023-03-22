@@ -9,7 +9,7 @@ if (isset($_GET['email']) ) {
     $code = $_GET["code"] ?? '';
     if (!empty($email) && !empty($code)) {
         if ($db->VerifyConfirmationCode($email, $code)) {
-            header("location: ../view/resepassword.php?email=$email&code=$code");
+            header("location: ../views/resepassword.php?email=$email&code=$code");
         } else {
             // Le code de confirmation n'est pas valide, afficher un message d'erreur
         }

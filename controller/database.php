@@ -211,13 +211,15 @@ public function updateVericiationCodeByEmail($email,$verification_code){
     $statement->execute([$verification_code, $email]);
     return $statement->rowCount() > 0;
 }
-public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU,$mdpU, $descriptionU) {
+public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU, $mdpU, $descriptionU, $emailUser,$confirmerUser,$promoUser,$imageUser) {
     $database = self::getInstance();
-    $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?, mdp=?, description=?  WHERE id_user=?";
+    $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?, mdp=?, description=?, adressemail=?, confirmer=? , promo=?, image=? , roll=?  WHERE id_user=?";
+    $roll = (strpos($emailUser, '@admin') !== false) ? 'admin' : 'etudiant'; // check if email contains "@admin"
     $statement = $database->prepare($query);
-    $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $mdpU, $descriptionU, $user_id]);
+    $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $mdpU, $descriptionU, $emailUser,$confirmerUser,$promoUser, $imageUser, $roll,  $user_id]);
     return $statement->rowCount() > 0;
 }
+
 public function UpdatePassword($email, $mdpU){
     $database = self::getInstance();
     $query = "UPDATE utilisateur SET mdp=? WHERE adressemail=?";
@@ -234,8 +236,25 @@ public function updateMdpByEmail($email,$mdpU) {
     return $statement->rowCount() > 0;
 }
 
+public function getAllPostsByIduser($id_user) {
+    $database = self::getInstance();
+    $query = "SELECT * FROM post WHERE id_user=:user_id";
+    $statement = $database->prepare($query);
+    $statement->bindParam(":user_id", $id_user);
+    $statement->execute();
+    return $statement->fetchAll();
+}
 
+public function deletePostByIdUserAndIdpost($id_user, $id_post){
+    $database = self::getInstance();
+    $query = "DELETE FROM post WHERE id_user=:user_id AND id_post=:post_id";
+    $statement = $database->prepare($query);
+    $statement->bindParam(":user_id", $id_user);
+    $statement->bindParam(":post_id", $id_post);
+    $statement->execute();
+    return $statement->fetch();
 
+}
 public function GetPostById($id_post) {
     $database = self::getInstance();
     $query = "SELECT * FROM post WHERE id_post=:id";
@@ -265,7 +284,7 @@ function getAllPosts() {
 
 function getAllUsers() {
     $pdo = self::getInstance();
-    $sql = "SELECT * FROM utilisateur ";
+    $sql = "SELECT * FROM utilisateur  ORDER BY roll = 'admin' DESC";
     $statement = $pdo->prepare($sql);
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);
@@ -276,13 +295,13 @@ function getAllUsers() {
 
 
 
-public function updatePostById($id_post, $titre, $description, $image) {
+public function updatePostById($id_post, $titre, $message, $image) {
     $database = self::getInstance();
-    $query = "UPDATE post SET titre=:titre, description=:description, image=:image WHERE id_post=:id";
+    $query = "UPDATE post SET titre=:titre, message=:message, image=:image WHERE id_post=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_post);
     $statement->bindParam(':titre', $titre);
-    $statement->bindParam(':description', $description);
+    $statement->bindParam(':message', $message);
     $statement->bindParam(':image', $image);
     $statement->execute();
     return $statement->fetch();
