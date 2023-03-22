@@ -302,7 +302,7 @@ $post_count = $db->getPostCount();
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Date de naissance</span>
-                            <input class="form-control" type="date" name="naissance" placeholder="Date" required><br><br>
+                            <input class="form-control" id="datefield" type="date" name="naissance" placeholder="Date" required><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -646,7 +646,7 @@ foreach($users as $user):
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Date de naissance</span>
-                            <input class="form-control" type="date" name="naissance" placeholder="Date" value='<?= $user["datedenaissance"]  ?>' required><br><br>
+                            <input class="form-control" id="datefield" type="date" name="naissance" placeholder="Date" value='<?= $user["datedenaissance"]  ?>' required><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -773,3 +773,20 @@ foreach($users as $user):
 
 </body>
 </html>
+<script>
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+   dd = '0' + dd;
+}
+
+if (mm < 10) {
+   mm = '0' + mm;
+} 
+    
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById("datefield").setAttribute("max", today);
+</script>
