@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 22 mars 2023 à 13:01
+-- Généré le : mer. 22 mars 2023 à 21:45
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -44,20 +44,18 @@ DROP TABLE IF EXISTS `likes`;
 CREATE TABLE IF NOT EXISTS `likes` (
   `id_post` int NOT NULL,
   `id_user` int NOT NULL,
-  `id_like` int NOT NULL AUTO_INCREMENT,
-  `type` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id_like`),
-  UNIQUE KEY `unique_like` (`id_post`,`id_user`),
+  `like` int DEFAULT '1',
+  PRIMARY KEY (`id_post`,`id_user`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `likes`
 --
 
-INSERT INTO `likes` (`id_post`, `id_user`, `id_like`, `type`) VALUES
-(29, 98, 1, 0),
-(28, 98, 2, 1);
+INSERT INTO `likes` (`id_post`, `id_user`, `like`) VALUES
+(50, 119, 1),
+(51, 119, 1);
 
 -- --------------------------------------------------------
 
@@ -95,16 +93,15 @@ CREATE TABLE IF NOT EXISTS `post` (
   `date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_post`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `post`
 --
 
 INSERT INTO `post` (`id_post`, `message`, `image`, `commantaires`, `nomcrea`, `titre`, `id_user`, `pseudo`, `publique`, `date`) VALUES
-(28, 'bonjour', NULL, NULL, NULL, 'cv la famille', 98, NULL, NULL, '2023-03-21 06:11:04'),
-(29, 'sghdfh', NULL, NULL, NULL, 'qtgsrgb', 98, NULL, NULL, '2023-03-21 12:18:34'),
-(37, 'Le RN et la Nupes dénoncent un projet de loi qui ne serait pas respectueux de la Constitution. L\'accélération des débats en ayant recours à l\'articles 49.3 et 47.1 tout comme certaines dispositions de loi qui ne semblent pas relever du budget de la sécurité sociale pourraient pousser les Sages à censurer une partie du texte.\r\nLe gouvernement espère bien que ce sera la dernière étape de la réforme des retraites. Après l\'adoption par le Parlement de la retraite à 64 ans ce lundi soir, après le rejet de peu d\'une motion de censure, Élisabeth Borne a indiqué qu\'elle saisirait \"directement le Conseil constitutionnel\" pour un examen du texte \"dans les meilleurs délais\".\r\n\r\nSi l\'institution a pour mission de s\'assurer du respect du contrôle de la Constitution pour certains textes, comme le règlement du Sénat ou de l\'Assemblée, elle n\'a pas l\'obligation de se saisir des lois budgétaires, sauf si elle est saisie par le gouvernement ou des députés.\r\n\r\nLe RN n\'a pas attendu la transmission par Matignon pour déposer un recours ce mardi matin, suivi par la Nupes dans la soirée. Les sages - le nom donné aux membres du Conseil constitutionnel - vont désormais se pencher sur chaque article pour voir s\'il est bien conforme à la Constitution. Plusieurs éléments pourraient être retoqués par le Conseil constitutionnel.', NULL, NULL, NULL, 'RÉFORME DES RETRAITES: POURQUOI LE CONSEIL CONSTITUTIONNEL POURRAIT EN PARTIE LA CENSURER', 106, 'abdulhalim', NULL, '2023-03-22 11:54:39');
+(50, 'ersdcgvsfx', NULL, NULL, NULL, 'efzrgsfgvrs', 120, NULL, NULL, '2023-03-22 16:43:13'),
+(51, 'efdqfwsdf', NULL, NULL, NULL, 'efdgfvsd', 121, 'Jerbi', NULL, '2023-03-22 20:17:34');
 
 -- --------------------------------------------------------
 
@@ -129,27 +126,19 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `code_confirmation` varchar(255) NOT NULL,
   `confirmer` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
 --
 
 INSERT INTO `utilisateur` (`id_user`, `nom`, `prenom`, `image`, `ville`, `adressemail`, `mdp`, `roll`, `promo`, `datedenaissance`, `description`, `pseudo`, `code_confirmation`, `confirmer`) VALUES
-(98, 'Jerbi', 'Rayane', 'download-removebg-preview (1).jpg', 'Cannes', 'rayane@admin.fr', '$2y$10$lm3Ff8lgR23GzvuyqDD.LuyMO2y5TbXLxIkW3i.8bW9800X.OGomO', 'admin', '', '2003-04-17', 'Développeur d\'ECEBook', 'Rayane_jrb', '641948dbdda76', 1),
-(102, 'Jerbi', 'Rayane', 'photo rayane cv.jpg', 'Cannes', 'rayane.jerbi@edu.ece.fr', '$2y$10$Uu4i3v7QhOCbsLC170t3D.gAxuoACdOfQCOl69eZgV6DHflLhXpeq', 'etudiant', '', '2003-04-17', 'Développeur SI et IT', 'rayane_jrb', '182c05631c88aee7ee33178ff455d605', 1),
-(106, 'abdulhalim', 'sami', 'Acer_Wallpaper_02_5000x2813.jpg', 'Paris', '', '$2y$10$IUZk3ewmqJKl6VBDQxvq7..e8GajqJ6ytdMer5RtO/aTS0cUxumnC', 'etudiant', 'Bachelor 2', '2023-03-08', 'je suis un développeur full stack ', '', '641ade14411f7', 1);
+(120, 'Jerbi', 'rayane', 'download-removebg-preview (1).jpg', 'Paris', 'rayane@admin.fr', '$2y$10$mXbbkOvM.5BrWugDRxhvROseSXl3lLax0Czf7LGkoU8f1Fepo1EYO', 'admin', 'Promo', '2003-04-17', 'qedfgfvzfsgv', 'rayane', '641b3d583ea79', 1),
+(121, 'Jerbi', 'Rayane', 'download-removebg-preview (1).jpg', 'Paris', 'rayane.jerbi@edu.ece.fr', '$2y$10$kSdgm3kzwOHVVeT9nSzGm.Zu3FDPVq0ZdzbKGCI1aDxfTDdh6Sukq', 'etudiant', 'Bachelor 2', '2003-04-17', 'Développeur SI et IT', 'Rayane_jrb', '641b6c98bd272', 1);
 
 --
 -- Contraintes pour les tables déchargées
 --
-
---
--- Contraintes pour la table `likes`
---
-ALTER TABLE `likes`
-  ADD CONSTRAINT `id_post` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  ADD CONSTRAINT `id_user` FOREIGN KEY (`id_user`) REFERENCES `utilisateur` (`id_user`) ON DELETE CASCADE ON UPDATE RESTRICT;
 
 --
 -- Contraintes pour la table `post`

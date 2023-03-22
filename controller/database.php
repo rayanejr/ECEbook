@@ -374,6 +374,17 @@ class Database{
         return $statement->fetch();
     }
 
+    public function getCountforPostbyIdpost($id_post){
+        $database = self::getInstance(); 
+        $query = "SELECT count(*) FROM likes WHERE id_post=:id_post";
+        $statement = $database->prepare($query); 
+        $statement->bindParam(":id_post", $id_post);
+        $statement->execute();
+        $count = $statement->fetch(PDO::FETCH_NUM);
+        return $count[0];
+    }
+
+
     public function updateCommentById($id_comment, $commentaire) {
         $database = self::getInstance();
         $query = "UPDATE commentaire SET commentaire=:commentaire WHERE id_comment=:id";
@@ -385,28 +396,56 @@ class Database{
     }
     public function GetLikeByPostId($id_post){
         $database = self::getInstance();
-        $query = "SELECT * FROM likes WHERE id_post=:id_post";
+        $query = "SELECT * FROM `likes` WHERE id_post=:id_post";
         $statement = $database->prepare($query);
         $statement->bindParam(":id_post", $id_post);
         $statement->execute();
         return $statement->fetch();
     }
-    public function AddLike($id_post, $id_user, $type)
-    {
-        try {
-            $sql = "INSERT INTO `likes` (`id_post`, `id_user`, `type`) VALUES (:id_post, :id_user, :type)
-            ON DUPLICATE KEY UPDATE `type` = :type";
-            $statement = self::$database->prepare($sql);
-            $statement->bindParam(':id_post', $id_post);
-            $statement->bindParam(':id_user', $id_user);
-            $statement->bindParam(':type', $type);
-            $statement->execute();
-        } catch(PDOException $e) {
-            echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();
-            die();
+    function userLikesAnnonce($id_user,$id_post){
+        $sql = "SELECT * FROM `likes` WHERE `id_user`= ? AND `id_post` = ?";
+        $statementCHECK = self::$database->prepare($sql);
+        $statementCHECK->execute(array( $id_user, $id_post ));
+        
+
+        if ( sizeof($statementCHECK->fetchAll()) == 0 ) { 
+            return true; 
+        }else{ 
+            return false; 
         }
     }
 
+    function addAnnonceToMyFavourites($id_user, $id_post)
+    {
+    
+
+        // check
+
+        $sql = "SELECT * FROM `likes` WHERE `id_user`= ? AND `id_post` = ?";
+        $statementCHECK = self::$database->prepare($sql);
+        $statementCHECK->execute(array( $id_user, $id_post));
+        
+
+        if ( sizeof($statementCHECK->fetchAll()) == 0 ) {
+
+            $sql = "INSERT INTO `likes` (`like`, `id_post`, `id_user`) 
+            VALUES ('1', :id_post, :id_user)";
+            $statement = self::$database->prepare($sql);
+            $statement->execute(array(":id_post" => $id_post, ":id_user" => $id_user));
+            
+        }else{
+            $sql = "DELETE FROM `likes` 
+            WHERE `likes`.`id_post` = :id_post
+            AND `likes`.`id_user` = :id_user ";
+
+            $statement = self::$database->prepare($sql);
+            $statement->execute(array(":id_post" => $id_post, ":id_user" => $id_user));
+            
+
+        }
+
+
+    }
 
 
     public function GetLikeById($id_like) {
