@@ -91,47 +91,65 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
     $posts=$db->getAllPostsByIduser($user["id_user"]);
     foreach($posts as $post){
         ?>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-white post panel-shadow">
-                    <div class="post-heading">
-                        <div class="pull-left image">
-                            <img src="../uploads/<?= $user["image"]  ?>" class="img-circle avatar" alt="user profile image">
-                        </div>
-                        <div class="pull-left meta">
-                            <div class="title h5">
-                                <a href="#"><b><?=  $user["nom"] . " " . $user["prenom"] ?></b></a>
-                                made a post.
-                            </div>
-                            <h6 class="text-muted time"><?= $post["date"] ?></h6>
-                        </div>
-                    </div> 
-                    <div class="post-description"> 
-                        <p><?= $post["message"] ?></p>
-                        <div class="stats">
-                            <?php
+
+
+
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-md-9 col-lg-7 col-xl-5">
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body p-4">
+            <div class="d-flex text-black">
+              <div class="flex-shrink-0">
+              <img src="../uploads/<?= $user["image"]  ?>" class="img-circle avatar" 
+                        
+                  alt="Generic placeholder image" class="img-fluid"
+                  style="width: 180px; border-radius: 10px;">
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h5 class="mb-1"><?=  $user["nom"] . " " . $user["prenom"] ?></h5>
+                <p class="mb-2 pb-1" style="color: #2b2a2a;"><?= $post["date"] ?></p>
+                <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
+                  style="background-color: #efefef;">
+                  <div>
+                    <p class="small text-muted mb-1">Articles</p>
+                    <p class="mb-0"><?= $post["message"] ?></p>
+                  </div>
+                  
+                </div>
+                <div class="d-flex pt-1">
+                  <button type="button" class="btn btn-outline-primary me-1 flex-grow-1">Chat</button>&nbsp;
+                    <?php
                         $likes = $db->GetLikeByPostId($post["id_post"]);
                             if(isset($likes["type"])){
                                 if($likes["type"] == 0) {
-                                    echo '<a href="../model/addLikebyUser.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
+                                    echo '<button type="button" class="btn btn-outline-primary me-1 flex-grow-1">
+                                    <a href="../model/addLikebyUser.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1">
+                                    <i class="fa fa-gittip" name="like"></i>Like</a>
+                                    </button>';
+                                    
                                 } else if($likes["type"] == 1) {
-                                    echo '<a href="../model/addLikebyUser.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=0" class="card-link"><i class="fa fa-gittip" name="like"></i> Dislike</a>';
+                                    echo '<button type="button" class="btn btn-outline-primary me-1 flex-grow-1">
+                                    <a href="../model/addLikebyUser.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=0">
+                                    <i class="fa fa-gittip" name="like"></i>Disike</a>
+                                    </button>';
                                 }
                             } else {
-                                echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
+                                echo '<button type="button" class="btn btn-outline-primary me-1 flex-grow-1">
+                                    <a href="../model/addLikebyUser.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1">
+                                    <i class="fa fa-gittip" name="like"></i>Like</a>
+                                    </button>';
                             }
-                            ?>
-                            <!-- <a href="#" class="btn btn-default stat-item">
-                                <i class="fa fa-thumbs-up icon"></i>2
-                            </a>
-                            <a href="#" class="btn btn-default stat-item">
-                                <i class="fa fa-thumbs-down icon"></i>12
-                            </a> -->
-                        </div>
-                    </div>
+                     ?>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
+    </div>
+  </div>
+
         <?php
     }
     ?>
