@@ -15,11 +15,10 @@ require("../controller/database.php");
     $id_user2 = $_GET['id_user'];
 
     
-        $db = new Database();
-        $db->addSubcriber($id_user1, $id_user2);
+    $db = new Database();
+    $db->addSubcriber($id_user1, $id_user2);
 
-        echo "<script>alert('Vous êtes maintenant abonné !');</script>";
+    echo "<script>alert('Vous êtes maintenant abonné !');</script>";
 
     header("location: ../views/index2.php");
-
 ?>
