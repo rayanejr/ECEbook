@@ -134,14 +134,16 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
                                     <i class="fa fa-gittip" name="like"></i>Disike</a>
                                     </button>';
                                 }
-                            } else {
+                            }else {
                                 echo '<button type="button" class="btn btn-outline-primary me-1 flex-grow-1">
                                     <a href="../model/addLikebyUser.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1">
                                     <i class="fa fa-gittip" name="like"></i>Like</a>
                                     </button>';
                             }
+
                      ?>
-                </div>
+                     <a class="btn btn-sm btn-square btn-danger text-danger-hover" href="../model/deletePost.php?post_id=<?php echo $post['id_post']; ?>&user_id=<?php echo $post['id_user']; ?>"> <i class="bi bi-trash"></i> Supprimer </a>
+                    </div>
               </div>
             </div>
           </div>

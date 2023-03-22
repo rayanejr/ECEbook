@@ -244,6 +244,16 @@ public function getAllPostsByIduser($id_user) {
     return $statement->fetchAll();
 }
 
+public function deletePostByIdUserAndIdpost($id_user, $id_post){
+    $database = self::getInstance();
+    $query = "DELETE FROM post WHERE id_user=:user_id AND id_post=:post_id";
+    $statement = $database->prepare($query);
+    $statement->bindParam(":user_id", $id_user);
+    $statement->bindParam(":post_id", $id_post);
+    $statement->execute();
+    return $statement->fetch();
+
+}
 public function GetPostById($id_post) {
     $database = self::getInstance();
     $query = "SELECT * FROM post WHERE id_post=:id";
