@@ -159,7 +159,8 @@ $posts = $db->getAllPosts() ;
                             </a>
 
                             <p class="card-text">
-                            <?=  $post["message"] ?>
+                            <?=  nl2br($post["message"]) ?>
+
                             </p>
                         </div>
                         <div class="card-footer">

@@ -11,9 +11,19 @@ require_once("../model/profil.php");
 
 $db = new Database();
 $posts = null;
-if (isset($_GET["post_id"])) {
-    $posts = $db->getPostsByIduserAndIdPost($_SESSION["id_user"], $_GET["post_id"]);
+$post_id = intval($_GET["post_id"]);
+$user_id = intval($_GET["user_id"]);
+if (isset($post_id)) {
+    echo "ok";
+    $posts = $db->getPostsByIduserAndIdPost($user_id, $post_id);
 };
+
+
+var_dump($post_id);
+var_dump($user_id);
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,7 +35,9 @@ if (isset($_GET["post_id"])) {
 </head>
 <body>
 <?php
+
 foreach($posts as $post):
+
 ?>
 <!-- modal modif  post -->
 <div class="text-center jumbotron">
@@ -43,7 +55,7 @@ foreach($posts as $post):
 					
 						<div class="row">
 							<div class="col-md-12">
-                            <form action="../model/updatePostUser.php?post_id=<?php echo $posts['id_post']; ?>&user_id=<?php echo $post['id_user'];?>"  method="POST" enctype="multipart/form-data">
+                            <form action="../model/updatePostUser.php?post_id=<?=  $post['id_post']; ?>&user_id=<?=  $post['id_user'];?>"  method="POST" enctype="multipart/form-data">
 
 
   
@@ -58,13 +70,13 @@ foreach($posts as $post):
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">titre</span>
-                            <input class="form-control" type="text" name="titre" placeholder="entrez un titre" value='<?= $posts["titre"] ?>' required><br><br>
+                            <input class="form-control" type="text" name="titre" placeholder="entrez un titre" value='<?= $post["titre"] ?>' required><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Post</span>
-                            <input class="form-control" type="text" name="message" placeholder="entrez un post" value="<?=  $posts["message"] ?>" required><br><br>
+                            <input class="form-control" type="text" name="message" placeholder="entrez un post" value="<?=  $post["message"] ?>" required><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">

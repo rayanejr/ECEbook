@@ -101,17 +101,23 @@ body{
                                     <input class="form-control" name="image" id="inputContact6" type="file" value="<?=  $user["image"] ?>">
                                 </div>
                             </div>
+                            
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact7">description</label>
                                 <div class="col-sm-10">
                                     <input class="form-control"  name="description" id="inputContact7" type="text" value="<?=  $user["description"] ?>">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <input class="form-control" hidden  name="confirmer" id="inputContact7" type="number" value="<?=  $user["confirmer"] ?>">
+                                </div>
+                            </div>
     
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact7">pseudo</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" name="username" id="inputContact7" type="text" value="<?=  $user["pseudo"] ?>">
+                                    <input class="form-control"  name="pseudo" id="inputContact7" type="text" value="<?=  $user["pseudo"] ?>">
                                 </div>
                             </div>
                             <div class="form-group">

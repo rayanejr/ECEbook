@@ -15,6 +15,13 @@ body {
     margin-top: 30px;
 }
 
+.image-post-edit {
+    max-width: 112px;
+    min-width: 112px;
+    max-height: 113px;
+    min-height: 113px;
+}
+
 .profile-nav .user-heading {
     background: #fbc02d;
     color: #fff;
@@ -383,4 +390,10 @@ ul.summary-list>li:last-child {
 
 .activity-desk .album a:last-child {
     margin-right: 0px;
+}
+
+@media (max-width: 767.98px) {
+    .border-sm-start-none {
+        border-left: none !important;
+    }
 }

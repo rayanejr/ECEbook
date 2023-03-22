@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mar. 21 mars 2023 à 18:06
+-- Généré le : mer. 22 mars 2023 à 13:01
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS `likes` (
   PRIMARY KEY (`id_like`),
   UNIQUE KEY `unique_like` (`id_post`,`id_user`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `likes`
@@ -84,7 +84,7 @@ CREATE TABLE IF NOT EXISTS `message` (
 DROP TABLE IF EXISTS `post`;
 CREATE TABLE IF NOT EXISTS `post` (
   `id_post` int NOT NULL AUTO_INCREMENT,
-  `message` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
+  `message` text CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci,
   `image` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `commantaires` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
   `nomcrea` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `post` (
   `date` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id_post`),
   KEY `id_user` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `post`
@@ -103,7 +103,8 @@ CREATE TABLE IF NOT EXISTS `post` (
 
 INSERT INTO `post` (`id_post`, `message`, `image`, `commantaires`, `nomcrea`, `titre`, `id_user`, `pseudo`, `publique`, `date`) VALUES
 (28, 'bonjour', NULL, NULL, NULL, 'cv la famille', 98, NULL, NULL, '2023-03-21 06:11:04'),
-(29, 'sghdfh', NULL, NULL, NULL, 'qtgsrgb', 98, NULL, NULL, '2023-03-21 12:18:34');
+(29, 'sghdfh', NULL, NULL, NULL, 'qtgsrgb', 98, NULL, NULL, '2023-03-21 12:18:34'),
+(37, 'Le RN et la Nupes dénoncent un projet de loi qui ne serait pas respectueux de la Constitution. L\'accélération des débats en ayant recours à l\'articles 49.3 et 47.1 tout comme certaines dispositions de loi qui ne semblent pas relever du budget de la sécurité sociale pourraient pousser les Sages à censurer une partie du texte.\r\nLe gouvernement espère bien que ce sera la dernière étape de la réforme des retraites. Après l\'adoption par le Parlement de la retraite à 64 ans ce lundi soir, après le rejet de peu d\'une motion de censure, Élisabeth Borne a indiqué qu\'elle saisirait \"directement le Conseil constitutionnel\" pour un examen du texte \"dans les meilleurs délais\".\r\n\r\nSi l\'institution a pour mission de s\'assurer du respect du contrôle de la Constitution pour certains textes, comme le règlement du Sénat ou de l\'Assemblée, elle n\'a pas l\'obligation de se saisir des lois budgétaires, sauf si elle est saisie par le gouvernement ou des députés.\r\n\r\nLe RN n\'a pas attendu la transmission par Matignon pour déposer un recours ce mardi matin, suivi par la Nupes dans la soirée. Les sages - le nom donné aux membres du Conseil constitutionnel - vont désormais se pencher sur chaque article pour voir s\'il est bien conforme à la Constitution. Plusieurs éléments pourraient être retoqués par le Conseil constitutionnel.', NULL, NULL, NULL, 'RÉFORME DES RETRAITES: POURQUOI LE CONSEIL CONSTITUTIONNEL POURRAIT EN PARTIE LA CENSURER', 106, 'abdulhalim', NULL, '2023-03-22 11:54:39');
 
 -- --------------------------------------------------------
 
@@ -128,7 +129,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `code_confirmation` varchar(255) NOT NULL,
   `confirmer` tinyint(1) NOT NULL,
   PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=106 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=107 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Déchargement des données de la table `utilisateur`
@@ -136,7 +137,8 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
 
 INSERT INTO `utilisateur` (`id_user`, `nom`, `prenom`, `image`, `ville`, `adressemail`, `mdp`, `roll`, `promo`, `datedenaissance`, `description`, `pseudo`, `code_confirmation`, `confirmer`) VALUES
 (98, 'Jerbi', 'Rayane', 'download-removebg-preview (1).jpg', 'Cannes', 'rayane@admin.fr', '$2y$10$lm3Ff8lgR23GzvuyqDD.LuyMO2y5TbXLxIkW3i.8bW9800X.OGomO', 'admin', '', '2003-04-17', 'Développeur d\'ECEBook', 'Rayane_jrb', '641948dbdda76', 1),
-(102, 'Jerbi', 'Rayane', 'photo rayane cv.jpg', 'Cannes', 'rayane.jerbi@edu.ece.fr', '$2y$10$Uu4i3v7QhOCbsLC170t3D.gAxuoACdOfQCOl69eZgV6DHflLhXpeq', 'etudiant', '', '2003-04-17', 'Développeur SI et IT', 'rayane_jrb', '182c05631c88aee7ee33178ff455d605', 1);
+(102, 'Jerbi', 'Rayane', 'photo rayane cv.jpg', 'Cannes', 'rayane.jerbi@edu.ece.fr', '$2y$10$Uu4i3v7QhOCbsLC170t3D.gAxuoACdOfQCOl69eZgV6DHflLhXpeq', 'etudiant', '', '2003-04-17', 'Développeur SI et IT', 'rayane_jrb', '182c05631c88aee7ee33178ff455d605', 1),
+(106, 'abdulhalim', 'sami', 'Acer_Wallpaper_02_5000x2813.jpg', 'Paris', '', '$2y$10$IUZk3ewmqJKl6VBDQxvq7..e8GajqJ6ytdMer5RtO/aTS0cUxumnC', 'etudiant', 'Bachelor 2', '2023-03-08', 'je suis un développeur full stack ', '', '641ade14411f7', 1);
 
 --
 -- Contraintes pour les tables déchargées

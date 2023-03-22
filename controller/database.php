@@ -209,12 +209,12 @@ class Database{
         $statement->execute([$verification_code, $email]);
         return $statement->rowCount() > 0;
     }
-    public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU, $mdpU, $descriptionU, $emailUser,$confirmerUser,$promoUser,$imageUser) {
+    public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU, $descriptionU, $emailUser,$confirmerUser,$imageUser) {
         $database = self::getInstance();
-        $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?, mdp=?, description=?, adressemail=?, confirmer=? , promo=?, image=? , roll=?  WHERE id_user=?";
+        $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?,  description=?, adressemail=?, confirmer=? , image=? , roll=?  WHERE id_user=?";
         $roll = (strpos($emailUser, '@admin') !== false) ? 'admin' : 'etudiant'; // check if email contains "@admin"
         $statement = $database->prepare($query);
-        $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $mdpU, $descriptionU, $emailUser,$confirmerUser,$promoUser, $imageUser, $roll,  $user_id]);
+        $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $descriptionU, $emailUser,$confirmerUser, $imageUser, $roll,  $user_id]);
         return $statement->rowCount() > 0;
     }
 
@@ -253,15 +253,17 @@ class Database{
         return $statement->fetch();
 
     }
-    public function getPostsByIduserAndIdPost( $id_user, $id_post){
+    public function getPostsByIduserAndIdPost($id_user, $id_post){
         $database = self::getInstance();
         $query = "SELECT * FROM post WHERE id_user=:user_id AND id_post=:post_id";
         $statement = $database->prepare($query);
         $statement->bindParam(":user_id", $id_user);
         $statement->bindParam(":post_id", $id_post);
         $statement->execute();
-        return $statement->fetch();
+        $result = $statement->fetch();
+        return $result ? [$result] : [];
     }
+    
     public function updatePostByIdUserAndIdpost(){
         $database = self::getInstance();
         $query = "UPDATE post SET titre=?, contenu=? WHERE id_user=:user_id AND id_post=:post_id";

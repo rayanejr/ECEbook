@@ -16,7 +16,7 @@ $db = new Database();
 
 try {
     if(isset($_POST["submit"])){
-        $post_id = $_GET["post_id"];
+        $post_id =  intval($_GET["post_id"]);
         $titreP = $_POST["titre"] ?? '';
         $messageP = $_POST["message"] ?? '';
        
