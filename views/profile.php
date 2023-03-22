@@ -142,6 +142,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
                             }
 
                      ?>
+                     <a class="btn btn-sm btn-square btn-danger text-danger-hover" href="./modifPostByUser.php?post_id=<?php echo $post['id_post']; ?>&user_id=<?php echo $post['id_user']; ?>"> <i class="bi bi-trash"></i> Modifier </a>
                      <a class="btn btn-sm btn-square btn-danger text-danger-hover" href="../model/deletePost.php?post_id=<?php echo $post['id_post']; ?>&user_id=<?php echo $post['id_user']; ?>"> <i class="bi bi-trash"></i> Supprimer </a>
                     </div>
               </div>
@@ -155,6 +156,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
         <?php
     }
     ?>
+
 </div>
 
 
