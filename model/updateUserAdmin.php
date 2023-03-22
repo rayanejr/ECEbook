@@ -20,10 +20,11 @@ try {
         $naissanceUser = $_POST["naissance"] ?? '';
         $villeUser = $_POST["ville"] ?? '';
         $usernameUser = $_POST["username"] ?? '';
+        $confirmerUser = $_POST["confirmer"] ?? '';
         $mdpUser = password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); // Hash the password
         $descriptionUser = $_POST["description"] ?? '';
     
-        $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser,$emailUser);
+        $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser,$emailUser,$confirmerUser);
     
         header("location: ../views/dashboard.php");
     }

@@ -594,6 +594,12 @@ foreach($users as $user):
                             <input class="form-control" type="text" name="description" placeholder="Tapez votre description..." value='<?= $user["description"]  ?>'><br><br>
                         </div>
                     </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text"> confirmer</span>
+                            <input class="form-control" type="text" name="confirmer"  value='<?= $user["confirmer"]  ?>'><br><br>
+                        </div>
+                    </div>
                     <input class="btn btn-primary btn-lg" style="margin-left: 39%;" type="submit" name="submit" value="modifier"><br><br>
                 </div>
                 
