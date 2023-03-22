@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $user_id = $_SESSION["id_user"];
     $titre = $_POST['titre'];
-    $pseudo = $_SESSION["nom"];
+    $pseudo = $_SESSION["pseudo"];
     $message = $_POST['message'];
     $date_creation=date('Y-m-d H:i:s');
 

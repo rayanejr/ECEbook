@@ -76,9 +76,9 @@ if(isset($_SESSION["id_user"])){
                             <div class="form-group mb-3" id="promo-group">
                                 <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo">
                                     <option selected>Promo</option>
-                                    <option value="1">Bachelor 1</option>
-                                    <option value="2">Bachelor 2</option>
-                                    <option value="3">Bachelor 3</option>
+                                    <option value="Bachelor 1">Bachelor 1</option>
+                                    <option value="Bachelor 2">Bachelor 2</option>
+                                    <option value="Bachelor 3">Bachelor 3</option>
                                 </select>
                             </div>
                    

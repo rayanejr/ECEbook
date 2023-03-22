@@ -237,7 +237,7 @@ $post_count = $db->getPostCount();
                                         </span>
                                     </td>
                                     <td class="text-end">
-                                        <a href="#" class="btn btn-sm btn-neutral">modifier</a>
+                                    <a class="btn btn-sm btn-neutral" data-toggle="modal" href="#modifierP-<?= $post["id_post"] ?>">modifier</a>
                                        
                                         <a class="btn btn-sm btn-square btn-danger text-danger-hover" href="../model/deletePostAdmin.php?post_id=<?= $post["id_post"]  ?>"> <i class="bi bi-trash"></i> </a>
                                     </td>
@@ -482,6 +482,117 @@ $post_count = $db->getPostCount();
 
 
 
+
+
+
+
+
+
+
+
+    <?php
+foreach($users as $user):
+?>
+<!-- modal modif  post -->
+<div class="text-center jumbotron">
+</div>
+		<div class="modal fade" id="modifierP-<?= $post["id_post"] ?>">
+			<div class="modal-dialog shadow-lg p-3 mb-5 bg-white rounded">
+				<div class="modal-content sub-bg">
+					<div class="modal-header subs-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						<!-- <h4 class="modal-title">Modal title</h4> -->
+					</div>
+					<div class="modal-body">
+						<div class="text-center">
+						</div>
+					
+						<div class="row">
+							<div class="col-md-12">
+                            <form action="../model/updatePostAdmin.php?post_id=<?= $post["id_post"]  ?>"  method="POST" enctype="multipart/form-data">
+
+
+  
+                        <div class="container mt-5">
+                            <div class="row">
+                                <div class="col-sm-30 m-auto">
+                                    <div class="card">
+                                        <div class="card-body">
+
+                          
+               
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">titre</span>
+                            <input class="form-control" type="text" name="titre" placeholder="entrez un titre" value='<?= $post["titre"] ?>' required><br><br>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <span class="input-group-text">Post</span>
+                            <input class="form-control" type="text" name="message" placeholder="entrez un post" value="<?=  $post["message"] ?>" required><br><br>
+                        </div>
+                    </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                        <input type="file" class="form-control" id="customFile" name="image">
+                            <label class="custom-file-label" for="customFile">Upload image</label>
+                        </div>
+                    </div>
+                    <input class="btn btn-primary btn-lg" style="margin-left: 39%;" type="submit" name="submit" value="Modifier"><br><br>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="post-form-thank">
+			<div class="modal-dialog">
+				<div class="modal-content sub-bg shadow-lg">
+					<div class="modal-header subs-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>
+
+
+
+            </div>
+        </main>
+    </div>
+
+<?php endforeach ; ?>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?php
 foreach($users as $user):
 ?>
@@ -594,6 +705,16 @@ foreach($users as $user):
                             <input class="form-control" type="text" name="description" placeholder="Tapez votre description..." value='<?= $user["description"]  ?>'><br><br>
                         </div>
                     </div>
+                    <div class="form-group mb-3" id="promo-group">
+                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo">
+                                    <option selected disabled >Promo</option>
+                                    <option selected value="Bachelor 1">Bachelor 1</option>
+                                    <option value="Bachelor 2">Bachelor 2</option>
+                                    <option value="Bachelor 3">Bachelor 3</option>
+                                </select>
+                            </div>
+                   
+
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text"> confirmer</span>
@@ -631,6 +752,7 @@ foreach($users as $user):
             </div>
         </main>
     </div>
+
 </div>
 <?php endforeach; ?>
 

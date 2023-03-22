@@ -210,12 +210,12 @@ public function updateVericiationCodeByEmail($email,$verification_code){
     $statement->execute([$verification_code, $email]);
     return $statement->rowCount() > 0;
 }
-public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU, $mdpU, $descriptionU, $emailUser,$confirmerUser) {
+public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU, $mdpU, $descriptionU, $emailUser,$confirmerUser,$promoUser,$imageUser) {
     $database = self::getInstance();
-    $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?, mdp=?, description=?, adressemail=?, confirmer=? , roll=? WHERE id_user=?";
-    $roll = (strpos($emailUser, '@admin') !== false) ? 'admin' : 'user'; // check if email contains "@admin"
+    $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?, mdp=?, description=?, adressemail=?, confirmer=? , promo=?, image=? , roll=?  WHERE id_user=?";
+    $roll = (strpos($emailUser, '@admin') !== false) ? 'admin' : 'etudiant'; // check if email contains "@admin"
     $statement = $database->prepare($query);
-    $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $mdpU, $descriptionU, $emailUser,$confirmerUser, $roll,  $user_id]);
+    $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $mdpU, $descriptionU, $emailUser,$confirmerUser,$promoUser, $imageUser, $roll,  $user_id]);
     return $statement->rowCount() > 0;
 }
 
@@ -269,13 +269,13 @@ function getAllUsers() {
 
 
 
-public function updatePostById($id_post, $titre, $description, $image) {
+public function updatePostById($id_post, $titre, $message, $image) {
     $database = self::getInstance();
-    $query = "UPDATE post SET titre=:titre, description=:description, image=:image WHERE id_post=:id";
+    $query = "UPDATE post SET titre=:titre, message=:message, image=:image WHERE id_post=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_post);
     $statement->bindParam(':titre', $titre);
-    $statement->bindParam(':description', $description);
+    $statement->bindParam(':message', $message);
     $statement->bindParam(':image', $image);
     $statement->execute();
     return $statement->fetch();

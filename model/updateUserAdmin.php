@@ -20,11 +20,17 @@ try {
         $naissanceUser = $_POST["naissance"] ?? '';
         $villeUser = $_POST["ville"] ?? '';
         $usernameUser = $_POST["username"] ?? '';
+        $promoUser = $_POST["choixPromo"] ?? '';
         $confirmerUser = $_POST["confirmer"] ?? '';
         $mdpUser = password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); // Hash the password
         $descriptionUser = $_POST["description"] ?? '';
-    
-        $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser,$emailUser,$confirmerUser);
+        $imageUser = $_FILES['image']['name'];
+        $filetmpname = $_FILES['image']['tmp_name'];
+
+        $folder = '../uploads/';
+        move_uploaded_file($filetmpname, $folder . $imageUser);
+
+        $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser,$emailUser,$confirmerUser,$promoUser,$imageUser);
     
         header("location: ../views/dashboard.php");
     }
