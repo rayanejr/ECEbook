@@ -12,18 +12,30 @@ $db = new Database();
 $posts = $db->getAllPosts();
 $subs = $db->getSubsByUser1Id($_SESSION["id_user"]);
 
-$cles = array_keys($posts);
-
-for ($i = 0; $i < count($cles); $i++)
-{
-    foreach($subs as $sub)
-    {
-        if($posts[$i]['id_user'] != $sub['user2_id'] && !$posts[$i]['publique'])
-        {
-            unset($posts[$i]);
+if (empty($subs)) {
+    // Si l'utilisateur n'est abonné à personne, on ne garde que les posts publique
+    $posts = array_filter($posts, function ($post) {
+        return $post['publique'] == 1;
+    });
+} else {
+    // Sinon, on filtre les posts en fonction des abonnements de l'utilisateur
+    foreach ($posts as $key => $post) {
+        $keep = false;
+        foreach ($subs as $sub) {
+            if ($post['id_user'] == $sub['user2_id'] || $post['publique'] == 1) {
+                $keep = true;
+                break;
+            }
+        }
+        if (!$keep) {
+            unset($posts[$key]);
         }
     }
 }
+
+// Ré-indexer les éléments du tableau $posts
+$posts = array_values($posts);
+
 
 //$comments = $db->GetCommentByPostId($_GET['id_post']); // je sais pas comment les afficher sous les posts
 
