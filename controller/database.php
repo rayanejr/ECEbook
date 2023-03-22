@@ -256,7 +256,7 @@ function getAllPosts() {
 
 function getAllUsers() {
     $pdo = self::getInstance();
-    $sql = "SELECT * FROM utilisateur ";
+    $sql = "SELECT * FROM utilisateur  ORDER BY roll = 'admin' DESC";
     $statement = $pdo->prepare($sql);
     $statement->execute();
     return $statement->fetchAll(PDO::FETCH_ASSOC);

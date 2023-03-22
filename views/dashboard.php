@@ -142,6 +142,7 @@ $post_count = $db->getPostCount();
                                     <th scope="col">Mail</th>
                                     <th scope="col">role</th>
                                     <th scope="col">promo</th>
+                                    <th scope="col">compte confirmé</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -164,13 +165,24 @@ $post_count = $db->getPostCount();
                                         <?=  $user["roll"] ?>
                                     </td>
                                     <td>
-                                        <span class="badge badge-lg badge-dot">
+                                        
                                             <i class="bg-success"></i> <?= $user["promo"] ?>
+                                        
+                                    </td>
+                                    <td>
+                                        <?php if($user["confirmer"] == 1) : ?>
+                                        <span class="badge badge-lg badge-dot">
+                                            <i class="bg-success"></i>
                                         </span>
+                                        <?php else : ?>
+                                            <span class="badge badge-lg badge-dot">
+                                            <i class="bg-danger"></i>
+                                        </span>
+                                        <?php  endif ;  ?>
                                     </td>
                                     <?php if($user["roll"] != "admin") : ?>
                                     <td class="text-end">
-                                    <a class="btn btn-primary" data-toggle="modal" href='#modifierU'>modifier</a>
+                                    <a class="btn btn-sm btn-neutral" data-toggle="modal" href="#modifierU-<?= $user["id_user"] ?>">modifier</a>
                                        
                                         <a class="btn btn-sm btn-square btn-danger text-danger-hover" href="../model/deleteUserAdmin.php?user_id=<?= $user["id_user"]  ?>"> <i class="bi bi-trash"></i> </a>
                                     </td>
@@ -477,7 +489,8 @@ foreach($users as $user):
 <!-- modal modif user -->
 <div class="text-center jumbotron">
 </div>
-		<div class="modal fade" id="modifierU">
+<div class="modal fade" id="modifierU-<?= $user["id_user"] ?>">
+
 			<div class="modal-dialog shadow-lg p-3 mb-5 bg-white rounded">
 				<div class="modal-content sub-bg">
 					<div class="modal-header subs-header">
@@ -490,7 +503,7 @@ foreach($users as $user):
 					
 						<div class="row">
 							<div class="col-md-12">
-                            <form action="../model/updateUserAdmin.php"  method="POST" enctype="multipart/form-data">
+                            <form action="../model/updateUserAdmin.php?user_id=<?= $user["id_user"]  ?>"  method="POST" enctype="multipart/form-data">
 
 
   
@@ -505,13 +518,13 @@ foreach($users as $user):
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Nom</span>
-                            <input class="form-control" type="text" name="nom" placeholder="Tapez votre nom..." value='<?= $users["nom"]  ?>' required><br><br>
+                            <input class="form-control" type="text" name="nom" placeholder="Tapez votre nom..." value='<?= $user["nom"]  ?>' required><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Prénom</span>
-                            <input class="form-control" type="text" name="prenom" placeholder="Tapez votre prénom..." value='<?= $users["prenom"]  ?>' required><br><br>
+                            <input class="form-control" type="text" name="prenom" placeholder="Tapez votre prénom..." value='<?= $user["prenom"]  ?>' required><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -522,7 +535,7 @@ foreach($users as $user):
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Date de naissance</span>
-                            <input class="form-control" type="date" name="naissance" placeholder="Date" value='<?= $users["datedenaissance"]  ?>' required><br><br>
+                            <input class="form-control" type="date" name="naissance" placeholder="Date" value='<?= $user["datedenaissance"]  ?>' required><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -581,7 +594,7 @@ foreach($users as $user):
                             <input class="form-control" type="text" name="description" placeholder="Tapez votre description..." value='<?= $user["description"]  ?>'><br><br>
                         </div>
                     </div>
-                    <input class="btn btn-primary btn-lg" style="margin-left: 39%;" type="submit" name="submit" value="Ajouter"><br><br>
+                    <input class="btn btn-primary btn-lg" style="margin-left: 39%;" type="submit" name="submit" value="modifier"><br><br>
                 </div>
                 
             </div>
