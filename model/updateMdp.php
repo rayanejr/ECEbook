@@ -30,7 +30,7 @@ if(isset($_POST["submit"])){
 
 
 
-      
+        $mail = new PHPMailer();
     //Set mailer to use smtp
         $mail->isSMTP();
     //Define smtp host
