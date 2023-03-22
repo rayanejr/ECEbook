@@ -491,7 +491,7 @@ $post_count = $db->getPostCount();
 
 
     <?php
-foreach($users as $user):
+foreach($posts as $post):
 ?>
 <!-- modal modif  post -->
 <div class="text-center jumbotron">

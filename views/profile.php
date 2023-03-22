@@ -118,10 +118,10 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
                
               <hr>
                
-                <p class=" ">
-                <?=  nl2br($post["message"]) ?>
+              <p class="preview"><?= nl2br(substr($post["message"], 0, 100)) ?>...</p>
+  <p class="full" style="display: none;"><?= nl2br($post["message"]) ?></p>
+  <button class="btn btn-primary btn-sm toggle-preview">Voir plus</button>
 
-                </p>
               </div>
               <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
                 <div class="d-flex flex-row align-items-center mb-1">
@@ -148,6 +148,34 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
   </div>
 </section>
 <?php endforeach ; ?>
+
+
+
+
+<script>
+  // Afficher/cacher le reste du message en cliquant sur le bouton
+  const preview = document.querySelector('.preview');
+  const full = document.querySelector('.full');
+  const toggleBtn = document.querySelector('.toggle-preview');
+
+  toggleBtn.addEventListener('click', () => {
+    if (preview.style.display === 'none') {
+      preview.style.display = 'block';
+      full.style.display = 'none';
+      toggleBtn.textContent = 'Voir plus';
+    } else {
+      preview.style.display = 'none';
+      full.style.display = 'block';
+      toggleBtn.textContent = 'Voir moins';
+    }
+  });
+</script>
+
+
+
+
+
+
 
 
 </body>

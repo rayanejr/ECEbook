@@ -379,6 +379,19 @@ ul.summary-list>li:last-child {
     width: 0;
 }
 
+.long-message {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.long-message.more {
+    white-space: normal;
+    overflow: visible;
+    text-overflow: initial;
+}
+
 .activity-desk .album {
     display: inline-block;
     margin-top: 10px;

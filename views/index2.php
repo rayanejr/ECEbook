@@ -153,16 +153,29 @@ $posts = $db->getAllPosts() ;
 
                         </div>
                         <div class="card-body">
-                            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i><?= $post["date"]?></div>
-                            <a class="card-link" href="#">
-                                <h5 class="card-title"><?= $post["titre"] ?></h5>
-                            </a>
+    <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i><?= $post["date"]?></div>
+    <a class="card-link" href="#">
+        <h5 class="card-title"><?= $post["titre"] ?></h5>
+    </a>
 
-                            <p class="card-text">
-                            <?=  nl2br($post["message"]) ?>
+    <p class="long-message preview-<?= $post['id_post'] ?>">
+    <?php
+    $message = nl2br(htmlspecialchars($post["message"]));
+    $max_length = 200; // longueur maximale du message à afficher
+    if (strlen($message) > $max_length) {
+        $truncated_message = substr($message, 0, $max_length) . "...";
+        echo '<span class="preview">' . $truncated_message . '</span>';
+        echo '<span class="full" style="display: none;">' . $message . '</span>';
+        echo '<button class="toggle-preview btn btn-link" type="button" data-target="#collapseExample-' . $post['id_post'] . '">Voir plus</button>';
+        echo '<button class="toggle-full btn btn-link" type="button" style="display: none;" data-target="#collapseExample-' . $post['id_post'] . '">Voir moins</button>';
+    } else {
+        echo '<span class="preview">' . $message . '</span>';
+    }
+    ?>
+</p>
 
-                            </p>
-                        </div>
+</div>
+
                         <div class="card-footer">
                         
                             <?php
@@ -193,7 +206,27 @@ $posts = $db->getAllPosts() ;
 
 
 
+    <script>
+// Afficher/cacher le reste du message en cliquant sur le bouton
+const preview = document.querySelector('.preview');
+const full = document.querySelector('.full');
+const togglePreviewBtn = document.querySelector('.toggle-preview');
+const toggleFullBtn = document.querySelector('.toggle-full');
 
+togglePreviewBtn.addEventListener('click', () => {
+  preview.style.display = 'none';
+  full.style.display = 'block';
+  togglePreviewBtn.style.display = 'none';
+  toggleFullBtn.style.display = 'inline';
+});
+
+toggleFullBtn.addEventListener('click', () => {
+  full.style.display = 'none';
+  preview.style.display = 'block';
+  toggleFullBtn.style.display = 'none';
+  togglePreviewBtn.style.display = 'inline';
+});
+</script>
 
 </body>
 </html>
