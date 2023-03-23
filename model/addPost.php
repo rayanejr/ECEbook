@@ -5,8 +5,6 @@ require("../controller/database.php");
 if(isset($_POST["submit"])){
 
 
-
-
     try{
     $user_id = $_SESSION["id_user"];
     $titre = $_POST['titre'];
@@ -22,10 +20,12 @@ if(isset($_POST["submit"])){
    // save form data in the database
    $db = new Database();
    $db->insertPost($user_id, $titre, $nom, $message, $imagePost, $date_creation);
+   header("location:../views/index2.php"); 
     }catch(PDOException $e) {
         echo "Error adding post: " . $e->getMessage();
         die();
     }
+
 
 }
 ?>

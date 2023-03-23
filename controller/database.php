@@ -186,23 +186,6 @@ public function deletePostById($id_post) {
 }
 
 
-
-public function AddConfirmationCode($email, $confirmation_code){
-    $database = self::getInstance();
-    $query = "UPDATE utilisateur SET code_confirmation=? WHERE adressemail=?";
-    $statement = $database->prepare($query);
-    $statement->execute([$confirmation_code, $email]);
-    return $statement->rowCount() > 0;
-}
-
-public function VerifyConfirmationCode($email, $code){
-    $database = self::getInstance();
-    $query = "SELECT * FROM utilisateur WHERE adressemail=? AND code_confirmation=?";
-    $statement = $database->prepare($query);
-    $statement->execute([$email, $code]);
-    return $statement->rowCount() > 0;
-}
-
 public function updateVericiationCodeByEmail($email,$verification_code){
     $database = self::getInstance();
     $query = "UPDATE utilisateur SET code_confirmation=? WHERE adressemail=?";
@@ -272,25 +255,6 @@ public function GetPostByUserId($id_user) {
     return $statement->fetchAll();
 }
 
-function getAllPosts() {
-    $pdo = self::getInstance();
-    $sql = "SELECT * FROM post ORDER BY date DESC";
-    $statement = $pdo->prepare($sql);
-    $statement->execute();
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-
-
-function getAllUsers() {
-    $pdo = self::getInstance();
-    $sql = "SELECT * FROM utilisateur  ORDER BY roll = 'admin' DESC";
-    $statement = $pdo->prepare($sql);
-    $statement->execute();
-    return $statement->fetchAll(PDO::FETCH_ASSOC);
-}
-
-
-
 
 
 
@@ -311,7 +275,7 @@ public function updatePostById($id_post, $titre, $message, $image) {
 public function AddComment($id_user, $id_post, $commentaire)
 {
     try {
-        $sql = "INSERT INTO `commentaires` (`id_user`, `id_post`, `contenu`)
+        $sql = "INSERT INTO `commentaire` (`id_user`, `id_post`, `contenu`)
         VALUES (:id_user, :id_post, :commentaire)";
         $statement = self::$database->prepare($sql);
         $statement->bindParam(':id_user', $id_user);
@@ -322,68 +286,24 @@ public function AddComment($id_user, $id_post, $commentaire)
     } catch(PDOException $e) {
         echo "Erreur lors de l'ajout du commentaire: " . $e->getMessage();
         die();
-    public function GetUserById($user_id) {
-        $database = self::getInstance();
-        $query = "SELECT * FROM utilisateur WHERE id_user = ?";
-        $statement = $database->prepare($query);
-        $statement->bindParam(1, $user_id, PDO::PARAM_INT);
-        $statement->execute();
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
-        return $user;
     }
+}
 
 public function GetCommentById($id_comment) {
     $database = self::getInstance();
-    $query = "SELECT * FROM commentaires WHERE id=:id";
+    $query = "SELECT * FROM commentaire WHERE id_comment=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_comment);
     $statement->execute();
     return $statement->fetch();
-}
-
-public function GetCommentByUserId($id_user) {
-    $database = self::getInstance();
-    $query = "SELECT * FROM commentaires WHERE id_user=:id";
-    $statement = $database->prepare($query);
-    $statement->bindParam(":id", $id_user);
-    $statement->execute();
-    return $statement->fetchAll();
-}
-
-public function GetCommentByPostId($id_post) {
-    $database = self::getInstance();
-    $query = "SELECT * FROM commentaires WHERE id_post=:id";
-    $statement = $database->prepare($query);
-    $statement->bindParam(":id", $id_post);
-    $statement->execute();
-    return $statement->fetchAll();
 }
 
 public function GetComment() {
     $database = self::getInstance();
-    $query = "SELECT * FROM commentaires";
+    $query = "SELECT * FROM commentaire";
     $statement = $database->prepare($query);
     $statement->execute();
     return $statement->fetchAll();
-}
-
-public function deleteCommentById($id_comment) {
-    $database = self::getInstance();
-    $query = "DELETE FROM commentaires WHERE id=:id";
-    $statement = $database->prepare($query);
-    $statement->bindParam(":id", $id_comment);
-    $statement->execute();
-    return $statement->fetch();
-}
-
-public function updateCommentById($id_comment, $commentaire) {
-    $database = self::getInstance();
-    $query = "UPDATE commentaires SET commentaire_text=:commentaire WHERE id=:id";
-    $statement = $database->prepare($query);
-    $statement->bindParam(":id", $id_comment);
-    $statement->bindParam(':commentaire', $commentaire);
-    $statement->execute();
-    return $statement->fetch();
 }
 
 public function AddLike($id_post, $id_user, $type)
@@ -395,34 +315,11 @@ public function AddLike($id_post, $id_user, $type)
         $statement->bindParam(':id_post', $id_post);
         $statement->bindParam(':id_user', $id_user);
         $statement->bindParam(':type', $type);
-    public function GetUserByEmail($email) {
-        $database = self::getInstance();
-        $query = "SELECT * FROM utilisateur WHERE adressemail = ?";
-        $statement = $database->prepare($query);
-        $statement->bindParam(1, $email, PDO::PARAM_INT);
-        $statement->execute();
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
-        return $user;
+    }catch(PDOException $e) {
+        echo "Erreur lors de l'ajout du commentaire: " . $e->getMessage();
+        die();
     }
-
-
-    public function deleteUserById($user_id) {
-        $database = self::getInstance();
-        $query = "DELETE FROM utilisateur WHERE id_user = :user_id";
-        $statement = $database->prepare($query);
-        $statement->bindParam(":user_id", $user_id);
-        $statement->execute();
-        return $statement->rowCount();
-    }
-
-    public function deletePostById($id_post) {
-        $database = self::getInstance();
-        $query = "DELETE FROM post WHERE id_post=:post_id";
-        $statement = $database->prepare($query);
-        $statement->bindParam(":post_id", $id_post);
-        $statement->execute();
-        return $statement->fetch();
-    }
+}
 
 //--------------------LIKE------------------------------------
 
@@ -442,6 +339,7 @@ public function GetLikeByUserId($id_user) {
     $statement->bindParam(":id", $id_user);
     $statement->execute();
     return $statement->fetchAll();
+}
     public function AddConfirmationCode($email, $confirmation_code){
         $database = self::getInstance();
         $query = "UPDATE utilisateur SET code_confirmation=? WHERE adressemail=?";
@@ -458,57 +356,6 @@ public function GetLikeByUserId($id_user) {
         return $statement->rowCount() > 0;
     }
 
-    public function updateVericiationCodeByEmail($email,$verification_code){
-        $database = self::getInstance();
-        $query = "UPDATE utilisateur SET code_confirmation=? WHERE adressemail=?";
-        $statement = $database->prepare($query);
-        $statement->execute([$verification_code, $email]);
-        return $statement->rowCount() > 0;
-    }
-    public function updateUserById($user_id, $nomU, $prenomU, $naissanceU, $villeU,  $usernameU, $descriptionU, $emailUser,$confirmerUser,$imageUser) {
-        $database = self::getInstance();
-        $query = "UPDATE utilisateur SET nom=?, prenom=?, datedenaissance=?, ville=?,  pseudo=?,  description=?, adressemail=?, confirmer=? , image=? , roll=?  WHERE id_user=?";
-        $roll = (strpos($emailUser, '@admin') !== false) ? 'admin' : 'etudiant'; // check if email contains "@admin"
-        $statement = $database->prepare($query);
-        $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $descriptionU, $emailUser,$confirmerUser, $imageUser, $roll,  $user_id]);
-        return $statement->rowCount() > 0;
-    }
-
-    public function UpdatePassword($email, $mdpU){
-        $database = self::getInstance();
-        $query = "UPDATE utilisateur SET mdp=? WHERE adressemail=?";
-        $statement = $database->prepare($query);
-        $statement->execute([$mdpU, $email]);
-        return $statement->rowCount() > 0;
-    }
-
-    public function updateMdpByEmail($email,$mdpU) {
-        $database = self::getInstance();
-        $query = "UPDATE utilisateur SET  mdp=?WHERE adressemail=?";
-        $statement = $database->prepare($query);
-        $statement->execute([ $mdpU, $email]);
-        return $statement->rowCount() > 0;
-    }
-
-    public function getAllPostsByIduser($id_user) {
-        $database = self::getInstance();
-        $query = "SELECT * FROM post WHERE id_user=:user_id";
-        $statement = $database->prepare($query);
-        $statement->bindParam(":user_id", $id_user);
-        $statement->execute();
-        return $statement->fetchAll();
-    }
-
-    public function deletePostByIdUserAndIdpost($id_user, $id_post){
-        $database = self::getInstance();
-        $query = "DELETE FROM post WHERE id_user=:user_id AND id_post=:post_id";
-        $statement = $database->prepare($query);
-        $statement->bindParam(":user_id", $id_user);
-        $statement->bindParam(":post_id", $id_post);
-        $statement->execute();
-        return $statement->fetch();
-
-    }
     public function getPostsByIduserAndIdPost($id_user, $id_post){
         $database = self::getInstance();
         $query = "SELECT * FROM post WHERE id_user=:user_id AND id_post=:post_id";
@@ -529,23 +376,6 @@ public function GetLikeByUserId($id_user) {
         $statement->execute();
         return $statement->fetch();
     }
-    public function GetPostById($id_post) {
-        $database = self::getInstance();
-        $query = "SELECT * FROM post WHERE id_post=:id";
-        $statement = $database->prepare($query);
-        $statement->bindParam(":id", $id_post);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
-public function GetLikeByPostId($id_post) {
-    $database = self::getInstance();
-    $query = "SELECT * FROM likes WHERE id_post=:id";
-    $statement = $database->prepare($query);
-    $statement->bindParam(":id", $id_post);
-    $statement->execute();
-    return $statement->fetchAll();
-}
 
 public function GetLike() {
     $database = self::getInstance();
@@ -595,19 +425,6 @@ public function getUserCount() {
     return $row['count'];
 }
 
-
-public function getPostCount() {
-    $database = self::getInstance();
-    $query = "SELECT COUNT(*) as count FROM post";
-    $statement = $database->prepare($query);
-    $statement->execute();
-    $row = $statement->fetch(PDO::FETCH_ASSOC);
-    return $row['count'];
-}
-
-
-
-
 public function getAllEmails()
 {
     $database = self::getInstance();
@@ -617,51 +434,6 @@ public function getAllEmails()
     $emails = $statement->fetchAll(PDO::FETCH_COLUMN);
     return $emails;
 }
-
-
-
-
-
-function insertPost($user_id, $titre, $pseudo, $message,$date) {
-    $database = self::getInstance();
-    $sql = "INSERT INTO post (id_user, titre, pseudo, message,date) 
-            VALUES (:user_id, :titre, :pseudo, :message,:date)";
-    try {
-        $statement = $database->prepare($sql);
-        $statement->bindParam(':user_id', $user_id);
-        $statement->bindParam(':titre', $titre);
-        $statement->bindParam(':message', $message);
-        $statement->bindParam(':image', $image);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
-    public function AddComment($id_user, $id_post, $commentaire, $date)
-    {
-        try {
-            $sql = "INSERT INTO `commentaire` (`id_user`, `id_post`, `commentaire`, `date`)
-            VALUES (:id_user, :id_post, :commentaire, :date)";
-            $statement = self::$database->prepare($sql);
-            $statement->bindParam(':id_user', $id_user);
-            $statement->bindParam(':id_post', $id_post);
-            $statement->bindParam(':commentaire', $commentaire);
-            $statement->bindParam(':date', $date);
-            $statement->execute();
-            echo "Welcome";
-        } catch(PDOException $e) {
-            echo "Erreur lors de l'ajout de l'utilisateur: " . $e->getMessage();
-            die();
-        }
-    }
-
-    public function GetCommentById($id_comment) {
-        $database = self::getInstance();
-        $query = "SELECT * FROM commentaire WHERE id_comment=:id";
-        $statement = $database->prepare($query);
-        $statement->bindParam(":id", $id_comment);
-        $statement->execute();
-        return $statement->fetch();
-    }
 
     public function GetCommentByUserId($id_user) {
         $database = self::getInstance();
@@ -677,14 +449,6 @@ function insertPost($user_id, $titre, $pseudo, $message,$date) {
         $query = "SELECT * FROM commentaire WHERE id_post=:id";
         $statement = $database->prepare($query);
         $statement->bindParam(":id", $id_post);
-        $statement->execute();
-        return $statement->fetchAll();
-    }
-
-    public function GetComment() {
-        $database = self::getInstance();
-        $query = "SELECT * FROM commentaire";
-        $statement = $database->prepare($query);
         $statement->execute();
         return $statement->fetchAll();
     }
@@ -771,55 +535,6 @@ function insertPost($user_id, $titre, $pseudo, $message,$date) {
 
     }
 
-
-    public function GetLikeById($id_like) {
-        $database = self::getInstance();
-        $query = "SELECT * FROM like WHERE id_like=:id";
-        $statement = $database->prepare($query);
-        $statement->bindParam(":id", $id_like);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
-    public function GetLikeByUserId($id_user) {
-        $database = self::getInstance();
-        $query = "SELECT * FROM like WHERE id_user=:id";
-        $statement = $database->prepare($query);
-        $statement->bindParam(":id", $id_user);
-        $statement->execute();
-        return $statement->fetchAll();
-
-    }
-
-
-
-    public function GetLike() {
-        $database = self::getInstance();
-        $query = "SELECT * FROM like";
-        $statement = $database->prepare($query);
-        $statement->execute();
-        return $statement->fetchAll();
-    }
-
-    public function UpdateUserStatuts($user_id, $status){
-        $database = self::getInstance();
-        $query = "UPDATE utilisateur SET status = :status WHERE id_user = :user_id";
-        $statement = $database->prepare($query);
-        $statement->bindParam(":user_id", $user_id);
-        $statement->bindParam(":status", $status);
-        $statement->execute();
-        return $statement->rowCount();
-    }
-
-    public function getUserCount() {
-        $database = self::getInstance();
-        $query = "SELECT COUNT(*) as count FROM utilisateur";
-        $statement = $database->prepare($query);
-        $statement->execute();
-        $row = $statement->fetch(PDO::FETCH_ASSOC);
-        return $row['count'];
-    }
-
     public function getPostCount() {
         $database = self::getInstance();
         $query = "SELECT COUNT(*) as count FROM post";
@@ -829,25 +544,15 @@ function insertPost($user_id, $titre, $pseudo, $message,$date) {
         return $row['count'];
     }
 
-    public function getAllEmails()
-    {
+    function insertPost($user_id, $titre, $nom, $message, $imagePost, $date) {
         $database = self::getInstance();
-        $query = "SELECT adressemail FROM utilisateur";
-        $statement = $database->prepare($query);
-        $statement->execute();
-        $emails = $statement->fetchAll(PDO::FETCH_COLUMN);
-        return $emails;
-    }
-
-    function insertPost($user_id, $titre, $pseudo, $message, $imagePost, $date) {
-        $database = self::getInstance();
-        $sql = "INSERT INTO post (id_user, titre, pseudo, message, image, date) 
-                VALUES (:user_id, :titre, :pseudo, :message, :image, :date)";
+        $sql = "INSERT INTO post (id_user, titre, nom, message, image, date) 
+                VALUES (:user_id, :titre, :nom, :message, :image, :date)";
         try {
             $statement = $database->prepare($sql);
             $statement->bindParam(':user_id', $user_id);
             $statement->bindParam(':titre', $titre);
-            $statement->bindParam(':pseudo', $pseudo);
+            $statement->bindParam(':nom', $nom);
             $statement->bindParam(':message', $message);
             $statement->bindParam(':image', $imagePost);
            

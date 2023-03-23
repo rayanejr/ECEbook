@@ -135,9 +135,9 @@ CREATE TABLE IF NOT EXISTS `post` (
 -- Déchargement des données de la table `post`
 --
 
-INSERT INTO `post` (`id_post`, `message`, `image`, `commantaires`, `nomcrea`, `titre`, `id_user`, `pseudo`, `publique`, `date`) VALUES
-(50, 'ersdcgvsfx', NULL, NULL, NULL, 'efzrgsfgvrs', 120, NULL, NULL, '2023-03-22 16:43:13'),
-(51, 'efdqfwsdf', NULL, NULL, NULL, 'efdgfvsd', 121, 'Jerbi', NULL, '2023-03-22 20:17:34');
+INSERT INTO `post` (`id_post`, `message`, `image`, `nomcrea`, `titre`, `id_user`, `pseudo`, `publique`, `date`) VALUES
+(50, 'ersdcgvsfx', NULL, NULL, 'efzrgsfgvrs', 120, NULL, NULL, '2023-03-22 16:43:13'),
+(51, 'efdqfwsdf', NULL, NULL, 'efdgfvsd', 121, 'Jerbi', NULL, '2023-03-22 20:17:34');
 
 -- --------------------------------------------------------
 

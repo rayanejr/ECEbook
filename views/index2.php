@@ -202,7 +202,14 @@ $posts = array_values($posts);
 
 </p>
 
-<img src="../uploads/<?= $post["image"] ?>">
+<?php if($post["image"] != null) : ?>
+    <img alt="..." src="../uploads/<?=  $post["image"]  ?>" class="avatar avatar-sm rounded-circle me-2">
+<a class="text-heading font-semibold" href="#">
+    <?= $post["pseudo"] ?>
+</a>
+<?php else : ?>
+    <img alt="..." src="../uploads/avatar.png" class="avatar avatar-sm rounded-circle me-2">
+<?php endif ; ?>
 
 </div>
 
