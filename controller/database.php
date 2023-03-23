@@ -551,6 +551,19 @@ public function getAllEmails()
         return $row['count'];
     }
 
+
+    public function getPostCountByUserId($user_id) {
+        $database = self::getInstance();
+        $query = "SELECT COUNT(*) as count FROM post WHERE id_user = ?";
+        $statement = $database->prepare($query);
+        $statement->bindParam(1, $user_id, PDO::PARAM_INT);
+        $statement->execute();
+        $row = $statement->fetch(PDO::FETCH_ASSOC);
+        return $row['count'];
+    }
+    
+
+
     function insertPost($user_id, $titre, $nom, $message, $imagePost, $date) {
         $database = self::getInstance();
         $sql = "INSERT INTO post (id_user, titre, nom, message, image, date) 
