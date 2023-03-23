@@ -235,7 +235,7 @@ $post_count = $db->getPostCount();
                                         <?=  $post["message"]  ?>
                                     </td>
                                     <td>
-                                        <?=  $post["pseudo"] ?>
+                                        <?=  $post["nom"] ?>
                                     </td>
                                     <td>
                                         <?php if($post["image"] != null) : ?>

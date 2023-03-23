@@ -19,8 +19,14 @@ try {
         $prenomUser = $_POST["prenom"] ?? '';
         $naissanceUser = $_POST["naissance"] ?? '';
         $villeUser = $_POST["ville"] ?? '';
-        $promo = array($_POST["choixPromo"] ?? '');
-        $promoUser = implode(",", $_POST["choixPromo"] ?? []);
+
+        $promo = $_POST["choixPromo"] ?? '';
+        if (is_array($promo)) {
+        $promoUser = implode(",", $promo);
+        } else
+         {$promoUser = $promo;
+         }
+
         $usernameUser = $_POST["username"] ?? '';
         $promoUser = $_POST["choixPromo"] ?? '';
         $confirmerUser = $_POST["confirmer"] ?? '';
