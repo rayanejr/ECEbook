@@ -40,7 +40,7 @@ $comments = $db->GetCommentByPostId($_GET['id_post']);
                                         <img class="rounded-circle" width="45" src="../uploads/<?= $user["image"]  ?>" alt="">
                                     </div>
                                     <div class="ml-2">
-                                        <div class="h5 m-0"><?=  $user["pseudo"] ?></div>
+                                        <div class="h5 m-0"><?=  $user["nom"] ?></div>
                                     </div>
                                 </div>
                                 <div>
@@ -67,13 +67,10 @@ $comments = $db->GetCommentByPostId($_GET['id_post']);
     }
     ?>
 
-</p>
+	</p>
               
 	<?php endforeach ; ?>
 	<!-- Post /////-->
-
-
-
 
 
 	<form action="../model/addComment.php?id_post=<?php echo $_GET['id_post']?>" method="post">
