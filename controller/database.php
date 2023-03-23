@@ -674,4 +674,28 @@ public function unsubByAbonnementId($id_user1, $id_user2)
     }
 }
 
+//--------------------messagerie-----------------------------------
+
+public function addMessage($id_user1, $id_user2, $contenu)
+{
+    $database = self::getInstance();
+    $query = "INSERT INTO messages (expediteur_id, destinataire_id, contenu) VALUES (:user1_id, :user2_id, :contenu)";
+    try{
+        $statement = $database->prepare($query);
+        $statement->bindParam(':user1_id', $id_user1);
+        $statement->bindParam(':user2_id', $id_user2);
+        $statement->bindParam(':contenu', $contenu);
+        $statement->execute();
+
+    }catch(PDOException $e){
+
+        echo "Error adding subscriber: " . $e->getMessage();
+        die();
+    }
+
+}
+
+
+
+
 }
