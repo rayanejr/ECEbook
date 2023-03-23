@@ -38,9 +38,10 @@ if(isset($_SESSION["id_user"])){
 	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">		
 		<?php if(isset($_SESSION["id_user"])) : ?>
 		<form class="navbar-form form-inline">
-			<div class="input-group search-box">								
+			<div class="input-group search-box">
+				<!--								
 				<input type="text" class="form-control" id="live_search" autocomplete="off"
-            		placeholder="Search...">
+            		placeholder="Search...">-->
 			</div>
 		</form>
 		<div id="searchresult"> </div>
@@ -50,7 +51,7 @@ if(isset($_SESSION["id_user"])){
 		<?php if(isset($_SESSION["id_user"])) : ?>
 		<div class="navbar-nav ml-auto">
 			<a href="../views/index2.php" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Accueil</span></a>
-			<a href="#" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Projects</span></a>
+			<a href="../views/navSearchUsers.php" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Search users</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>Team</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-pie-chart"></i><span>Reports</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-briefcase"></i><span>Careers</span></a>

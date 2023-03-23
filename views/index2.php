@@ -94,11 +94,26 @@ $posts = array_values($posts);
             content: none;
             display: none;
         }
+
+        #card-populaires {
+            margin-left: 42%;
+            margin-top: 20px;
+        }
 </style>
 
        
 <?php  require("../model/navbar.php") ?>
 
+<div class="card" id="card-populaires" style="width: 18rem;">
+    <div class="card-header text-center border-5 border-secondary" style="background: #d63384;">
+        Popular accounts
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">First account</li>
+        <li class="list-group-item">Second account</li>
+        <li class="list-group-item">Third account</li>
+    </ul>
+</div>
 
     <div class="container gedf-wrapper">
         <div class="row">
