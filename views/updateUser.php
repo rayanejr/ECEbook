@@ -101,17 +101,42 @@ body{
                                     <input class="form-control" name="image" id="inputContact6" type="file" value="<?=  $user["image"] ?>">
                                 </div>
                             </div>
+                            
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact7">description</label>
                                 <div class="col-sm-10">
                                     <input class="form-control"  name="description" id="inputContact7" type="text" value="<?=  $user["description"] ?>">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label" for="inputContact8">Promo</label>
+                                <div class="col-sm-10">
+                                   
+                                <select multiple class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo[]">
+                                        <option selected>Promo</option>
+                                        <option value="ING1">ING1</option>
+                                        <option value="ING2">ING2</option>
+                                        <option value="ING3">ING3</option>
+                                        <option value="ING4">ING4</option>
+                                        <option value="ING5">ING5</option>
+                                        <option value="B1">B1</option>
+                                        <option value="B2">B2</option>
+                                        <option value="B3">B3</option>
+                                        <option value="M1">M1</option>
+                                        <option value="M2">M2</option>
+                                    </select>
+                                    </div>
+                                </div>
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <input class="form-control" hidden  name="confirmer" id="inputContact7" type="number" value="<?=  $user["confirmer"] ?>">
+                                </div>
+                            </div>
     
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact7">pseudo</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" name="username" id="inputContact7" type="text" value="<?=  $user["pseudo"] ?>">
+                                    <input class="form-control"  name="pseudo" id="inputContact7" type="text" value="<?=  $user["pseudo"] ?>">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -144,3 +169,20 @@ body{
 
 </body>
 </html>
+<script>
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+   dd = '0' + dd;
+}
+
+if (mm < 10) {
+   mm = '0' + mm;
+} 
+    
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById("inputContact5").setAttribute("max", today);
+</script>

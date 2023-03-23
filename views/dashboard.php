@@ -149,11 +149,16 @@ $post_count = $db->getPostCount();
                             <tbody>
                                 <?php foreach($users as $user) : ?>
                                 <tr>
+                                    
                                     <td>
-                                        <img alt="..." src="../uploads/<?=  $user["image"]  ?>" class="avatar avatar-sm rounded-circle me-2">
+                                        <?php if($user["image"] != null) : ?>
+                                            <img alt="..." src="../uploads/<?=  $user["image"]  ?>" class="avatar avatar-sm rounded-circle me-2">
                                         <a class="text-heading font-semibold" href="#">
                                             <?= $user["pseudo"] ?>
                                         </a>
+                                        <?php else : ?>
+                                            <img alt="..." src="../uploads/avatar.png" class="avatar avatar-sm rounded-circle me-2">
+                                        <?php endif ; ?>
                                     </td>
                                     <td>
                                         <?=  $user["description"] ?>
@@ -214,6 +219,7 @@ $post_count = $db->getPostCount();
                                     <th scope="col">titre</th>
                                     <th scope="col">message</th>
                                     <th scope="col">publié par </th>
+                                    <th scope="col">image</th>
                                     <th scope="col">date</th>
                                     <th></th>
                                 </tr>
@@ -230,6 +236,13 @@ $post_count = $db->getPostCount();
                                     </td>
                                     <td>
                                         <?=  $post["pseudo"] ?>
+                                    </td>
+                                    <td>
+                                        <?php if($post["image"] != null) : ?>
+                                            <img alt="..." src="../uploads/<?=  $post["image"]  ?>" class="avatar avatar-sm rounded-circle me-2">
+                                        <?php else : ?>
+                                            <img alt="..." src="../uploads/avatar.png" class="avatar avatar-sm rounded-circle me-2">
+                                        <?php endif ; ?>
                                     </td>
                                     <td>
                                         <span class="badge badge-lg badge-dot">
@@ -302,7 +315,7 @@ $post_count = $db->getPostCount();
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Date de naissance</span>
-                            <input class="form-control" type="date" name="naissance" placeholder="Date" required><br><br>
+                            <input class="form-control" id="datefield" type="date" name="naissance" placeholder="Date" required><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -322,18 +335,19 @@ $post_count = $db->getPostCount();
                
                         <div class="form-group mb-3" id="promo-group" style="display:none">
                             <label for="promo">Promo:</label>
-                            <select name="promo" multiple id="selectPromo">
-                            <option value="ING1">ING1</option>
-                            <option value="ING2">ING2</option>
-                            <option value="ING3">ING3</option>
-                            <option value="ING4">ING4</option>
-                            <option value="ING5">ING5</option>
-                            <option value="B1">B1</option>
-                            <option value="B2">B2</option>
-                            <option value="B3">B3</option>
-                            <option value="M1">M1</option>
-                            <option value="M2">M2</option>
-                            </select>
+                            <select multiple class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo[]">
+                                    <option selected>Promo</option>
+                                    <option value="ING1">ING1</option>
+                                    <option value="ING2">ING2</option>
+                                    <option value="ING3">ING3</option>
+                                    <option value="ING4">ING4</option>
+                                    <option value="ING5">ING5</option>
+                                    <option value="B1">B1</option>
+                                    <option value="B2">B2</option>
+                                    <option value="B3">B3</option>
+                                    <option value="M1">M1</option>
+                                    <option value="M2">M2</option>
+                                </select>
                         </div>
                
             
@@ -491,7 +505,7 @@ $post_count = $db->getPostCount();
 
 
     <?php
-foreach($users as $user):
+foreach($posts as $post):
 ?>
 <!-- modal modif  post -->
 <div class="text-center jumbotron">
@@ -524,13 +538,13 @@ foreach($users as $user):
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">titre</span>
-                            <input class="form-control" type="text" name="titre" placeholder="entrez un titre" value='<?= $post["titre"] ?>' required><br><br>
+                            <input class="form-control" type="text" name="titre" placeholder="entrez un titre" value='<?= $post["titre"] ?>' ><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Post</span>
-                            <input class="form-control" type="text" name="message" placeholder="entrez un post" value="<?=  $post["message"] ?>" required><br><br>
+                            <input class="form-control" type="text" name="message" placeholder="entrez un post" value="<?=  $post["message"] ?>" ><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -646,7 +660,7 @@ foreach($users as $user):
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Date de naissance</span>
-                            <input class="form-control" type="date" name="naissance" placeholder="Date" value='<?= $user["datedenaissance"]  ?>' required><br><br>
+                            <input class="form-control" id="datefield" type="date" name="naissance" placeholder="Date" value='<?= $user["datedenaissance"]  ?>' required><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -666,22 +680,23 @@ foreach($users as $user):
                
                         <div class="form-group mb-3" id="promo-group" style="display:none">
                             <label for="promo">Promo:</label>
-                            <select name="promo" multiple id="selectPromo">
-                            <option value="ING1">ING1</option>
-                            <option value="ING2">ING2</option>
-                            <option value="ING3">ING3</option>
-                            <option value="ING4">ING4</option>
-                            <option value="ING5">ING5</option>
-                            <option value="B1">B1</option>
-                            <option value="B2">B2</option>
-                            <option value="B3">B3</option>
-                            <option value="M1">M1</option>
-                            <option value="M2">M2</option>
+                            <select multiple class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo[]">
+                                    <option selected>Promo</option>
+                                    <option value="ING1">ING1</option>
+                                    <option value="ING2">ING2</option>
+                                    <option value="ING3">ING3</option>
+                                    <option value="ING4">ING4</option>
+                                    <option value="ING5">ING5</option>
+                                    <option value="B1">B1</option>
+                                    <option value="B2">B2</option>
+                                    <option value="B3">B3</option>
+                                    <option value="M1">M1</option>
+                                    <option value="M2">M2</option>
                             </select>
+                            
                         </div>
                
             
-
 
              
 
@@ -693,12 +708,6 @@ foreach($users as $user):
                         </div>
                     </div>
                    
-                    <div class="form-group mb-3">
-                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
-                            <span class="input-group-text">Password</span>
-                            <input class="form-control" type="password" name="motdepasse" placeholder="Tapez votre mot de passe..." value='<?= $user["mdp"]  ?>' minlength="10"><br><br>
-                        </div>
-                    </div>
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Description</span>
@@ -773,3 +782,20 @@ foreach($users as $user):
 
 </body>
 </html>
+<script>
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
+
+if (dd < 10) {
+   dd = '0' + dd;
+}
+
+if (mm < 10) {
+   mm = '0' + mm;
+} 
+    
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById("datefield").setAttribute("max", today);
+</script>

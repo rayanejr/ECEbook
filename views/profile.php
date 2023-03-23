@@ -89,75 +89,125 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
         </div>
     </div>
     </div>
+    <h1>Mes Posts</h1>
     <?php
     $posts=$db->getAllPostsByIduser($user["id_user"]);
-    foreach($posts as $post){
+    foreach($posts as $post) : 
         ?>
 
 
-
-  <div class="container py-5 h-100">
-    <div class="row d-flex justify-content-center align-items-center h-100">
-      <div class="col col-md-9 col-lg-7 col-xl-5">
-        <div class="card" style="border-radius: 15px;">
-          <div class="card-body p-4">
-            <div class="d-flex text-black">
-              <div class="flex-shrink-0">
-              <img src="../uploads/<?= $user["image"]  ?>" class="img-circle avatar" 
-                        
-                  alt="Generic placeholder image" class="img-fluid"
-                  style="width: 180px; border-radius: 10px;">
-              </div>
-              <div class="flex-grow-1 ms-3">
-                <h5 class="mb-1"><?=  $user["nom"] . " " . $user["prenom"] ?></h5>
-                <p class="mb-2 pb-1" style="color: #2b2a2a;"><?= $post["date"] ?></p>
-                <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
-                  style="background-color: #efefef;">
-                  <div>
-                    <p class="small text-muted mb-1">Articles</p>
-                    <p class="mb-0"><?= $post["message"] ?></p>
-                  </div>
-                  
-                </div>
-                <div class="d-flex pt-1">
-                  <button type="button" class="btn btn-outline-primary me-1 flex-grow-1">Chat</button>&nbsp;
-                    <?php
-                        $likes = $db->GetLikeByPostId($post["id_post"]);
-                            if(isset($likes["type"])){
-                                if($likes["type"] == 0) {
-                                    echo '<button type="button" class="btn btn-outline-primary me-1 flex-grow-1">
-                                    <a href="../model/addLikebyUser.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1">
-                                    <i class="fa fa-gittip" name="like"></i>Like</a>
-                                    </button>';
-                                    
-                                } else if($likes["type"] == 1) {
-                                    echo '<button type="button" class="btn btn-outline-primary me-1 flex-grow-1">
-                                    <a href="../model/addLikebyUser.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=0">
-                                    <i class="fa fa-gittip" name="like"></i>Disike</a>
-                                    </button>';
-                                }
-                            }else {
-                                echo '<button type="button" class="btn btn-outline-primary me-1 flex-grow-1">
-                                    <a href="../model/addLikebyUser.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1">
-                                    <i class="fa fa-gittip" name="like"></i>Like</a>
-                                    </button>';
-                            }
-
-                     ?>
-                     <a class="btn btn-sm btn-square btn-danger text-danger-hover" href="../model/deletePost.php?post_id=<?php echo $post['id_post']; ?>&user_id=<?php echo $post['id_user']; ?>"> <i class="bi bi-trash"></i> Supprimer </a>
+        
+<section style="background-color: #eee;">
+  <div class="container py-5">
+    <div class="row justify-content-center mb-3">
+      <div class="col-md-12 col-xl-15">
+        <div class="card shadow-0 border rounded-3">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
+                <div class="bg-image hover-zoom ripple rounded ripple-surface">
+                  <img  src="../uploads/<?= $user["image"]  ?>"
+                    class="w-100" />
+                  <a href="#!">
+                    <div class="hover-overlay">
+                      <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>
                     </div>
+                  </a>
+                </div>
+              </div>
+              <div class="col-md-6 col-lg-6 col-xl-6">
+                <h5><?= $post["titre"] ?></h5>
+               
+              <hr>
+               
+              <p class="preview"><?= nl2br(substr($post["message"], 0, 100)) ?>...</p>
+  <p class="full" style="display: none;"><?= nl2br($post["message"]) ?></p>
+  <button class="btn btn-primary btn-sm toggle-preview">Voir plus</button>
+  <img src="../uploads/<?= $post["image"] ?>" alt="" srcset="">
+
+              </div>
+              <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
+                <div class="d-flex flex-row align-items-center mb-1">
+                  <h4 class="mb-1 me-1"><?=  $post["date"] ?></h4>
+                <hr>
+                </div>
+                <div class="d-flex flex-column mt-4">
+                  <a class="btn btn-primary btn-lg"  href="./modifPostByUser.php?post_id=<?=  intval($post['id_post']) ; ?>&user_id=<?= intval($post['id_user']) ; ?>"> <i class="bi bi-trash"></i> Modifier</a>
+                  <hr>
+                  <a class="btn btn-lg btn-square btn-danger text-danger-hover"   href="../model/deletePost.php?post_id=<?php echo intval($post['id_post']); ?>&user_id=<?php echo intval($post['id_user']); ?>"><i class="bi bi-trash"></i> Supprimer</a><br>
+                  <?php
+                            
+                            if ( $db->userLikesAnnonce($_SESSION['id_user'],$post["id_post"]) == true ) {
+                                echo '
+                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'" style="width: 250px" class="btn btn-danger mx-auto" style="width: 250px">  
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                    </svg> Like
+                                </a> &nbsp;&nbsp;&nbsp;
+                       
+                                                                                                                    
+                                ';
+                            }elseif($db->userLikesAnnonce($_SESSION['id_user'],$post["id_post"]) == false ) {
+                            
+
+                                echo '
+                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'"  style="width: 250px" class="btn btn-danger mx-auto" style="width: 250px">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
+                                </svg> Dislike
+                            </a> &nbsp;&nbsp;&nbsp;
+                                ';
+                            }
+                            ?>  
+                            <h1>Nombre de like:
+                                <?php
+                                $nombre = $db->getCountforPostbyIdpost($post["id_post"]);
+                                echo "$nombre";
+                                
+                                ?>
+                               
+                            </h1>
+
+                
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  
 
-        <?php
+
+
+  </div>
+</section>
+<?php endforeach ; ?>
+
+
+
+
+<script>
+  // Afficher/cacher le reste du message en cliquant sur le bouton
+  const preview = document.querySelector('.preview');
+  const full = document.querySelector('.full');
+  const toggleBtn = document.querySelector('.toggle-preview');
+
+  toggleBtn.addEventListener('click', () => {
+    if (preview.style.display === 'none') {
+      preview.style.display = 'block';
+      full.style.display = 'none';
+      toggleBtn.textContent = 'Voir plus';
+    } else {
+      preview.style.display = 'none';
+      full.style.display = 'block';
+      toggleBtn.textContent = 'Voir moins';
     }
-    ?>
-</div>
+  });
+</script>
+
+
+
 </body>
 </html>
 

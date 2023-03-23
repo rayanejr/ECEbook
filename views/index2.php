@@ -107,49 +107,49 @@ $posts = array_values($posts);
             <div class="col-md-6 gedf-main">
 
                 <!--- \\\\\\\Post-->
-                <form action="../model/addPost.php" method="POST">
-                <div class="card gedf-card">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Publiez </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
-                            <div class="input-group input-group mb-3 w-100 flex-nowrap">
-                                   
-                                    <input class="form-control" type="text" name="titre" placeholder="entrez un titre" required><br><br>
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="message">Post</label>
-                                    <textarea class="form-control" name="message" id="message" rows="3" placeholder="entrez un message ?"></textarea>
-                                </div>
-
-                            </div>
-                            <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
-                                <div class="form-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile" name="image">
-                                        <label class="custom-file-label" for="customFile">Upload image</label>
+                <form action="../model/addPost.php" method="POST" enctype="multipart/form-data">
+                    <div class="card gedf-card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Publiez </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                                <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                                    
+                                        <input class="form-control" type="text" name="titre" placeholder="entrez un titre" required><br><br>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="message">Post</label>
+                                        <textarea class="form-control" name="message" id="message" rows="3" placeholder="entrez un message ?"></textarea>
+                                    </div>
+
                                 </div>
-                                <div class="py-4"></div>
+                                <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                                    <div class="form-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile" name="image">
+                                            <label class="custom-file-label" for="customFile">Upload image</label>
+                                        </div>
+                                    </div>
+                                    <div class="py-4"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="btn-toolbar justify-content-between">
-                            <div class="btn-group">
-                                <button type="submit" name="submit" class="btn btn-primary">Publier</button>
+                            <div class="btn-toolbar justify-content-between">
+                                <div class="btn-group">
+                                    <button type="submit" name="submit" class="btn btn-primary">Publier</button>
+                                </div>
+                            
                             </div>
-                          
                         </div>
                     </div>
-                </div>
                 </form>
                 <!-- Post /////-->
 
@@ -180,31 +180,68 @@ $posts = array_values($posts);
 
                         </div>
                         <div class="card-body">
-                            <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i><?= $post["date"]?></div>
-                            <a class="card-link" href="#">
-                                <h5 class="card-title"><?= $post["titre"] ?></h5>
-                            </a>
+    <div class="text-muted h7 mb-2"><i class="fa fa-clock-o"></i><?= $post["date"]?></div>
+    <a class="card-link" href="#">
+        <h5 class="card-title"><?= $post["titre"] ?></h5>
+    </a>
 
-                            <p class="card-text">
-                            <?=  $post["message"] ?>
-                            </p>
-                        </div>
+    <p class="long-message preview-<?= $post['id_post'] ?>">
+    <?php
+    $message = nl2br(htmlspecialchars($post["message"]));
+    $max_length = 200; // longueur maximale du message à afficher
+    if (strlen($message) > $max_length) {
+        $truncated_message = substr($message, 0, $max_length) . "...";
+        echo '<span class="preview">' . $truncated_message . '</span>';
+        echo '<span class="full" style="display: none;">' . $message . '</span>';
+        echo '<button class="toggle-preview btn btn-link" type="button" data-target="#collapseExample-' . $post['id_post'] . '">Voir plus</button>';
+        echo '<button class="toggle-full btn btn-link" type="button" style="display: none;" data-target="#collapseExample-' . $post['id_post'] . '">Voir moins</button>';
+    } else {
+        echo '<span class="preview">' . $message . '</span>';
+    }
+    ?>
+
+</p>
+
+<img src="../uploads/<?= $post["image"] ?>">
+
+</div>
+
                         <div class="card-footer">
                         
                             <?php
-                            $likes = $db->GetLikeByPostId($post["id_post"]);
-                            if(isset($likes["type"])){
-                                if($likes["type"] == 0) {
-                                    echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
-                                } else if($likes["type"] == 1) {
-                                    echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=0" class="card-link"><i class="fa fa-gittip" name="like"></i> Dislike</a>';
-                                }
-                            } else {
-                                echo '<a href="../model/addLike.php?post_id='.$post["id_post"].'&user_id='.$post["id_user"].'&type=1" class="card-link"><i class="fa fa-gittip" name="like"></i> Like</a>';
+                            
+                            if ( $db->userLikesAnnonce($_SESSION['id_user'],$post["id_post"]) == true ) {
+                                echo '
+                                <a href="../model/addLike.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'" style="width: 250px" class="btn btn-danger mx-auto" style="width: 250px">  
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                    </svg> Like
+                                </a> &nbsp;&nbsp;&nbsp;
+                       
+                                                                                                                    
+                                ';
+                            }elseif($db->userLikesAnnonce($_SESSION['id_user'],$post["id_post"]) == false ) {
+                            
+
+                                echo '
+                                <a href="../model/addLike.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'"  style="width: 250px" class="btn btn-danger mx-auto" style="width: 250px">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
+                                </svg> Dislike
+                            </a> &nbsp;&nbsp;&nbsp;
+                                ';
                             }
                             ?>  
                             <a href="tempo_ajout_commentaire.php?id_post=<?php echo $post["id_post"]?>" class="card-link"><i class="fa fa-comment"></i> Comment</a>
 
+                            <h1>Nombre de like:
+                                <?php
+                                $nombre = $db->getCountforPostbyIdpost($post["id_post"]);
+                                echo "$nombre";
+                                
+                                ?>
+                               
+                            </h1>
                     </div>
                         
                     </div>
@@ -220,7 +257,27 @@ $posts = array_values($posts);
 
 
 
+    <script>
+// Afficher/cacher le reste du message en cliquant sur le bouton
+const preview = document.querySelector('.preview');
+const full = document.querySelector('.full');
+const togglePreviewBtn = document.querySelector('.toggle-preview');
+const toggleFullBtn = document.querySelector('.toggle-full');
 
+togglePreviewBtn.addEventListener('click', () => {
+  preview.style.display = 'none';
+  full.style.display = 'block';
+  togglePreviewBtn.style.display = 'none';
+  toggleFullBtn.style.display = 'inline';
+});
+
+toggleFullBtn.addEventListener('click', () => {
+  full.style.display = 'none';
+  preview.style.display = 'block';
+  toggleFullBtn.style.display = 'none';
+  togglePreviewBtn.style.display = 'inline';
+});
+</script>
 
 </body>
 </html>

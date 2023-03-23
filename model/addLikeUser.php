@@ -12,6 +12,10 @@ require_once("../controller/database.php");
 	$db = new Database();
     $db->addAnnonceToMyFavourites($userID,$id_post);
    
-    header("location:../views/index2.php"); 
+    header("location:../views/profile.php"); 
+
+
+
+
 
 ?>

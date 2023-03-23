@@ -24,12 +24,17 @@ if(isset($_POST["submit"])){
     $prenomUser = $_POST["prenom"] ?? '';
     $naissanceUser = $_POST["naissance"] ?? '';
     $villeUser = $_POST["ville"] ?? '';
+    $promo = array($_POST["choixPromo"] ?? '');
+    $promoUser = implode(",", $_POST["choixPromo"] ?? []);
     $usernameUser = $_POST["username"] ?? '';
-    $mdpUser = password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); // Hash the password
     $descriptionUser = $_POST["description"] ?? '';
-
-
-    $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser);
+    $emailUser = $_POST["email"] ?? '';
+    $confirmerUser = $_POST["confirmer"] ?? '';
+    $imageUser = $_FILES['image']['name'];
+    $filetmpname = $_FILES['image']['tmp_name'];
+    $folder = '../uploads/';
+    move_uploaded_file($filetmpname, $folder . $imageUser);
+    $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$descriptionUser,$emailUser,$confirmerUser,$imageUser,$promoUser);
 
     header("location: ../views/updateUser.php");
 

@@ -57,7 +57,7 @@ if(isset($_SESSION["id_user"])){
                             <div class="form-group mb-3">
                                 <div class="input-group input-group mb-3 w-100 flex-nowrap">
                                     <span class="input-group-text">Date de naissance</span>
-                                    <input class="form-control" type="date" name="naissance" placeholder="Date" required><br><br>
+                                    <input class="form-control" id="datefield" type="date" name="naissance" placeholder="Date" required><br><br>
                                 </div>
                             </div>
                             <div class="form-group mb-3">
@@ -74,18 +74,8 @@ if(isset($_SESSION["id_user"])){
                                 </div>
                             </div>
                             <div class="form-group mb-3" id="promo-group">
-                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo">
+                                <select multiple class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo[]">
                                     <option selected>Promo</option>
-                                    <option value="Bachelor 1">Bachelor 1</option>
-                                    <option value="Bachelor 2">Bachelor 2</option>
-                                    <option value="Bachelor 3">Bachelor 3</option>
-                                </select>
-                            </div>
-                   
-                                <!--
-                                <div class="form-group mb-3" id="promo-group" style="display:block">
-                                    <label for="promo">Promo:</label>
-                                    <select name="promo" multiple id="selectPromo">
                                     <option value="ING1">ING1</option>
                                     <option value="ING2">ING2</option>
                                     <option value="ING3">ING3</option>
@@ -96,8 +86,11 @@ if(isset($_SESSION["id_user"])){
                                     <option value="B3">B3</option>
                                     <option value="M1">M1</option>
                                     <option value="M2">M2</option>
-                                    </select>
-                                </div>-->
+                                </select>
+                                
+                            </div>
+                   
+                               
                        
                     
 
@@ -174,7 +167,22 @@ emailInput.addEventListener('blur', () => {
     }
   });
 
+// SET DATE MAX
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
 
+if (dd < 10) {
+   dd = '0' + dd;
+}
+
+if (mm < 10) {
+   mm = '0' + mm;
+} 
+    
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById("datefield").setAttribute("max", today);
 
 
 
