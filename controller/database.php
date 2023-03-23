@@ -207,7 +207,19 @@ public function updateUserByIdUser($user_id, $nomU, $prenomU, $naissanceU, $vill
     $statement = $database->prepare($query);
     $statement->execute([$nomU, $prenomU, $naissanceU, $villeU, $usernameU, $mdpUSer,$descriptionU, $emailUser,$promoUser, $imageUser,$user_id]);
     return $statement->rowCount() > 0;
+    
 }
+
+
+public function rechercherUtilisateursParPseudo($input) {
+    $database = self::getInstance();
+    $query = "SELECT * FROM utilisateur WHERE pseudo LIKE ?";
+    $statement = $database->prepare($query);
+    $statement->execute([$input . '%']);
+    return $statement->fetchAll(PDO::FETCH_ASSOC);
+}
+
+
 
 public function UpdatePassword($email, $mdpU){
     $database = self::getInstance();
@@ -619,6 +631,37 @@ public function addSubcriber($id_user1, $id_user2)
         die();
     }
 }  
+
+public function getAllAbonnements() {
+    $database = self::getInstance();
+    $query = "SELECT * FROM abonnement";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    $abonnements =  $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $abonnements;
+}
+
+
+
+
+public function deleteSubscriber($id_user1, $id_user2)
+{
+$database = self::getInstance();
+$query = "DELETE FROM abonnement WHERE user1_id = :user1_id AND user2_id = :user2_id";
+try{
+$statement = $database->prepare($query);
+$statement->bindParam(':user1_id', $id_user1);
+$statement->bindParam(':user2_id', $id_user2);
+$statement->execute();
+
+    echo "<script>alert('Vous n'êtes plus abonné !');</script>";
+}catch(PDOException $e){
+
+    //echo "Error deleting subscriber: " . $e->getMessage();
+    header("location: ../views/index2.php");
+    die();
+}
+}
 
 //prendre les abonnement d'un utilisateur
 public function getSubsByUser1Id($user1_id)

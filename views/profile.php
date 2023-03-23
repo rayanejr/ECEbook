@@ -33,7 +33,12 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
       <div class="panel">
           <div class="user-heading round">
               <a href="#">
-                  <img src="../uploads/<?= $user["image"]  ?>" alt=""> 
+              <?php 
+					if($user["image"] != null) : ?>
+						<img src="../uploads/<?=  $user["image"] ?>"  class="d-block ui-w-100 rounded-circle" />
+                    <?php elseif ($user["image"] == null) : ?>
+						<img src="../uploads/avatar.png"  class="d-block ui-w-100 rounded-circle"/>
+                <?php endif ; ?>
               </a>
               <h1><?=  $user["nom"] . " " . $user["prenom"] ?></h1>
               <p><?=  $user["adressemail"] ?></p>
@@ -106,8 +111,12 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
             <div class="row">
               <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
                 <div class="bg-image hover-zoom ripple rounded ripple-surface">
-                  <img  src="../uploads/<?= $user["image"]  ?>"
-                    class="w-100" />
+                <?php 
+                  if($user["image"] != null) : ?>
+                    <img src="../uploads/<?=  $user["image"] ?>"   class="w-100" />
+                  <?php elseif ($user["image"] == null) : ?>
+                    <img src="../uploads/avatar.png"  class="w-100"/>
+                  <?php endif ; ?>
                   <a href="#!">
                     <div class="hover-overlay">
                       <div class="mask" style="background-color: rgba(253, 253, 253, 0.15);"></div>

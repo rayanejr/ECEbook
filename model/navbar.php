@@ -61,10 +61,11 @@ if(isset($_SESSION["id_user"])){
 				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
 				<?php 
 					if($user["image"] != null) : ?>
-						<img src="../uploads/<?=  $user["image"] ?>" class="avatar" alt="Avatar"> <?=  $user["pseudo"] ?> </a>
+						<img src="../uploads/<?=  $user["image"] ?>" class="avatar" alt="Avatar"> <?=  $user["pseudo"] ?> 
                     <?php elseif ($user["image"] == null) : ?>
-						<img src="../uploads/avatar.png" class="avatar" alt="Avatar"> <?=$user["pseudo"] ?> </a>
+						<img src="../uploads/avatar.png" class="avatar" alt="Avatar"> <?=$user["pseudo"] ?> 
                     <?php endif ; ?>	
+					
 				</a>
 
 				<div class="dropdown-menu">
@@ -84,7 +85,6 @@ if(isset($_SESSION["id_user"])){
 
 		<?php if(!isset($_SESSION["id_user"])) : ?>
 		<div class="navbar-nav ml-auto">
-			<a href="../index.php" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Acceuill</span></a>
 			<a href="../views/connexion.php" class="nav-item nav-link"><i class="fa fa-gears"></i><span>connexion</span></a>
 			<a href="../views/form_inscription.php" class="nav-item nav-link"><i class="fa fa-users"></i><span>inscription</span></a>
 		</div>
