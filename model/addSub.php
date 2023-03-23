@@ -12,7 +12,7 @@ require("../controller/database.php");
     
     
     $id_user1 = $_SESSION['id_user'];
-    $id_user2 = $_GET['id_user'];
+    $id_user2 = $_GET['user_id'];
 
     
     $db = new Database();

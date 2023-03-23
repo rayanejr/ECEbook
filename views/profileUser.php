@@ -5,6 +5,7 @@ require("../model/userProfileModel.php");
 $db = new Database();
 $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
 $post_numbers_total = $db->getPostCountByUserId($user_profile["id_user"]);
+$abonnements=$db-> getAllAbonnements();
 ?>
 
 <!DOCTYPE html>
@@ -33,7 +34,13 @@ $post_numbers_total = $db->getPostCountByUserId($user_profile["id_user"]);
             <!-- Header -->
             <div class="container-m-nx container-m-ny theme-bg-white mb-4">
               <div class="media col-md-10 col-lg-8 col-xl-7 py-5 mx-auto">
-                <img src="../uploads/<?= $user_profile["image"]  ?>" alt="" class="d-block ui-w-100 rounded-circle">
+              <?php if($user["image"] != null) : ?>
+                      <img class="d-block ui-w-100 rounded-circle" width="" 
+                      src="../uploads/<?= $user_profile["image"]  ?>" alt="">
+              <?php elseif ($user["image"] == null) : ?>
+                      <img class="d-block ui-w-100 rounded-circle" width="" 
+                      src="../uploads/avatar.png" alt="">
+              <?php endif ; ?>
                 <div class="media-body ml-5">
                   <h4 class="font-weight-bold mb-4"><?=   $user_profile["nom"] . " " . $user_profile["prenom"] ?></h4>
 
@@ -132,7 +139,14 @@ $post_numbers_total = $db->getPostCountByUserId($user_profile["id_user"]);
 
                     <div class="border-top-0 border-right-0 border-bottom-0 ui-bordered pl-3 mt-4 mb-2">
                       <div class="media mb-3">
-                        <img src="../uploads/<?=  $user_profile["image"] ?>" class="d-block ui-w-40 rounded-circle" alt="">
+                      <?php if($user["image"] != null) : ?>
+                              <img class="d-block ui-w-40 rounded-circle" width="45" 
+                              src="../uploads/<?= $user_profile["image"]  ?>" alt="">
+                            <?php elseif ($user["image"] == null) : ?>
+                              <img class="d-block ui-w-40 rounded-circle" width="45" 
+                              src="../uploads/avatar.png" alt="">
+                            
+                            <?php endif ; ?>
                         <div class="media-body ml-3">
                          <?=  $user_profile["nom"] . " " . $user_profile["prenom"] ?>
                           <div class="text-muted small"><?=  $post["date"] ?></div>
@@ -166,11 +180,26 @@ $post_numbers_total = $db->getPostCountByUserId($user_profile["id_user"]);
               <div class="col-xl-4">
 
                 <!-- Side info -->
+                
                 <div class="card mb-4">
                   <div class="card-body">
-                    <a href="javascript:void(0)" class="btn btn-primary rounded-pill">+&nbsp; Suivre</a>
-                    &nbsp;
-                    
+                  <?php 
+                  // Vérifier si l'utilisateur actuel est abonné à l'utilisateur en cours d'affichage
+                  $isSubscribed = false;
+                  foreach($abonnements as $abonnement){
+                      if($abonnement["user1_id"] == $_SESSION['id_user'] && $abonnement["user2_id"] == $user['id_user']){
+                          $isSubscribed = true;
+                          break;
+                      }
+                  }
+              ?>
+              <?php if($isSubscribed) : ?>
+                  <a href="../model/deleteSub.php?user_id=<?= $user["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivi</a>
+              <?php else : ?>
+                  <a href="../model/addSub.php?user_id=<?= $user["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivre</a>
+              <?php endif; ?>
+
+
                   </div>
                   <hr class="border-light m-0">
                  

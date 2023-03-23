@@ -76,32 +76,32 @@ body{
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact1">Nom</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact1" name="nom" type="text" placeholder="" value="<?=  $user["nom"] ?>">
+                                    <input class="form-control" id="inputContact1" name="nom" type="text" placeholder="" value="<?=  $user["nom"] ?>" required>
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact2">prenom</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact2" name="prenom" type="text" value="<?= $user["prenom"]  ?>">
+                                    <input class="form-control" id="inputContact2" name="prenom" type="text" value="<?= $user["prenom"]  ?>" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact3">Email</label>
                                 <div class="col-sm-10">
-                                    <input  class="form-control" id="email"  name="email" type="email" value="<?=  $user["adressemail"] ?>">
+                                    <input  class="form-control" id="email"  name="email" type="email" value="<?=  $user["adressemail"] ?>" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact4">Password</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact4" name="motdepasse" type="password" placeholder="Tapez votre mot de passe..." minlength="10" value="<?=  $user['mdp'] ?: '' ?>">
+                                    <input class="form-control" id="inputContact4" name="motdepasse" type="password" placeholder="Tapez votre mot de passe..." minlength="10" value="<?=  $user['mdp'] ?: '' ?>" required>
                                 </div>   
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact5">datedenaissance</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" name="naissance" id="inputContact5" type="date" value="<?=  $user["datedenaissance"] ?>">
+                                    <input class="form-control" name="naissance" id="inputContact5" type="date" value="<?=  $user["datedenaissance"] ?>"required>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -114,7 +114,7 @@ body{
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact7">description</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control"  name="description" id="inputContact7" type="text" value="<?=  $user["description"] ?>">
+                                    <input class="form-control"  name="description" id="inputContact7" type="text" value="<?=  $user["description"] ?>"required>
                                 </div>
                             </div>
                             <div class="form-group" id="promo-group">
@@ -140,13 +140,13 @@ body{
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact7">pseudo</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control"  name="pseudo" id="inputContact7" type="text" value="<?=  $user["pseudo"] ?>">
+                                    <input class="form-control"  name="pseudo" id="inputContact7" type="text" value="<?=  $user["pseudo"] ?>"required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact8">ville</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" name="ville" id="inputContact8" type="text" placeholder="ville" value="<?= $user["ville"]  ?>">
+                                    <input class="form-control" name="ville" id="inputContact8" type="text" placeholder="ville" value="<?= $user["ville"]  ?>"required>
                                 </div>
                             </div>
                             <div class="form-group">
