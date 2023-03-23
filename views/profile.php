@@ -34,7 +34,12 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
       <div class="panel">
           <div class="user-heading round">
               <a href="#">
-                  <img src="../uploads/<?= $user["image"]  ?>" alt=""> 
+              <?php if($user["image"] != null) : ?>
+                        <img src="../uploads/<?= $user["image"]  ?>" alt=""> 
+                    <?php else : ?>
+                        <img alt="..." src="../uploads/avatar.png">
+                    <?php endif ; ?>
+                  
               </a>
               <h1><?=  $user["nom"] . " " . $user["prenom"] ?></h1>
               <p><?=  $user["adressemail"] ?></p>

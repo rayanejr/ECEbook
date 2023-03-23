@@ -30,12 +30,12 @@ if(isset($_POST["submit"])){
     $descriptionUser = $_POST["description"] ?? '';
     $emailUser = $_POST["email"] ?? '';
     $confirmerUser = $_POST["confirmer"] ?? '';
+    $mdpUser= password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); 
     $imageUser = $_FILES['image']['name'];
     $filetmpname = $_FILES['image']['tmp_name'];
     $folder = '../uploads/';
     move_uploaded_file($filetmpname, $folder . $imageUser);
-    $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$descriptionUser,$emailUser,$confirmerUser,$imageUser,$promoUser);
-
+    $db->updateUserByIdUser($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser,$emailUser,$confirmerUser,$imageUser,$promoUser);
     header("location: ../views/updateUser.php");
 
 

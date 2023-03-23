@@ -57,9 +57,15 @@ if(isset($_SESSION["id_user"])){
 			<a href="#" class="nav-item nav-link"><i class="fa fa-envelope"></i><span>Messages</span></a>		
 			<a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a>
 			<div class="nav-item dropdown">
-				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"> 
-						
-				<img src="../uploads/<?=  $user["image"] ?>" class="avatar" alt="Avatar"> <?=  $user["pseudo"] ?> </a>
+				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
+				<?php 
+					if($user["image"] != null) : ?>
+						<img src="../uploads/<?=  $user["image"] ?>" class="avatar" alt="Avatar"> <?=  $user["pseudo"] ?> </a>
+                    <?php elseif ($user["image"] == null) : ?>
+						<img src="../uploads/avatar.png" class="avatar" alt="Avatar"> <?=$user["pseudo"] ?> </a>
+                    <?php endif ; ?>	
+				</a>
+
 				<div class="dropdown-menu">
 					<a href="../views/profile.php" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
 					<div class="divider dropdown-divider"></div>

@@ -181,59 +181,59 @@ if(isset($_SESSION["id_user"])){
 
     <script>
 
-const emailInput = document.getElementById('email');
-const promoGroup = document.getElementById('promo-group');
-
-// DEBUT CODE JORDAN POUR LISTE PROMO
-var selectPromo = document.getElementById('select-group-promo');
-selectPromo.disabled = true;
-emailInput.addEventListener("input", function(){
-    if (emailInput.value.length > 0){
-        selectPromo.disabled = false;
-    } else {
-        selectPromo.disabled = true;
-    }
-});
-// FIN CODE JORDAN
-
-
-emailInput.addEventListener('blur', () => {
-    const email = emailInput.value.trim();
-    const domain = email.split('@')[1];
-
+    const emailInput = document.getElementById('email');
     const promoGroup = document.getElementById('promo-group');
 
-    if (domain === 'omnes.intervenant.fr') {
-      promoGroup.style.display = 'block';
-      // CODE JORDAN DEBUT
-      selectPromo.multiple = true;
-    } else if (domain === 'edu.ece.fr') {
+    // DEBUT CODE JORDAN POUR LISTE PROMO
+    var selectPromo = document.getElementById('select-group-promo');
+    selectPromo.disabled = true;
+    emailInput.addEventListener("input", function(){
+        if (emailInput.value.length > 0){
+            selectPromo.disabled = false;
+        } else {
+            selectPromo.disabled = true;
+        }
+    });
+    // FIN CODE JORDAN
+
+
+    emailInput.addEventListener('blur', () => {
+        const email = emailInput.value.trim();
+        const domain = email.split('@')[1];
+
+        const promoGroup = document.getElementById('promo-group');
+
+        if (domain === 'omnes.intervenant.fr') {
         promoGroup.style.display = 'block';
-        selectPromo.multiple = false;
-    } // FIN CODE JORDAN 
-    else {
-      promoGroup.style.display = 'none';
+        // CODE JORDAN DEBUT
+        selectPromo.multiple = true;
+        } else if (domain === 'edu.ece.fr') {
+            promoGroup.style.display = 'block';
+            selectPromo.multiple = false;
+        } // FIN CODE JORDAN 
+        else {
+        promoGroup.style.display = 'none';
+        }
+    });
+
+    // SET DATE MAX
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+    dd = '0' + dd;
     }
-  });
 
-// SET DATE MAX
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth() + 1; //January is 0!
-var yyyy = today.getFullYear();
+    if (mm < 10) {
+    mm = '0' + mm;
+    } 
+        
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("datefield").setAttribute("max", today);
 
-if (dd < 10) {
-   dd = '0' + dd;
-}
-
-if (mm < 10) {
-   mm = '0' + mm;
-} 
-    
-today = yyyy + '-' + mm + '-' + dd;
-document.getElementById("datefield").setAttribute("max", today);
-
-
+// FIN SET DATE MAX
 
 
 </script>
