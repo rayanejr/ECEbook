@@ -38,9 +38,10 @@ if(isset($_SESSION["id_user"])){
 	<div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">		
 		<?php if(isset($_SESSION["id_user"])) : ?>
 		<form class="navbar-form form-inline">
-			<div class="input-group search-box">								
+			<div class="input-group search-box">
+				<!--								
 				<input type="text" class="form-control" id="live_search" autocomplete="off"
-            		placeholder="Search...">
+            		placeholder="Search...">-->
 			</div>
 		</form>
 		<div id="searchresult"> </div>
@@ -50,16 +51,22 @@ if(isset($_SESSION["id_user"])){
 		<?php if(isset($_SESSION["id_user"])) : ?>
 		<div class="navbar-nav ml-auto">
 			<a href="../views/index2.php" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Accueil</span></a>
-			<a href="#" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Projects</span></a>
+			<a href="../views/navSearchUsers.php" class="nav-item nav-link"><i class="fa fa-gears"></i><span>Search users</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>Team</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-pie-chart"></i><span>Reports</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-briefcase"></i><span>Careers</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-envelope"></i><span>Messages</span></a>		
 			<a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a>
 			<div class="nav-item dropdown">
-				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action"> 
-						
-				<img src="../uploads/<?=  $user["image"] ?>" class="avatar" alt="Avatar"> <?=  $user["pseudo"] ?> </a>
+				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
+				<?php 
+					if($user["image"] != null) : ?>
+						<img src="../uploads/<?=  $user["image"] ?>" class="avatar" alt="Avatar"> <?=  $user["pseudo"] ?> </a>
+                    <?php elseif ($user["image"] == null) : ?>
+						<img src="../uploads/avatar.png" class="avatar" alt="Avatar"> <?=$user["pseudo"] ?> </a>
+                    <?php endif ; ?>	
+				</a>
+
 				<div class="dropdown-menu">
 					<a href="../views/profile.php" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
 					<div class="divider dropdown-divider"></div>

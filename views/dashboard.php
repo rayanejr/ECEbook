@@ -235,7 +235,7 @@ $post_count = $db->getPostCount();
                                         <?=  $post["message"]  ?>
                                     </td>
                                     <td>
-                                        <?=  $post["pseudo"] ?>
+                                        <?=  $post["nom"] ?>
                                     </td>
                                     <td>
                                         <?php if($post["image"] != null) : ?>
@@ -309,7 +309,7 @@ $post_count = $db->getPostCount();
                     </div>
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
-                            <input class="form-control" type="file" name="image"  required><br><br>
+                            <input class="form-control" type="file" name="image"><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -654,7 +654,7 @@ foreach($users as $user):
                     </div>
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
-                            <input class="form-control" type="file" name="image"  ><br><br>
+                            <input class="form-control" type="file" name="image"><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -678,7 +678,7 @@ foreach($users as $user):
                     </div>
            
                
-                        <div class="form-group mb-3" id="promo-group" style="display:none">
+                    <div class="form-group mb-3" id="promo-group" >
                             <label for="promo">Promo:</label>
                             <select multiple class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo[]">
                                     <option selected>Promo</option>
@@ -714,14 +714,7 @@ foreach($users as $user):
                             <input class="form-control" type="text" name="description" placeholder="Tapez votre description..." value='<?= $user["description"]  ?>'><br><br>
                         </div>
                     </div>
-                    <div class="form-group mb-3" id="promo-group">
-                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo">
-                                    <option selected disabled >Promo</option>
-                                    <option selected value="Bachelor 1">Bachelor 1</option>
-                                    <option value="Bachelor 2">Bachelor 2</option>
-                                    <option value="Bachelor 3">Bachelor 3</option>
-                                </select>
-                            </div>
+                    
                    
 
                     <div class="form-group mb-3">
@@ -783,19 +776,57 @@ foreach($users as $user):
 </body>
 </html>
 <script>
-var today = new Date();
-var dd = today.getDate();
-var mm = today.getMonth() + 1; //January is 0!
-var yyyy = today.getFullYear();
+    const emailInput = document.getElementById('email');
+    const promoGroup = document.getElementById('promo-group');
 
-if (dd < 10) {
-   dd = '0' + dd;
-}
+    // DEBUT CODE JORDAN POUR LISTE PROMO
+    var selectPromo = document.getElementById('select-group-promo');
+    selectPromo.disabled = true;
+    emailInput.addEventListener("input", function(){
+        if (emailInput.value.length > 0){
+            selectPromo.disabled = false;
+        } else {
+            selectPromo.disabled = true;
+        }
+    });
+    // FIN CODE JORDAN
 
-if (mm < 10) {
-   mm = '0' + mm;
-} 
-    
-today = yyyy + '-' + mm + '-' + dd;
-document.getElementById("datefield").setAttribute("max", today);
+
+    emailInput.addEventListener('blur', () => {
+        const email = emailInput.value.trim();
+        const domain = email.split('@')[1];
+
+        const promoGroup = document.getElementById('promo-group');
+
+        if (domain === 'omnes.intervenant.fr') {
+        promoGroup.style.display = 'block';
+        // CODE JORDAN DEBUT
+        selectPromo.multiple = true;
+        } else if (domain === 'edu.ece.fr') {
+            promoGroup.style.display = 'block';
+            selectPromo.multiple = false;
+        } // FIN CODE JORDAN 
+        else {
+        promoGroup.style.display = 'none';
+        }
+    });
+
+    // SET DATE MAX
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+    dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+    mm = '0' + mm;
+    } 
+        
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("datefield").setAttribute("max", today);
+
+    // FIN SET DATE MAX
 </script>

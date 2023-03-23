@@ -53,6 +53,7 @@ $posts = array_values($posts);
     crossorigin="anonymous"> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-lq1jB4rkYZfoUUvIaXwh3pZlnbvyopoPb+aWYsIrpTmGkPTF/m2rdEJGU6zCj3X2" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 
 
         
@@ -93,11 +94,26 @@ $posts = array_values($posts);
             content: none;
             display: none;
         }
+
+        #card-populaires {
+            margin-left: 42%;
+            margin-top: 20px;
+        }
 </style>
 
        
 <?php  require("../model/navbar.php") ?>
 
+<div class="card" id="card-populaires" style="width: 18rem;">
+    <div class="card-header text-center border-5 border-secondary" style="background: #d63384;">
+        Popular accounts
+    </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">First account</li>
+        <li class="list-group-item">Second account</li>
+        <li class="list-group-item">Third account</li>
+    </ul>
+</div>
 
     <div class="container gedf-wrapper">
         <div class="row">
@@ -287,4 +303,52 @@ toggleFullBtn.addEventListener('click', () => {
 </script>
 
 </body>
+<footer class="bg-light text-center text-lg-start mt-5">
+        <div class="container p-4">
+            <div class="row">
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase text-primary">A propos</h5>
+                    <p>Site web officiel ECEBOOK de l'école d'ingénieur ECE Paris.</p>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase text-primary">Nos services</h5>
+                    <ul class="list-unstyled mb-0">
+                        <li>
+                            <a href="#" class="text-dark" id="service">Service 1</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark" id="service">Service 2</a>
+                        </li>
+                        <li>
+                            <a href="#" class="text-dark" id="service">Service 3</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
+                    <h5 class="text-uppercase mb-0 text-primary">Nous contacter</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <i class="fas fa-envelope me-3"></i>
+                            sami.abdulhalim@gmail.com
+                        </li>
+                        <li>
+                            <i class="fas fa-phone me-3"></i>
+                            +06 99 99 99 99
+                        </li>
+                        <li>
+                            <i class="fas fa-map-marker-alt me-3"></i>
+                            Paris, France 75015
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center p-3" style="background-color: #2C3E50;">
+            <span style="color: #FFF;">© ECE BOOK 2023:</span>
+            <a class="text-light" href="#">Legal</a>
+        </div>
+    </footer>
 </html>

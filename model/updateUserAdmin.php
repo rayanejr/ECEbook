@@ -22,7 +22,6 @@ try {
         $promo = array($_POST["choixPromo"] ?? '');
         $promoUser = implode(",", $_POST["choixPromo"] ?? []);
         $usernameUser = $_POST["username"] ?? '';
-        $promoUser = $_POST["choixPromo"] ?? '';
         $confirmerUser = $_POST["confirmer"] ?? '';
         $descriptionUser = $_POST["description"] ?? '';
         $imageUser = $_FILES['image']['name'];
@@ -31,7 +30,7 @@ try {
         $folder = '../uploads/';
         move_uploaded_file($filetmpname, $folder . $imageUser);
 
-        $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$descriptionUser,$emailUser,$confirmerUser,$promoUser,$imageUser,$promoUser);
+        $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$descriptionUser,$emailUser,$confirmerUser,$promoUser,$imageUser,);
     
         header("location: ../views/dashboard.php");
     }
