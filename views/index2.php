@@ -80,49 +80,49 @@ $posts = $db->getAllPosts() ;
             <div class="col-md-6 gedf-main">
 
                 <!--- \\\\\\\Post-->
-                <form action="../model/addPost.php" method="POST">
-                <div class="card gedf-card">
-                    <div class="card-header">
-                        <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
-                            <li class="nav-item">
-                                <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Publiez </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <div class="tab-content" id="myTabContent">
-                            <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
-                            <div class="input-group input-group mb-3 w-100 flex-nowrap">
-                                   
-                                    <input class="form-control" type="text" name="titre" placeholder="entrez un titre" required><br><br>
-                                </div>
-                                <div class="form-group">
-                                    <label class="sr-only" for="message">Post</label>
-                                    <textarea class="form-control" name="message" id="message" rows="3" placeholder="entrez un message ?"></textarea>
-                                </div>
-
-                            </div>
-                            <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
-                                <div class="form-group">
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile" name="image">
-                                        <label class="custom-file-label" for="customFile">Upload image</label>
+                <form action="../model/addPost.php" method="POST" enctype="multipart/form-data">
+                    <div class="card gedf-card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">Publiez </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="images-tab" data-toggle="tab" role="tab" aria-controls="images" aria-selected="false" href="#images">Images</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div class="tab-content" id="myTabContent">
+                                <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                                <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                                    
+                                        <input class="form-control" type="text" name="titre" placeholder="entrez un titre" required><br><br>
                                     </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="message">Post</label>
+                                        <textarea class="form-control" name="message" id="message" rows="3" placeholder="entrez un message ?"></textarea>
+                                    </div>
+
                                 </div>
-                                <div class="py-4"></div>
+                                <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
+                                    <div class="form-group">
+                                        <div class="custom-file">
+                                            <input type="file" class="custom-file-input" id="customFile" name="image">
+                                            <label class="custom-file-label" for="customFile">Upload image</label>
+                                        </div>
+                                    </div>
+                                    <div class="py-4"></div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="btn-toolbar justify-content-between">
-                            <div class="btn-group">
-                                <button type="submit" name="submit" class="btn btn-primary">Publier</button>
+                            <div class="btn-toolbar justify-content-between">
+                                <div class="btn-group">
+                                    <button type="submit" name="submit" class="btn btn-primary">Publier</button>
+                                </div>
+                            
                             </div>
-                          
                         </div>
                     </div>
-                </div>
                 </form>
                 <!-- Post /////-->
 
@@ -172,7 +172,10 @@ $posts = $db->getAllPosts() ;
         echo '<span class="preview">' . $message . '</span>';
     }
     ?>
+
 </p>
+
+<img src="../uploads/<?= $post["image"] ?>">
 
 </div>
 

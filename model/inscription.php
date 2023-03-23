@@ -23,7 +23,9 @@ if(isset($_POST["submit"])){
     $prenomUser = $_POST["prenom"] ?? '';
     $naissanceUser = $_POST["naissance"] ?? '';
     $villeUser = $_POST["ville"] ?? '';
-    $promoUser = $_POST["choixPromo"] ?? '';
+    
+    $promo = array($_POST["choixPromo"] ?? '');
+    $promoUser = implode(",", $_POST["choixPromo"] ?? []);
     $usernameUser = $_POST["username"] ?? '';
     $emailUser = filter_var($_POST["email"] ?? '', FILTER_VALIDATE_EMAIL);
     $mdpUser = password_hash($_POST["motdepasse"], PASSWORD_DEFAULT); // Hash the password

@@ -515,19 +515,20 @@ class Database{
         return $emails;
     }
 
-    function insertPost($user_id, $titre, $pseudo, $message,$date) {
+    function insertPost($user_id, $titre, $pseudo, $message, $imagePost, $date) {
         $database = self::getInstance();
-        $sql = "INSERT INTO post (id_user, titre, pseudo, message,date) 
-                VALUES (:user_id, :titre, :pseudo, :message,:date)";
+        $sql = "INSERT INTO post (id_user, titre, pseudo, message, image, date) 
+                VALUES (:user_id, :titre, :pseudo, :message, :image, :date)";
         try {
             $statement = $database->prepare($sql);
             $statement->bindParam(':user_id', $user_id);
             $statement->bindParam(':titre', $titre);
             $statement->bindParam(':pseudo', $pseudo);
             $statement->bindParam(':message', $message);
+            $statement->bindParam(':image', $imagePost);
+           
             $statement->bindParam(':date', $date);
-
-        
+    
             $statement->execute();
             echo "Post added successfully";
         } catch(PDOException $e) {
@@ -535,6 +536,8 @@ class Database{
             die();
         }
     }
+    
+    
 
     public function getUserFromPost($post_id) {
         $database = self::getInstance();

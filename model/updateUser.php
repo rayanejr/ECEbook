@@ -24,6 +24,8 @@ if(isset($_POST["submit"])){
     $prenomUser = $_POST["prenom"] ?? '';
     $naissanceUser = $_POST["naissance"] ?? '';
     $villeUser = $_POST["ville"] ?? '';
+    $promo = array($_POST["choixPromo"] ?? '');
+    $promoUser = implode(",", $_POST["choixPromo"] ?? []);
     $usernameUser = $_POST["username"] ?? '';
     $descriptionUser = $_POST["description"] ?? '';
     $emailUser = $_POST["email"] ?? '';
@@ -32,7 +34,7 @@ if(isset($_POST["submit"])){
     $filetmpname = $_FILES['image']['tmp_name'];
     $folder = '../uploads/';
     move_uploaded_file($filetmpname, $folder . $imageUser);
-    $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$descriptionUser,$emailUser,$confirmerUser,$imageUser);
+    $db->updateUserById($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$descriptionUser,$emailUser,$confirmerUser,$imageUser,$promoUser);
 
     header("location: ../views/updateUser.php");
 

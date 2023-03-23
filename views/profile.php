@@ -121,6 +121,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
               <p class="preview"><?= nl2br(substr($post["message"], 0, 100)) ?>...</p>
   <p class="full" style="display: none;"><?= nl2br($post["message"]) ?></p>
   <button class="btn btn-primary btn-sm toggle-preview">Voir plus</button>
+  <img src="../uploads/<?= $post["image"] ?>" alt="" srcset="">
 
               </div>
               <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">

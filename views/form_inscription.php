@@ -74,18 +74,8 @@ if(isset($_SESSION["id_user"])){
                                 </div>
                             </div>
                             <div class="form-group mb-3" id="promo-group">
-                                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo">
+                                <select multiple class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" id="select-group-promo" name="choixPromo[]">
                                     <option selected>Promo</option>
-                                    <option value="Bachelor 1">Bachelor 1</option>
-                                    <option value="Bachelor 2">Bachelor 2</option>
-                                    <option value="Bachelor 3">Bachelor 3</option>
-                                </select>
-                            </div>
-                   
-                                <!--
-                                <div class="form-group mb-3" id="promo-group" style="display:block">
-                                    <label for="promo">Promo:</label>
-                                    <select name="promo" multiple id="selectPromo">
                                     <option value="ING1">ING1</option>
                                     <option value="ING2">ING2</option>
                                     <option value="ING3">ING3</option>
@@ -96,8 +86,11 @@ if(isset($_SESSION["id_user"])){
                                     <option value="B3">B3</option>
                                     <option value="M1">M1</option>
                                     <option value="M2">M2</option>
-                                    </select>
-                                </div>-->
+                                </select>
+                                
+                            </div>
+                   
+                               
                        
                     
 
