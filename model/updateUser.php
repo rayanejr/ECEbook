@@ -24,9 +24,11 @@ if(isset($_POST["submit"])){
     $prenomUser = $_POST["prenom"] ?? '';
     $naissanceUser = $_POST["naissance"] ?? '';
     $villeUser = $_POST["ville"] ?? '';
-    $promo = array($_POST["choixPromo"] ?? '');
-    $promoUser = implode(",", $_POST["choixPromo"] ?? []);
-    $usernameUser = $_POST["username"] ?? '';
+    
+    $promo = $_POST["choixPromo"] ?? [];
+    $promoUser = implode(",",$promo);
+    
+    $usernameUser = $_POST["pseudo"] ?? '';
     $descriptionUser = $_POST["description"] ?? '';
     $emailUser = $_POST["email"] ?? '';
     $confirmerUser = $_POST["confirmer"] ?? '';
@@ -35,8 +37,8 @@ if(isset($_POST["submit"])){
     $filetmpname = $_FILES['image']['tmp_name'];
     $folder = '../uploads/';
     move_uploaded_file($filetmpname, $folder . $imageUser);
-    $db->updateUserByIdUser($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser,$emailUser,$confirmerUser,$imageUser,$promoUser);
-    header("location: ../views/updateUser.php");
+    $db->updateUserByIdUser($user_id, $nomUser,$prenomUser,$naissanceUser,$villeUser,$usernameUser,$mdpUser,$descriptionUser,$emailUser, $promoUser, $imageUser,);
+    header("location: ../views/profile.php");
 
 
 
