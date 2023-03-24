@@ -100,7 +100,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
     $posts=$db->getAllPostsByIduser($user["id_user"]);
     foreach($posts as $post) : 
         ?>
-
+  <?php $nombre = $db->getCountforPostbyIdpost($post["id_post"]);?>
 
         
 <section style="background-color: #eee;">
@@ -152,31 +152,24 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
                                 <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'" style="width: 240px" class="btn btn-danger mx-auto" style="width: 250px">  
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
-                                    </svg> Like
+                                    </svg> Like '.$nombre.'
                                 </a> &nbsp;&nbsp;&nbsp;
                        
                                                                                                                     
                                 ';
                             }elseif($db->userLikesAnnonce($_SESSION['id_user'],$post["id_post"]) == false ) {
-                            
+                              
 
                                 echo '
                                 <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'"  style="width: 240px" class="btn btn-danger mx-auto" style="width: 250px">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
-                                </svg> Dislike
+                                </svg> Dislike '.$nombre.'
                             </a> &nbsp;&nbsp;&nbsp;
                                 ';
                             }
                             ?>  
-                            <h2>Nombre de like:
-                                <?php
-                                $nombre = $db->getCountforPostbyIdpost($post["id_post"]);
-                                echo "$nombre";
-                                
-                                ?>
-                               
-                            </h2>
+                           
 
                 
                 </div>
