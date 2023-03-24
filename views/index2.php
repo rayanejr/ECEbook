@@ -103,6 +103,13 @@ $posts = array_values($posts);
             margin-left: 42%;
             margin-top: 20px;
         }
+
+
+
+        .image-post {
+            max-width : 100%;
+            min-width : 100%;
+        }
 </style>
 
        
@@ -149,10 +156,7 @@ $posts = array_values($posts);
                                     </div>
                                     <div class="form-group">
                                         <label class="sr-only" for="message">Post</label>
-                                        <textarea class="form-control" name="message" id="message" rows="3" placeholder="entrez un message ?"></textarea>
-                                        <label for="publique">publique :</label>
-                                        <input type="checkbox" id="publique" name="publique" value="1">
-                                        
+                                        <textarea class="form-control" name="message" id="message" rows="3" placeholder="entrez un message ?" required></textarea>
                                     </div>
 
                                 </div>
@@ -192,7 +196,15 @@ $posts = array_values($posts);
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="mr-2">
-                                        <img class="rounded-circle" width="45" src="../uploads/<?= $user["image"]  ?>" alt="">
+                                    <?php 
+                                    if($user["image"] != null) : ?>
+                                        <a href="../views/profileUser.php?user_id=<?=  $user_id ?>">
+                                        <img class="rounded-circle" width="45" src="../uploads/<?= $user["image"]  ?>" alt=""></a>
+                                    <?php elseif ($user["image"] == null) : ?>
+                                        <a href="../views/profileUser.php?user_id=<?=  $user_id ?>">
+                                        <img class="rounded-circle" width="45" src="../uploads/avatar.png" alt=""></a>
+                                    <?php endif ; ?>
+                                        
                                     </div>
                                     <div class="ml-2">
                                         <div class="h5 m-0"><?=  $user["pseudo"] ?></div>
@@ -226,15 +238,8 @@ $posts = array_values($posts);
     ?>
 
 </p>
+<img src="../uploads/<?= $post["image"] ?>" alt="" srcset="" class="image-post">
 
-<?php if($post["image"] != null) : ?>
-    <img alt="..." src="../uploads/<?=  $post["image"]  ?>" class="avatar avatar-sm rounded-circle me-2">
-<a class="text-heading font-semibold" href="#">
-    <?= $post["pseudo"] ?>
-</a>
-<?php else : ?>
-    <img alt="..." src="../uploads/avatar.png" class="avatar avatar-sm rounded-circle me-2">
-<?php endif ; ?>
 
 </div>
 
