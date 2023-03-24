@@ -674,6 +674,25 @@ public function unsubByAbonnementId($id_user1, $id_user2)
     }
 }
 
+public function getALLSubs($id_user)
+{
+    $database = self::getInstance();
+    $query = "SELECT DISTINCT * FROM abonnement WHERE user2_id=:user2_id OR user1_id=:user1_id";
+    try{
+        $statement = $database->prepare($query);
+        $statement->bindParam(':user2_id', $id_user);
+        $statement->bindParam(':user1_id', $id_user);
+        $statement->execute();
+
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        return $results;
+    }catch(PDOException $e){
+        echo "Error getting all the subs: " . $e->getMessage();
+        die();
+    }
+}
+
 //--------------------messagerie-----------------------------------
 
 public function addMessage($id_user1, $id_user2, $contenu)
@@ -689,13 +708,31 @@ public function addMessage($id_user1, $id_user2, $contenu)
 
     }catch(PDOException $e){
 
-        echo "Error adding subscriber: " . $e->getMessage();
+        echo "Error adding message: " . $e->getMessage();
         die();
     }
 
 }
 
+public function getMessageByUserId($id_user1, $id_user2)
+{
+    $database = self::getInstance();
+    $query = "SELECT * FROM messages WHERE (expediteur_id=:user1_id AND destinataire_id=:user2_id)OR(expediteur_id=:user2_id AND destinataire_id=:user1_id)";
+    try{
+        $statement = $database->prepare($query);
+        $statement->bindParam(':user1_id', $id_user1);
+        $statement->bindParam(':user2_id', $id_user2);
+        $statement->execute();
 
+        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $results;
+    }catch(PDOException $e){
+
+        echo "Error getting messages: " . $e->getMessage();
+        die();
+    }
+
+}
 
 
 }

@@ -11,12 +11,13 @@ if(!isset($_SESSION["id_user"])){
 require("../controller/database.php");
 
 $id_user1 = $_SESSION["id_user"];
-$id_user2 = $_GET["id_user2"];
+$id_user2 = $_GET["id_receveur"];
+
 $contenu = $_POST["contenu"];
 
 $db = new Database();
 $db->addMessage($id_user1, $id_user2, $contenu);
 
-header("location: ../views/index2.php");
+header("location: ../views/messagerie.php");
 
 ?>

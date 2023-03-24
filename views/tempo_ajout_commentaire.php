@@ -68,13 +68,15 @@ $comments = $db->GetCommentByPostId($_GET['id_post']);
     ?>
 
 	</p>
+    </div>
+
               
 	<?php endforeach ; ?>
 	<!-- Post /////-->
 
 
 	<form action="../model/addComment.php?id_post=<?php echo $_GET['id_post']?>" method="post">
-		<label for="comment">ajouter un commentaire :</label><br>
+		<label for="comment">ajouter un nouveau commentaire :</label><br>
 		<textarea id="comment" name="comment" rows="5" cols="50"></textarea><br><br>
 		<input type="submit" value="Envoyer">
 	</form>
