@@ -19,8 +19,8 @@ $commentaire = $_POST['comment'];
 
 $db = new Database();
 $db->AddComment($id_user, $id_post, $commentaire);
-//$comments = $db->GetCommentByPostId($_GET['id_post']);
-// sert à rien cette ligne ?
+$comments = $db->GetCommentByPostId($_GET['id_post']);
+
 
 header("location: ../views/index2.php");
 

@@ -12,13 +12,13 @@ require("../controller/database.php");
     
     
     $id_user1 = $_SESSION['id_user'];
-    $id_user2 = $_GET['user_id'];
+    $id_user2 = $_GET['id_user'];
 
     
     $db = new Database();
-    $db->addSubcriber($id_user1, $id_user2);
+    $db->deleteSubscriber($id_user1, $id_user2);
 
-    echo "<script>alert('Vous êtes maintenant abonné !');</script>";
+    echo "<script>alert('Vous êtes maintenant desabonné !');</script>";
 
     header("location: ../views/index2.php");
 ?>
