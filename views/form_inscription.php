@@ -54,7 +54,7 @@ if(isset($_SESSION["id_user"])){
                             </div>
                             <div class="form-group mb-3">
                                 <div class="input-group input-group mb-3 w-100 flex-nowrap">
-                                    <input class="form-control" type="file" name="image" ><br><br>
+                                    <input class="form-control" type="file" name="image"  required><br><br>
                                 </div>
                             </div>
                             <div class="form-group mb-3">

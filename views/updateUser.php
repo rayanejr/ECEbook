@@ -46,16 +46,7 @@ body{
     <div class="col-md-4">
         <div class="panel panel-default">
             <div class="panel-body text-center">
-                <div class="pv-lg">
-                <?php 
-					if($user["image"] != null) : ?>
-						<img src="../uploads/<?=  $user["image"] ?>" class="center-block img-responsive img-circle img-thumbnail thumb96" 
-                        alt="Contact"> 
-                    <?php elseif ($user["image"] == null) : ?>
-						<img src="../uploads/avatar.png" class="center-block img-responsive img-circle img-thumbnail thumb96" 
-                        alt="Contact"> 
-                    <?php endif ; ?>
-                </div>
+                <div class="pv-lg"><img class="center-block img-responsive img-circle img-thumbnail thumb96" src="../uploads/<?=  $user["image"] ?>" alt="Contact"></div>
                 <h3 class="m0 text-bold"><?= $user["nom"] . " " . $user["prenom"]  ?></h3>
                 <div class="mv-lg">
                     <p><?=  $user["description"]  ?></p>
@@ -76,32 +67,32 @@ body{
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact1">Nom</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact1" name="nom" type="text" placeholder="" value="<?=  $user["nom"] ?>" required>
+                                    <input class="form-control" id="inputContact1" name="nom" type="text" placeholder="" value="<?=  $user["nom"] ?>">
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact2">prenom</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact2" name="prenom" type="text" value="<?= $user["prenom"]  ?>" required>
+                                    <input class="form-control" id="inputContact2" name="prenom" type="text" value="<?= $user["prenom"]  ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact3">Email</label>
                                 <div class="col-sm-10">
-                                    <input  class="form-control" id="email"  name="email" type="email" value="<?=  $user["adressemail"] ?>" required>
+                                    <input disabled class="form-control" id="inputContact3" name="email" type="email" value="<?=  $user["adressemail"] ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact4">Password</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" id="inputContact4" name="motdepasse" type="password" placeholder="Tapez votre mot de passe..." minlength="10" value="<?=  $user['mdp'] ?: '' ?>" required>
+                                    <input class="form-control" id="inputContact4" name="motdepasse" type="password" placeholder="Tapez votre mot de passe..." minlength="10" value="<?=  $user['mdp'] ?: '' ?>">
                                 </div>   
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact5">datedenaissance</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" name="naissance" id="inputContact5" type="date" value="<?=  $user["datedenaissance"] ?>"required>
+                                    <input class="form-control" name="naissance" id="inputContact5" type="date" value="<?=  $user["datedenaissance"] ?>">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -114,10 +105,10 @@ body{
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact7">description</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control"  name="description" id="inputContact7" type="text" value="<?=  $user["description"] ?>"required>
+                                    <input class="form-control"  name="description" id="inputContact7" type="text" value="<?=  $user["description"] ?>">
                                 </div>
                             </div>
-                            <div class="form-group" id="promo-group">
+                            <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact8">Promo</label>
                                 <div class="col-sm-10">
                                    
@@ -136,17 +127,22 @@ body{
                                     </select>
                                     </div>
                                 </div>
-                            
+                            <div class="form-group">
+                                <div class="col-sm-10">
+                                    <input class="form-control" hidden  name="confirmer" id="inputContact7" type="number" value="<?=  $user["confirmer"] ?>">
+                                </div>
+                            </div>
+    
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact7">pseudo</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control"  name="pseudo" id="inputContact7" type="text" value="<?=  $user["pseudo"] ?>"required>
+                                    <input class="form-control"  name="pseudo" id="inputContact7" type="text" value="<?=  $user["pseudo"] ?>">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-2 control-label" for="inputContact8">ville</label>
                                 <div class="col-sm-10">
-                                    <input class="form-control" name="ville" id="inputContact8" type="text" placeholder="ville" value="<?= $user["ville"]  ?>"required>
+                                    <input class="form-control" name="ville" id="inputContact8" type="text" placeholder="ville" value="<?= $user["ville"]  ?>">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -174,57 +170,19 @@ body{
 </body>
 </html>
 <script>
-    const emailInput = document.getElementById('email');
-    const promoGroup = document.getElementById('promo-group');
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth() + 1; //January is 0!
+var yyyy = today.getFullYear();
 
-    // DEBUT CODE JORDAN POUR LISTE PROMO
-    var selectPromo = document.getElementById('select-group-promo');
-    selectPromo.disabled = true;
-    emailInput.addEventListener("input", function(){
-        if (emailInput.value.length > 0){
-            selectPromo.disabled = false;
-        } else {
-            selectPromo.disabled = true;
-        }
-    });
-    // FIN CODE JORDAN
+if (dd < 10) {
+   dd = '0' + dd;
+}
 
-
-    emailInput.addEventListener('blur', () => {
-        const email = emailInput.value.trim();
-        const domain = email.split('@')[1];
-
-        const promoGroup = document.getElementById('promo-group');
-
-        if (domain === 'omnes.intervenant.fr') {
-        promoGroup.style.display = 'block';
-        // CODE JORDAN DEBUT
-        selectPromo.multiple = true;
-        } else if (domain === 'edu.ece.fr') {
-            promoGroup.style.display = 'block';
-            selectPromo.multiple = false;
-        } // FIN CODE JORDAN 
-        else {
-        promoGroup.style.display = 'none';
-        }
-    });
-
-    // SET DATE MAX
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth() + 1; //January is 0!
-    var yyyy = today.getFullYear();
-
-    if (dd < 10) {
-    dd = '0' + dd;
-    }
-
-    if (mm < 10) {
-    mm = '0' + mm;
-    } 
-        
-    today = yyyy + '-' + mm + '-' + dd;
-    document.getElementById("datefield").setAttribute("max", today);
-
-    // FIN SET DATE MAX
+if (mm < 10) {
+   mm = '0' + mm;
+} 
+    
+today = yyyy + '-' + mm + '-' + dd;
+document.getElementById("inputContact5").setAttribute("max", today);
 </script>
