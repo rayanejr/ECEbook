@@ -49,11 +49,11 @@ $abonnements=$db-> getAllAbonnements();
                   </div>
 
                   <a href="javascript:void(0)" class="d-inline-block text-body">
-                    <strong></strong>
+                    <strong><?= $nb_abonnement  ?></strong>
                     <span class="text-muted">followers</span>
                   </a>
                   <a href="javascript:void(0)" class="d-inline-block text-body ml-3">
-                    <strong></strong>
+                    <strong><?= $nb_abonné ?></strong>
                     <span class="text-muted">following</span>
                   </a>
                 </div>

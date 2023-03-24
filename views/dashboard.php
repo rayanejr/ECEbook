@@ -450,7 +450,7 @@ $post_count = $db->getPostCount();
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Post</span>
-                            <input class="form-control" type="text" name="message" placeholder="entrez un post" required><br><br>
+                            <input class="form-control" type="text" name="message" placeholder="entrez un post"><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -538,7 +538,7 @@ foreach($posts as $post):
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">titre</span>
-                            <input class="form-control" type="text" name="titre" placeholder="entrez un titre" value='<?= $post["titre"] ?>' ><br><br>
+                            <input class="form-control" type="text" name="titre" placeholder="entrez un titre" value='<?= $post["titre"] ?>' required><br><br>
                         </div>
                     </div>
                     <div class="form-group mb-3">
