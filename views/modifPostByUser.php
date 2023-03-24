@@ -90,7 +90,7 @@ foreach($posts as $post):
                           <div class="col">
                             <div class="form-group">
                               <label>Titre</label>
-                              <input class="form-control" type="text" name="titre"  value="<?=  $post["titre"] ?>">
+                              <input class="form-control" type="text" name="titre"  value="<?=  $post["titre"] ?>" required>
                             </div>
                           </div>
                          
@@ -100,7 +100,7 @@ foreach($posts as $post):
                           <div class="col mb-3">
                             <div class="form-group">
                               <label>Message</label>
-                              <textarea name="message" class="form-control" rows="5"  >
+                              <textarea name="message" class="form-control" rows="5" required>
                               <?= $post["message"] ?>
                               </textarea>
                             </div>
