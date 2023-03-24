@@ -99,6 +99,13 @@ $posts = array_values($posts);
             margin-left: 42%;
             margin-top: 20px;
         }
+
+
+
+        .image-post {
+            max-width : 100%;
+            min-width : 100%;
+        }
 </style>
 
        
@@ -227,12 +234,10 @@ $posts = array_values($posts);
 </p>
 
 <?php if($post["image"] != null) : ?>
-    <img alt="..." src="../uploads/<?=  $post["image"]  ?>" class="avatar avatar-sm rounded-circle me-2">
-<a class="text-heading font-semibold" href="#">
-    <?= $post["pseudo"] ?>
-</a>
+    <img alt="..." src="../uploads/<?=  $post["image"]  ?>" class="image-post">
+
 <?php else : ?>
-    <img alt="..." src="../uploads/avatar.png" class="avatar avatar-sm rounded-circle me-2">
+    <img alt="..." src="../uploads/avatar.png" class="image-post">
 <?php endif ; ?>
 
 </div>

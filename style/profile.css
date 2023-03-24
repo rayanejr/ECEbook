@@ -379,6 +379,11 @@ ul.summary-list>li:last-child {
     width: 0;
 }
 
+.image-post {
+    max-width: 100%;
+    min-width: 100%;
+}
+
 .long-message {
     white-space: nowrap;
     overflow: hidden;
