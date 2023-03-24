@@ -677,7 +677,7 @@ public function unsubByAbonnementId($id_user1, $id_user2)
 public function getALLSubs($id_user)
 {
     $database = self::getInstance();
-    $query = "SELECT DISTINCT * FROM abonnement WHERE user2_id=:user2_id OR user1_id=:user1_id";
+    $query = "SELECT * FROM abonnement WHERE user2_id=:user2_id OR user1_id=:user1_id";
     try{
         $statement = $database->prepare($query);
         $statement->bindParam(':user2_id', $id_user);
