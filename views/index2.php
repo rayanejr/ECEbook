@@ -54,13 +54,6 @@ $posts = array_values($posts);
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-lq1jB4rkYZfoUUvIaXwh3pZlnbvyopoPb+aWYsIrpTmGkPTF/m2rdEJGU6zCj3X2" crossorigin="anonymous">
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-
-
-        
-
-        
-
-
 </head>
 <body>
     
@@ -145,6 +138,9 @@ $posts = array_values($posts);
                                     <div class="form-group">
                                         <label class="sr-only" for="message">Post</label>
                                         <textarea class="form-control" name="message" id="message" rows="3" placeholder="entrez un message ?"></textarea>
+                                        <label for="publique">publique :</label>
+                                        <input type="checkbox" id="publique" name="publique" value="1">
+                                        
                                     </div>
 
                                 </div>
