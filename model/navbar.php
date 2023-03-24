@@ -55,17 +55,16 @@ if(isset($_SESSION["id_user"])){
 			<a href="#" class="nav-item nav-link"><i class="fa fa-users"></i><span>Team</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-pie-chart"></i><span>Reports</span></a>
 			<a href="#" class="nav-item nav-link"><i class="fa fa-briefcase"></i><span>Careers</span></a>
-			<a href="#" class="nav-item nav-link"><i class="fa fa-envelope"></i><span>Messages</span></a>		
+			<a href="../views/messagerie.php" class="nav-item nav-link"><i class="fa fa-envelope"></i><span>Messages</span></a>		
 			<a href="#" class="nav-item nav-link"><i class="fa fa-bell"></i><span>Notifications</span></a>
 			<div class="nav-item dropdown">
 				<a href="#" data-toggle="dropdown" class="nav-item nav-link dropdown-toggle user-action">
 				<?php 
 					if($user["image"] != null) : ?>
-						<img src="../uploads/<?=  $user["image"] ?>" class="avatar" alt="Avatar"> <?=  $user["pseudo"] ?> 
+						<img src="../uploads/<?=  $user["image"] ?>" class="avatar" alt="Avatar"> <?=  $user["pseudo"] ?> </a>
                     <?php elseif ($user["image"] == null) : ?>
-						<img src="../uploads/avatar.png" class="avatar" alt="Avatar"> <?=$user["pseudo"] ?> 
+						<img src="../uploads/avatar.png" class="avatar" alt="Avatar"> <?=$user["pseudo"] ?> </a>
                     <?php endif ; ?>	
-					
 				</a>
 
 				<div class="dropdown-menu">
@@ -85,6 +84,7 @@ if(isset($_SESSION["id_user"])){
 
 		<?php if(!isset($_SESSION["id_user"])) : ?>
 		<div class="navbar-nav ml-auto">
+			<a href="../index.php" class="nav-item nav-link active"><i class="fa fa-home"></i><span>Acceuill</span></a>
 			<a href="../views/connexion.php" class="nav-item nav-link"><i class="fa fa-gears"></i><span>connexion</span></a>
 			<a href="../views/form_inscription.php" class="nav-item nav-link"><i class="fa fa-users"></i><span>inscription</span></a>
 		</div>
