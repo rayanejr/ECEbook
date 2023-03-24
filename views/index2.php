@@ -232,13 +232,8 @@ $posts = array_values($posts);
     ?>
 
 </p>
+<img src="../uploads/<?= $post["image"] ?>" alt="" srcset="" class="image-post">
 
-<?php if($post["image"] != null) : ?>
-    <img alt="..." src="../uploads/<?=  $post["image"]  ?>" class="image-post">
-
-<?php else : ?>
-    <img alt="..." src="../uploads/avatar.png" class="image-post">
-<?php endif ; ?>
 
 </div>
 
