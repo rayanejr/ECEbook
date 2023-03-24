@@ -13,6 +13,7 @@ if(!isset($_SESSION["id_user"])){
     
     $nb_abonnement = count($db->getSubsByUser2Id($_SESSION["id_user"]));
     $nb_abonné = count($db->getSubsByUser1Id($_SESSION["id_user"]));
+    $nb_post=count($db->getAllPostsByIduser($_SESSION["id_user"]));
     
 
 }

@@ -610,6 +610,15 @@ public function getUserFromPost($post_id) {
     return $user;
 }
 
+public function getPostFromUser($user_id) {
+    $database = self::getInstance();
+    $query = "SELECT * FROM post WHERE id_user = ?";
+    $statement = $database->prepare($query);
+    $statement->bindParam(1, $user_id, PDO::PARAM_INT);
+    $statement->execute();
+    $posts = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $posts;
+}
 
 //--------------------------ABONNEMENT-------------------------
 

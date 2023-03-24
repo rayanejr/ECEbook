@@ -50,6 +50,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
               <li><a href="../model/deleteUser.php"> <i class="fa fa-edit"></i> supprimer le profil</a></li>
               <li><a href="#"> <i class="fa fa-edit"></i> nombre d'abonné : <?php echo $nb_abonnement ?></a></li>
               <li><a href="#"> <i class="fa fa-edit"></i> nombre d'abonnement : <?php echo $nb_abonné ?></a></li>
+              <li><a href="#"> <i class="fa fa-edit"></i> nombre de post : <?php echo $nb_post ?></a></li>
           </ul>
       </div>
   </div>
