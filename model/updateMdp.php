@@ -19,7 +19,7 @@ if(isset($_POST["submit"])){
 
     $email = htmlspecialchars($_POST["email"]);
     $db = new Database();
-    $user = $db->GetUserByEmail($email);
+    $user = $db->GetUserByEmail($email); // ça na pas de sens, on demande un mail pour après verifier que le mail est bien celui de l'utilisateur ??
     if($user){
 
         $verification_code = bin2hex(random_bytes(16)); // Génère 16 octets de données aléatoires et les convertit en une chaîne hexadécimale
@@ -42,14 +42,14 @@ if(isset($_POST["submit"])){
     //Port to connect smtp
         $mail->Port = "587";
     //Set gmail username
-    $mail->Username = "ecebookprojet@gmail.com";
+        $mail->Username = "sami.abdulhalim.pro@gmail.com";
     //Set gmail password
-        $mail->Password = "gxzptfdowslnbout";
+        $mail->Password = "cvecdgcdfxeaupbd";
     //Email subject
-    $mail->Subject = 'Reinitialisation de votre mot de passe EceBook';
+    $mail->Subject = 'réinitialisation de votre mot de passe EceBook';
     
     //Set sender email
-        $mail->setFrom('ecebookprojet@gmail.com');
+        $mail->setFrom('sami.abdulhalim.pro@gmail.com');
     //Enable HTML
         $mail->isHTML(true);
     //Attachment
