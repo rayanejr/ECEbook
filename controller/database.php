@@ -646,7 +646,7 @@ public function addSubcriber($id_user1, $id_user2)
     }catch(PDOException $e){
 
         //echo "Error adding subscriber: " . $e->getMessage();
-        header("location: ../views/index2.php");
+        echo "<script>alert('vous êtes déjà abonné, vous pouvez fermer cette page');</script>";
         die();
     }
 }  
