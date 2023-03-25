@@ -36,7 +36,7 @@ if (empty($subs)) {
 
 // Ré-indexer les éléments du tableau $posts
 $posts = array_values($posts);
-$comments = $db->GetCommentByPostId($post['id_post']); 
+
 
 ?>
 
@@ -189,6 +189,7 @@ $comments = $db->GetCommentByPostId($post['id_post']);
                     $user_id = $post['id_user'];
                     $user = $db->getUserById($user_id);
                     $nombre = $db->getCountforPostbyIdpost($post["id_post"]);
+                    $comments = $db->GetCommentByPostId($post['id_post']); 
                     ?>
                     <div class="card gedf-card">
                         <div class="card-header">
@@ -286,18 +287,16 @@ $comments = $db->GetCommentByPostId($post['id_post']);
                 <?php $comments = $db->GetCommentByPostId($post['id_post']); ?>
                 <?php if ($comments): ?>
                     <?php foreach ($comments as $comment): ?>
-                       
-                        <div class="mt-2">
-                            <div class="d-flex flex-row p-3">
-                                <img src="../uploads/<?= $_SESSION["image"] ?>" width="40" height="40" class="rounded-circle mr-3">
-                               
-                                <div class="w-100 commentaire">
-                                <p class="text-justify comment-text mb-0"><?= $comment['contenu'] ?></p>
-                               
-                            </div>
-
-                            </div>
-                        </div>
+                        <?php $user = $db->GetUserById($comment['id_user']); ?>
+        <div class="mt-2">
+            <div class="d-flex flex-row p-3">
+                <img src="../uploads/<?= $user['image'] ?>" width="40" height="40" class="rounded-circle mr-3">
+                <div class="w-100 commentaire">
+                    <span class="text-muted font-weight-bold"><?= $user['pseudo'] ?></span>
+                    <p class="text-justify comment-text mb-0"><?= $comment['contenu'] ?></p>
+                </div>
+            </div>
+        </div>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <p class="p-3">Aucun commentaire pour le moment.</p>
