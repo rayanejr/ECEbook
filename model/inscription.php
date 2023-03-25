@@ -98,14 +98,14 @@ if(isset($_POST["submit"])){
 //Port to connect smtp
 	$mail->Port = "587";
 //Set gmail username
-	$mail->Username = "sami.abdulhalim.pro@gmail.com";
+	$mail->Username = "ecebookprojet@gmail.com";
 //Set gmail password
-	$mail->Password = "cvecdgcdfxeaupbd";
+	$mail->Password = "gxzptfdowslnbout";
 //Email subject
 $mail->Subject = 'Confirmation de votre compte EceBook';
 
 //Set sender email
-	$mail->setFrom('sami.abdulhalim.pro@gmail.com');
+	$mail->setFrom('ecebookprojet@gmail.com');
 //Enable HTML
 	$mail->isHTML(true);
 //Attachment

@@ -14,11 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
    
     $folder = '../uploads/';
     move_uploaded_file($filetmpname, $folder . $imagePost);
-    if(strlen($message) > 500){
-        echo "<script>alert('Erreur : le message dépasse la limite de 500 caractères.');</script>";
-        header("location:../views/dashboard.php"); 
-        exit();
-    }
+
 
     // save form data in the database
     $db = new Database();

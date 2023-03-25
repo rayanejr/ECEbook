@@ -25,11 +25,6 @@ try {
 
         $folder = '../uploads/';
         move_uploaded_file($filetmpname, $folder . $imagePost);
-        if(strlen($message) > 500){
-            echo "<script>alert('Erreur : le message dépasse la limite de 500 caractères.');</script>";
-            header("location:../views/profile.php"); 
-            exit();
-        }
 
         $db->updatePostById($post_id,$titreP,$messageP,$imagePost);
     
