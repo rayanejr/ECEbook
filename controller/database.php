@@ -606,10 +606,10 @@ public function getAllEmails()
     
 
 
-    function insertPost($user_id, $titre, $nom, $message, $imagePost, $date) {
+    function insertPost($user_id, $titre, $nom, $message, $imagePost, $publique, $date) {
         $database = self::getInstance();
-        $sql = "INSERT INTO post (id_user, titre, nom, message, image, date) 
-                VALUES (:user_id, :titre, :nom, :message, :image, :date)";
+        $sql = "INSERT INTO post (id_user, titre, nom, message, image, publique, date) 
+                VALUES (:user_id, :titre, :nom, :message, :image, :publique, :date)";
         try {
             $statement = $database->prepare($sql);
             $statement->bindParam(':user_id', $user_id);
@@ -617,7 +617,7 @@ public function getAllEmails()
             $statement->bindParam(':nom', $nom);
             $statement->bindParam(':message', $message);
             $statement->bindParam(':image', $imagePost);
-           
+            $statement->bindParam(':publique', $publique);
             $statement->bindParam(':date', $date);
     
             $statement->execute();
@@ -666,7 +666,7 @@ public function addSubcriber($id_user1, $id_user2)
     }catch(PDOException $e){
 
         //echo "Error adding subscriber: " . $e->getMessage();
-        header("location: ../views/index2.php");
+        echo "<script>alert('vous êtes déjà abonné, vous pouvez fermer cette page');</script>";
         die();
     }
 }  
