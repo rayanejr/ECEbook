@@ -271,7 +271,7 @@ $posts = array_values($posts);
 
                          
                     </div>
-                    <div style="display: none" id="comments-container-<?= $post['id_post'] ?>" class="container mt-5 mb-5">
+      <div style="display: none" id="comments-container-<?= $post['id_post'] ?>" class="container mt-5 mb-5">
     <div class="row height d-flex justify-content-center align-items-center">
         <div " style="width:100%">
             <div class="card">

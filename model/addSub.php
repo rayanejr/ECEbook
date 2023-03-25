@@ -1,22 +1,23 @@
 <?php
-/*
+
 error_reporting(E_ERROR | E_PARSE);
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 if(!isset($_SESSION["id_user"])){
-    header("location: ../views/connexion.html");
-}*/
+    header("location: ../views/connexion.php");
+}
 
 require("../controller/database.php");
     
     
-    $id_user1 = $_GET['id_user'];
-    $id_user2 = $_GET['id_abonne'];
+    $id_user1 = intval($_SESSION["id_user"]);
+    $id_user2 = intval($_GET['id_abonne']);
     $code = $_GET['code'];
 
-
+    var_dump($id_user1);
+    var_dump($id_user2);
     $db = new Database();
     $receveur = $db->GetUserById($id_user2);
 

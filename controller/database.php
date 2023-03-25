@@ -793,7 +793,7 @@ try{
 public function addMessage($id_user1, $id_user2, $contenu)
 {
 $database = self::getInstance();
-$query = "INSERT INTO messages (expediteur_id, destinataire_id, contenu) VALUES (:user1_id, :user2_id, :contenu)";
+$query = "INSERT INTO message (expediteur_id, destinataire_id, contenu) VALUES (:user1_id, :user2_id, :contenu)";
 try{
     $statement = $database->prepare($query);
     $statement->bindParam(':user1_id', $id_user1);
@@ -812,7 +812,7 @@ try{
 public function getMessageByUserId($id_user1, $id_user2)
 {
 $database = self::getInstance();
-$query = "SELECT * FROM messages WHERE (expediteur_id=:user1_id AND destinataire_id=:user2_id)OR(expediteur_id=:user2_id AND destinataire_id=:user1_id)";
+$query = "SELECT * FROM message WHERE (expediteur_id=:user1_id AND destinataire_id=:user2_id)OR(expediteur_id=:user2_id AND destinataire_id=:user1_id)";
 try{
     $statement = $database->prepare($query);
     $statement->bindParam(':user1_id', $id_user1);
