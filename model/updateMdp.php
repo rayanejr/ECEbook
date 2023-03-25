@@ -19,7 +19,7 @@ if(isset($_POST["submit"])){
 
     $email = htmlspecialchars($_POST["email"]);
     $db = new Database();
-    $user = $db->GetUserByEmail($email);
+    $user = $db->GetUserByEmail($email); // ça na pas de sens, on demande un mail pour après verifier que le mail est bien celui de l'utilisateur ??
     if($user){
 
         $verification_code = bin2hex(random_bytes(16)); // Génère 16 octets de données aléatoires et les convertit en une chaîne hexadécimale

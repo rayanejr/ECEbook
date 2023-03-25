@@ -75,7 +75,9 @@ require("../model/navbar.php");
 	</select>
 
 	<div id="content">
-		<p>Sélectionnez un conversation.</p>
+		<p>Sélectionnez un conversation.<br>
+        (vous pouvez parler avec toutes les personnes à qui vous êtes abonné ou qui sont abonné à vous)
+        </p>
 	</div>
 </body>
 </html>
