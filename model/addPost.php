@@ -13,7 +13,6 @@ if(isset($_POST["submit"])){
     $date_creation = date('Y-m-d H:i:s');
     $imagePost = $_FILES['image']['name'];
     $filetmpname = $_FILES['image']['tmp_name'];
-    $publique = $_POST["publique"];
    
     $folder = '../uploads/';
     move_uploaded_file($filetmpname, $folder . $imagePost);
@@ -26,7 +25,7 @@ if(isset($_POST["submit"])){
 
    // save form data in the database
    $db = new Database();
-   $db->insertPost($user_id, $titre, $nom, $message, $imagePost, $publique, $date_creation);
+   $db->insertPost($user_id, $titre, $nom, $message, $imagePost, $date_creation);
    header("location:../views/index2.php"); 
     }catch(PDOException $e) {
         echo "Error adding post: " . $e->getMessage();
