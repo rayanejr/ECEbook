@@ -11,14 +11,27 @@ if(!isset($_SESSION["id_user"])){
 require("../controller/database.php");
     
     
-    $id_user1 = $_SESSION['id_user'];
-    $id_user2 = $_GET['user_id'];
+    $id_user1 = $_GET['id_user'];
+    $id_user2 = $_GET['id_abonne'];
+    $code = $_GET['code'];
 
-    
+
     $db = new Database();
-    $db->addSubcriber($id_user1, $id_user2);
+    $receveur = $db->GetUserById($id_user2);
 
-    echo "<script>alert('Vous êtes maintenant abonné !');</script>";
+    if($receveur['code_confirmation']== $code)
+    {
+        echo "<script>alert('vous avez accépter la demande d'abonnement, vous pouvez fermer cette page');</script>";
+        $db->addSubcriber($id_user1, $id_user2);
+    }
+    else
+    {
+        echo "<script>alert('mauvais code de confirmation, vous pouvez fermer cette page');</script>";
+    }
+
+    //on remet le code à 0 à la fin de chaque utilisation 
+    $db->updateVericiationCodeByEmail($receveur['adressemail'],"");
+
 
     header("location: ../views/index2.php");
 ?>

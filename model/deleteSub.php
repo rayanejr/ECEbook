@@ -9,16 +9,25 @@ if(!isset($_SESSION["id_user"])){
 }
 
 require("../controller/database.php");
-    
-    
-    $id_user1 = $_SESSION['id_user'];
-    $id_user2 = $_GET['id_user'];
+require("../model/navbar.php");
 
     
-    $db = new Database();
-    $db->deleteSubscriber($id_user1, $id_user2);
+    
+$id_user1 = $_SESSION['id_user'];
+$id_user2 = $_GET['id_abonné'];
 
-    echo "<script>alert('Vous êtes maintenant desabonné !');</script>";
 
-    header("location: ../views/index2.php");
+
+$db = new Database();
+$db->deleteSubscriber($id_user1, $id_user2);
+
+echo "Vous êtes maintenant desabonné !";
+
 ?>
+
+<script>
+		// Attendre une seconde avant de rediriger l'utilisateur
+		setTimeout(function() {
+			window.location.href = "../views/index2.php";
+		}, 2000);
+</script>
