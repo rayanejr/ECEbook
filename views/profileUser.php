@@ -219,6 +219,6 @@ $abonnements=$db-> getAllAbonnements();
 
          
         </div>
-      
+        <?=include("footer.php")?>   
 </body>
 </html>

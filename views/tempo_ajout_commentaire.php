@@ -80,6 +80,7 @@ $comments = $db->GetCommentByPostId($_GET['id_post']);
 		<textarea id="comment" name="comment" rows="5" cols="50"></textarea><br><br>
 		<input type="submit" value="Envoyer">
 	</form>
+    <?=include("footer.php")?>
 </body>
 </html>
 

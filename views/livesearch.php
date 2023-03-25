@@ -38,6 +38,7 @@ if (isset($_POST['input'])){
                     <?php
                 }
                 ?>
+                <?=include("footer.php")?>
             </tbody>
         </table>
 

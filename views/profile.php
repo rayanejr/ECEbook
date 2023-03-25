@@ -209,7 +209,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
   });
 </script>
 
-
+<?=include("footer.php")?>
 
 </body>
 </html>
