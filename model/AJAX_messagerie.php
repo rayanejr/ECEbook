@@ -59,6 +59,10 @@ if(isset($_POST['page']) && $_POST['page']!= '0') {
 <?php } 
 else {?>
 
-<html><p>Sélectionnez un conversation.</p></html>
+<html>
+<p>Sélectionnez un conversation.<br>
+(vous pouvez parler avec toutes les personnes à qui vous êtes abonné ou qui sont abonné à vous)
+</p>
+</html>
 
 <?php }?>
