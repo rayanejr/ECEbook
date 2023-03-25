@@ -519,7 +519,6 @@ public function getAllEmails()
         $statement->execute();
         return $statement->fetch();
     }
-
     public function GetLikeByPostId($id_post){
         $database = self::getInstance();
         $query = "SELECT * FROM `likes` WHERE id_post=:id_post";
@@ -528,15 +527,6 @@ public function getAllEmails()
         $statement->execute();
         return $statement->fetch();
     }
-    
-    public function getAllLikes(){
-        $database = self::getInstance();
-        $query = "SELECT id_post, COUNT(id_user) FROM likes GROUP BY id_post;";
-        $statement = $database->prepare($query);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
     function userLikesAnnonce($id_user,$id_post){
         $sql = "SELECT * FROM `likes` WHERE `id_user`= ? AND `id_post` = ?";
         $statementCHECK = self::$database->prepare($sql);

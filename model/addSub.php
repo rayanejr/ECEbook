@@ -1,5 +1,4 @@
 <?php
-/*
 error_reporting(E_ERROR | E_PARSE);
 
 if (session_status() === PHP_SESSION_NONE) {
@@ -7,7 +6,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 if(!isset($_SESSION["id_user"])){
     header("location: ../views/connexion.html");
-}*/
+}
 
 require("../controller/database.php");
     
@@ -34,5 +33,5 @@ require("../controller/database.php");
     $db->updateVericiationCodeByEmail($receveur['adressemail'],"");
 
 
+    header("location: ../views/index2.php");
 ?>
-
