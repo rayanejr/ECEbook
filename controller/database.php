@@ -325,6 +325,18 @@ public function GetComment() {
     return $statement->fetchAll();
 }
 
+
+public function getCommentsForPost($id_post) {
+    $database = self::getInstance();
+    $query = "SELECT * FROM commentaire WHERE id_post = :id_post";
+    $statement = $database->prepare($query);
+    $statement->bindParam(':id_post', $id_post, PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetchAll();
+}
+
+
+
 public function AddLike($id_post, $id_user, $type)
 {
     try {
@@ -465,12 +477,30 @@ public function getAllEmails()
 
     public function GetCommentByPostId($id_post) {
         $database = self::getInstance();
-        $query = "SELECT * FROM commentaire WHERE id_post=:id";
+        $query = "SELECT * FROM commentaire WHERE id_post=:id ORDER BY time_stamp DESC" ;
         $statement = $database->prepare($query);
         $statement->bindParam(":id", $id_post);
         $statement->execute();
         return $statement->fetchAll();
     }
+
+
+    public static function getPopularAccounts()
+{
+    $database = self::getInstance();
+    $query = "SELECT u.*, COUNT(a.user2_id) AS followers_count 
+              FROM utilisateur u 
+              LEFT JOIN abonnement a ON u.id_user = a.user2_id 
+              GROUP BY u.id_user 
+              ORDER BY followers_count DESC 
+              LIMIT 3";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    return $statement->fetchAll();
+}
+
+
+
 
     public function deleteCommentById($id_comment) {
         $database = self::getInstance();
