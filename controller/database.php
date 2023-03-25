@@ -325,6 +325,18 @@ public function GetComment() {
     return $statement->fetchAll();
 }
 
+
+public function getCommentsForPost($id_post) {
+    $database = self::getInstance();
+    $query = "SELECT * FROM commentaire WHERE id_post = :id_post";
+    $statement = $database->prepare($query);
+    $statement->bindParam(':id_post', $id_post, PDO::PARAM_INT);
+    $statement->execute();
+    return $statement->fetchAll();
+}
+
+
+
 public function AddLike($id_post, $id_user, $type)
 {
     try {
@@ -465,12 +477,30 @@ public function getAllEmails()
 
     public function GetCommentByPostId($id_post) {
         $database = self::getInstance();
-        $query = "SELECT * FROM commentaire WHERE id_post=:id";
+        $query = "SELECT * FROM commentaire WHERE id_post=:id ORDER BY time_stamp DESC" ;
         $statement = $database->prepare($query);
         $statement->bindParam(":id", $id_post);
         $statement->execute();
         return $statement->fetchAll();
     }
+
+
+    public static function getPopularAccounts()
+{
+    $database = self::getInstance();
+    $query = "SELECT u.*, COUNT(a.user2_id) AS followers_count 
+              FROM utilisateur u 
+              LEFT JOIN abonnement a ON u.id_user = a.user2_id 
+              GROUP BY u.id_user 
+              ORDER BY followers_count DESC 
+              LIMIT 3";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    return $statement->fetchAll();
+}
+
+
+
 
     public function deleteCommentById($id_comment) {
         $database = self::getInstance();
@@ -501,7 +531,6 @@ public function getAllEmails()
         $statement->execute();
         return $statement->fetch();
     }
-
     public function GetLikeByPostId($id_post){
         $database = self::getInstance();
         $query = "SELECT * FROM `likes` WHERE id_post=:id_post";
@@ -510,15 +539,6 @@ public function getAllEmails()
         $statement->execute();
         return $statement->fetch();
     }
-    
-    public function getAllLikes(){
-        $database = self::getInstance();
-        $query = "SELECT id_post, COUNT(id_user) FROM likes GROUP BY id_post;";
-        $statement = $database->prepare($query);
-        $statement->execute();
-        return $statement->fetch();
-    }
-
     function userLikesAnnonce($id_user,$id_post){
         $sql = "SELECT * FROM `likes` WHERE `id_user`= ? AND `id_post` = ?";
         $statementCHECK = self::$database->prepare($sql);
@@ -740,65 +760,73 @@ public function unsubByAbonnementId($id_user1, $id_user2)
     }
 }
 
+public function getAllLikes(){
+    $database = self::getInstance();
+    $query = "SELECT id_post, COUNT(id_user) FROM likes GROUP BY id_post;";
+    $statement = $database->prepare($query);
+    $statement->execute();
+    return $statement->fetch();
+}
+
+
 public function getALLSubs($id_user)
 {
-    $database = self::getInstance();
-    $query = "SELECT DISTINCT * FROM abonnement WHERE user2_id=:user2_id OR user1_id=:user1_id";
-    try{
-        $statement = $database->prepare($query);
-        $statement->bindParam(':user2_id', $id_user);
-        $statement->bindParam(':user1_id', $id_user);
-        $statement->execute();
+$database = self::getInstance();
+$query = "SELECT DISTINCT * FROM abonnement WHERE user2_id=:user2_id OR user1_id=:user1_id";
+try{
+    $statement = $database->prepare($query);
+    $statement->bindParam(':user2_id', $id_user);
+    $statement->bindParam(':user1_id', $id_user);
+    $statement->execute();
 
-        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
-        return $results;
-    }catch(PDOException $e){
-        echo "Error getting all the subs: " . $e->getMessage();
-        die();
-    }
+    return $results;
+}catch(PDOException $e){
+    echo "Error getting all the subs: " . $e->getMessage();
+    die();
+}
 }
 
 //--------------------messagerie-----------------------------------
 
 public function addMessage($id_user1, $id_user2, $contenu)
 {
-    $database = self::getInstance();
-    $query = "INSERT INTO messages (expediteur_id, destinataire_id, contenu) VALUES (:user1_id, :user2_id, :contenu)";
-    try{
-        $statement = $database->prepare($query);
-        $statement->bindParam(':user1_id', $id_user1);
-        $statement->bindParam(':user2_id', $id_user2);
-        $statement->bindParam(':contenu', $contenu);
-        $statement->execute();
+$database = self::getInstance();
+$query = "INSERT INTO messages (expediteur_id, destinataire_id, contenu) VALUES (:user1_id, :user2_id, :contenu)";
+try{
+    $statement = $database->prepare($query);
+    $statement->bindParam(':user1_id', $id_user1);
+    $statement->bindParam(':user2_id', $id_user2);
+    $statement->bindParam(':contenu', $contenu);
+    $statement->execute();
 
-    }catch(PDOException $e){
+}catch(PDOException $e){
 
-        echo "Error adding message: " . $e->getMessage();
-        die();
-    }
+    echo "Error adding message: " . $e->getMessage();
+    die();
+}
 
 }
 
 public function getMessageByUserId($id_user1, $id_user2)
 {
-    $database = self::getInstance();
-    $query = "SELECT * FROM messages WHERE (expediteur_id=:user1_id AND destinataire_id=:user2_id)OR(expediteur_id=:user2_id AND destinataire_id=:user1_id)";
-    try{
-        $statement = $database->prepare($query);
-        $statement->bindParam(':user1_id', $id_user1);
-        $statement->bindParam(':user2_id', $id_user2);
-        $statement->execute();
+$database = self::getInstance();
+$query = "SELECT * FROM messages WHERE (expediteur_id=:user1_id AND destinataire_id=:user2_id)OR(expediteur_id=:user2_id AND destinataire_id=:user1_id)";
+try{
+    $statement = $database->prepare($query);
+    $statement->bindParam(':user1_id', $id_user1);
+    $statement->bindParam(':user2_id', $id_user2);
+    $statement->execute();
 
-        $results = $statement->fetchAll(PDO::FETCH_ASSOC);
-        return $results;
-    }catch(PDOException $e){
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    return $results;
+}catch(PDOException $e){
 
-        echo "Error getting messages: " . $e->getMessage();
-        die();
-    }
-
+    echo "Error getting messages: " . $e->getMessage();
+    die();
 }
 
+}
 
 }
