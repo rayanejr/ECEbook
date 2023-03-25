@@ -20,12 +20,16 @@ use PHPMailer\PHPMailer\SMTP;
 require '../vendor/autoload.php';
 
 
+
 $id_abonné = $_GET['id_abonné'];
 
 $db = new Database();
 $abonné = $db->GetUserById($id_abonné);
 $email =$abonné["adressemail"];
 $id_user = $_SESSION['id_user'];
+
+$verification_code = bin2hex(random_bytes(16)); // Génère 16 octets de données aléatoires et les convertit en une chaîne hexadécimale
+$db->updateVericiationCodeByEmail($email,$verification_code);
 
 
 $mail = new PHPMailer(true);
@@ -57,7 +61,7 @@ $mail->isHTML(true);
 //Email body
 $mail->Body    = "Bonjour $email,<br><br>
 Veuillez cliquer sur le lien suivant pour accépter la demande d'abonnement de :<br>
-<a href='http://localhost/ECEbook/model/addSub.php?id_abonné=$id_abonne&id_user=$id_user  '>http://localhost/ECEbook/model/addSub.php?id_abonné=$id_abonne&id_user=$id_user </a><br><br>
+<a href='http://localhost/ECEbook/model/addSub.php?id_abonné=$id_abonne&id_user=$id_user&code=$verification_code  '>http://localhost/ECEbook/model/addSub.php?id_abonné=$id_abonne&id_user=$id_user&code=$verification_code </a><br><br>
 Cordialement,<br>
 L'équipe EceBook";
 //Add recipient

@@ -152,6 +152,8 @@ $posts = array_values($posts);
                                     <div class="form-group">
                                         <label class="sr-only" for="message">Post</label>
                                         <textarea class="form-control" name="message" id="message" rows="3" placeholder="entrez un message ?"></textarea>
+                                        <label for="publique">publique :</label>
+                                        <input type="checkbox" id="publique" name="publique" value="1">
                                     </div>
 
                                 </div>
