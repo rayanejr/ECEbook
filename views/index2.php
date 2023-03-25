@@ -115,8 +115,8 @@ $posts = array_values($posts);
        
 <?php  require("../model/navbar.php") ?>
 
-<div class="card" id="card-populaires" style="width: 18rem;">
-    <div class="card-header text-center border-5 border-secondary" style="background: #d63384;">
+<div class="card shadow p-3 mb-5 bg-white rounded" id="card-populaires" style="width: 18rem;">
+    <div class="card-header text-center border-5 border-secondary" style="background: #d63384;color: #fff">
     Comptes populaires
     </div>
     <?php   foreach($popular as $popularUser): ?>
@@ -136,7 +136,7 @@ $posts = array_values($posts);
 
                 <!--- \\\\\\\Post-->
                 <form action="../model/addPost.php" method="POST" enctype="multipart/form-data">
-                    <div class="card gedf-card">
+                    <div class="card gedf-card " >
                         <div class="card-header">
                             <ul class="nav nav-tabs card-header-tabs" id="myTab" role="tablist">
                                 <li class="nav-item">
@@ -147,7 +147,7 @@ $posts = array_values($posts);
                                 </li>
                             </ul>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body ">
                             <div class="tab-content" id="myTabContent">
                                 <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                                 <div class="input-group input-group mb-3 w-100 flex-nowrap">
@@ -191,7 +191,7 @@ $posts = array_values($posts);
                     $nombre = $db->getCountforPostbyIdpost($post["id_post"]);
                     $comments = $db->GetCommentByPostId($post['id_post']); 
                     ?>
-                    <div class="card gedf-card">
+                    <div class="card gedf-card ">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex justify-content-between align-items-center">

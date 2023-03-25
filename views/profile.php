@@ -30,7 +30,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
 <div class="container bootstrap snippets bootdey">
 <div class="row">
   <div class="profile-nav col-md-3">
-      <div class="panel">
+      <div class="panel ">
           <div class="user-heading round">
               <a href="#">
               <?php 
@@ -56,7 +56,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
   </div>
   <div class="profile-info col-md-9">
 
-        <div class="panel">
+        <div class="panel ">
             <div class="bio-graph-heading">
                 <?=  $user["description"] ?>
             </div>
@@ -107,7 +107,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
   <div class="container py-5">
     <div class="row justify-content-center mb-3">
       <div class="col-md-12 col-xl-15">
-        <div class="card shadow-0 border rounded-3">
+        <div class="card shadow p-3 mb-5 bg-white rounded">
           <div class="card-body">
             <div class="row">
               <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
