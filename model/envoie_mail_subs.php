@@ -9,6 +9,8 @@ if(!isset($_SESSION["id_user"])){
 }
 
 require("../controller/database.php");
+require("../model/navbar.php");
+
 require_once("../vendor/phpmailer/phpmailer/src/PHPMailer.php");
 require_once("../vendor/phpmailer/phpmailer/src/SMTP.php");
 require_once("../vendor/phpmailer/phpmailer/src/Exception.php");
@@ -28,6 +30,13 @@ $abonné = $db->GetUserById($id_abonne);
 $email = htmlspecialchars($abonné["adressemail"]);
 $id_user = $_SESSION['id_user'];
 $mailenvoyeur = htmlspecialchars($_SESSION["email"]);
+
+if($id_abonne == $id_user)
+{
+    echo "vous ne pouvez pas vous abonner à vous même";
+    sleep(1);
+    header("location: ../views/index2.php");
+}
 
 $verification_code = bin2hex(random_bytes(16)); // Génère 16 octets de données aléatoires et les convertit en une chaîne hexadécimale
 $db->updateVericiationCodeByEmail($email,$verification_code);
@@ -79,6 +88,11 @@ if ( $mail->send() ) {
 //Closing smtp connection
 $mail->smtpClose();
 
-sleep(1);
-header("location: ../views/index2.php");
 ?>
+
+<script>
+		// Attendre une seconde avant de rediriger l'utilisateur
+		setTimeout(function() {
+			window.location.href = "../views/index2.php";
+		}, 2000);
+</script>
