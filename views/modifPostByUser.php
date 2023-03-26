@@ -148,6 +148,6 @@ foreach($posts as $post):
 <?php endforeach ; ?>
 
 
-
+<?=include("footer.php")?>
 </body>
 </html>

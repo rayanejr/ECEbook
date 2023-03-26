@@ -1,21 +1,23 @@
 <?php
+
 error_reporting(E_ERROR | E_PARSE);
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 if(!isset($_SESSION["id_user"])){
-    header("location: ../views/connexion.html");
+    header("location: ../views/connexion.php");
 }
 
 require("../controller/database.php");
     
     
-    $id_user1 = $_GET['id_user'];
-    $id_user2 = $_GET['id_abonne'];
+    $id_user1 = intval($_SESSION["id_user"]);
+    $id_user2 = intval($_GET['id_abonne']);
     $code = $_GET['code'];
 
-
+    var_dump($id_user1);
+    var_dump($id_user2);
     $db = new Database();
     $receveur = $db->GetUserById($id_user2);
 
@@ -32,6 +34,11 @@ require("../controller/database.php");
     //on remet le code à 0 à la fin de chaque utilisation 
     $db->updateVericiationCodeByEmail($receveur['adressemail'],"");
 
-
-    header("location: ../views/index2.php");
 ?>
+<script>
+		// Attendre une seconde avant de rediriger l'utilisateur
+		setTimeout(function() {
+			window.location.href = "../views/index2.php";
+		}, 2000);
+</script>
+

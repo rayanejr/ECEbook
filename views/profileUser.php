@@ -47,7 +47,7 @@ $abonnements=$db-> getAllAbonnements();
                   <div class="text-muted mb-4">
                     <?=  $user_profile["description"]  ?>
                   </div>
-
+                  
                   <a href="javascript:void(0)" class="d-inline-block text-body">
                     <strong><?= $nb_abonnement  ?></strong>
                     <span class="text-muted">followers</span>
@@ -130,7 +130,9 @@ $abonnements=$db-> getAllAbonnements();
                 <?php   
                 $posts=$db->getAllPostsByIduser($user_profile["id_user"]);
                 
-                foreach($posts as $post) : 
+                foreach($posts as $post) :
+                  $nombre = $db->getCountforPostbyIdpost($post["id_post"]);
+
                ?>
 
                 <div class="card mb-4">
@@ -152,10 +154,12 @@ $abonnements=$db-> getAllAbonnements();
                           <div class="text-muted small"><?=  $post["date"] ?></div>
                         </div>
                       </div>
-                      <p>
-                       <?=  nl2br($post["message"]) ?>
+                      <p><p class="preview"><?= nl2br(substr($post["message"], 0, 100)) ?>...</p>
+                        <p class="full" style="display: none;"><?= nl2br($post["message"]) ?></p>
+                        <button class="btn btn-primary btn-sm toggle-preview">Voir plus</button>
                       </p>
                       <?php if($post["image"] != null) : ?>
+                        
                       <img class="ui-rect ui-bg-cover" src="../uploads/<?=  $post["image"] ?>" alt="" srcset="">
                     <?php endif ?>
                     </div>
@@ -164,14 +168,77 @@ $abonnements=$db-> getAllAbonnements();
                     <?php $nombreLikes = $db->getCountforPostbyIdpost($post["id_post"]); ?>
                     <a href="javascript:void(0)" class="d-inline-block text-muted">
                       <small class="align-middle">
-                        <strong><?=  $nombreLikes ?></strong> Likes</small>
+                        <?php
+                            
+                            if ( $db->userLikesAnnonce($_SESSION['id_user'],$post["id_post"]) == true ) {
+                                echo '
+                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'" style="width: 240px" class="btn btn-danger mx-auto" style="width: 250px">  
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
+                                    </svg> Like '.$nombre.'
+                                </a> &nbsp;&nbsp;&nbsp;
+                       
+                                                                                                                    
+                                ';
+                            }elseif($db->userLikesAnnonce($_SESSION['id_user'],$post["id_post"]) == false ) {
+                              
+
+                                echo '
+                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'"  style="width: 240px" class="btn btn-danger mx-auto" style="width: 250px">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
+                                </svg> Dislike '.$nombre.'
+                            </a> &nbsp;&nbsp;&nbsp;
+                                ';
+                            }
+                            ?>  
                     </a>
-                    <a href="javascript:void(0)" class="d-inline-block text-muted ml-3">
-                      <small class="align-middle">
-                        <strong></strong> Comments</small>
-                    </a>
-                   
+                    <button class="toggle-comments btn btn-link" type="button" data-post-id="<?= $post['id_post'] ?>">Commentaire</button>
+
+                  
                   </div>
+
+
+                  <div style="display: none" id="comments-container-<?= $post['id_post'] ?>" class="container mt-5 mb-5">
+    <div class="row height d-flex justify-content-center align-items-center">
+        <div " style="width:100%">
+            <div class="card">
+                <div class="p-3">
+                    <h6>Commentaire</h6>
+                </div>
+                <div class="mt-3 d-flex flex-row align-items-center p-3 form-color">
+                    <img src="../uploads/<?= $_SESSION["image"] ?>" width="50" class="rounded-circle mr-2">
+                    <form style="display:flex;width : 100%" action="../model/addComment.php?id_post=<?= $post['id_post'] ?>" method="post">
+                        <input type="hidden" name="id_post" value="<?= $post['id_post'] ?>">
+                        <input type="text" class="form-control" name="comment" placeholder="Entrez votre commentaire...">
+                        <button type="submit" class="btn btn-primary ml-2">Ajouter</button>
+                    </form>
+                </div>
+                <?php $comments = $db->GetCommentByPostId($post['id_post']); ?>
+                <?php if ($comments): ?>
+                    <?php foreach ($comments as $comment): ?>
+                        <?php $user = $db->GetUserById($comment['id_user']); ?>
+        <div class="mt-2">
+            <div class="d-flex flex-row p-3">
+                <img src="../uploads/<?= $user['image'] ?>" width="40" height="40" class="rounded-circle mr-3">
+                <div class="w-100 commentaire">
+                    <span class="text-muted font-weight-bold"><?= $user['pseudo'] ?></span>
+                    <p class="text-justify comment-text mb-0"><?= $comment['contenu'] ?></p>
+                </div>
+            </div>
+        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p class="p-3">Aucun commentaire pour le moment.</p>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>  
+        
+            
+
+
                 </div>
         <?php endforeach ; ?>
                 <!-- / Posts -->
@@ -187,16 +254,16 @@ $abonnements=$db-> getAllAbonnements();
                   // Vérifier si l'utilisateur actuel est abonné à l'utilisateur en cours d'affichage
                   $isSubscribed = false;
                   foreach($abonnements as $abonnement){
-                      if($abonnement["user1_id"] == $_SESSION['id_user'] && $abonnement["user2_id"] == $user['id_user']){
+                      if($abonnement["user1_id"] == $_SESSION['id_user'] && $abonnement["user2_id"] == $user_profile['id_user']){
                           $isSubscribed = true;
                           break;
                       }
                   }
               ?>
               <?php if($isSubscribed) : ?>
-                  <a href="../model/deleteSub.php?user_id=<?= $user["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivi</a>
+                  <a href="../model/deleteSub.php?id_abonne=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivi</a>
               <?php else : ?>
-                  <a href="../model/addSub.php?user_id=<?= $user["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivre</a>
+                  <a href="../model/addSub.php?id_abonne=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivre</a>
               <?php endif; ?>
 
 
@@ -219,6 +286,54 @@ $abonnements=$db-> getAllAbonnements();
 
          
         </div>
-      
+        <?=include("footer.php")?>   
+
+
+
+
+
+        <script>
+// Afficher/cacher le reste du message en cliquant sur le bouton
+const preview = document.querySelector('.preview');
+const full = document.querySelector('.full');
+const togglePreviewBtn = document.querySelector('.toggle-preview');
+const toggleFullBtn = document.querySelector('.toggle-full');
+
+togglePreviewBtn.addEventListener('click', () => {
+  preview.style.display = 'none';
+  full.style.display = 'block';
+  togglePreviewBtn.style.display = 'none';
+  toggleFullBtn.style.display = 'inline';
+});
+
+toggleFullBtn.addEventListener('click', () => {
+  full.style.display = 'none';
+  preview.style.display = 'block';
+  toggleFullBtn.style.display = 'none';
+  togglePreviewBtn.style.display = 'inline';
+});
+</script>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const toggleCommentsButtons = document.querySelectorAll('.toggle-comments');
+
+        toggleCommentsButtons.forEach(function (button) {
+            button.addEventListener('click', function (event) {
+                const postId = event.target.getAttribute('data-post-id');
+                const commentsContainer = document.querySelector(`#comments-container-${postId}`);
+
+                if (commentsContainer.style.display === 'none') {
+                    commentsContainer.style.display = 'block';
+                } else {
+                    commentsContainer.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+        
 </body>
 </html>

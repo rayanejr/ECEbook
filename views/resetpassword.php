@@ -64,5 +64,4 @@ if(isset($_SESSION["id_user"])){
           </div>
 	</div>
 </div>
-
 </html>

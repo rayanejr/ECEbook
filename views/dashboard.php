@@ -240,8 +240,7 @@ $post_count = $db->getPostCount();
                                     <td>
                                         <?php if($post["image"] != null) : ?>
                                             <img alt="..." src="../uploads/<?=  $post["image"]  ?>" class="avatar avatar-sm rounded-circle me-2">
-                                        <?php else : ?>
-                                            <img alt="..." src="../uploads/avatar.png" class="avatar avatar-sm rounded-circle me-2">
+                                 
                                         <?php endif ; ?>
                                     </td>
                                     <td>
