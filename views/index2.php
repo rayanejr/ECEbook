@@ -63,6 +63,8 @@ $posts = array_values($posts);
 <style>
     body {
             background-color: #eeeeee;
+            overflow-x : hidden;
+            box-sizing: border-box;
         }
 
         .h7 {
