@@ -46,15 +46,8 @@
             });
         });
     </script>
-    <?=include("footer.php")?>
+   <?php  require("./footer.php") ?>
 
 </body>
 
 </html>
-<style>
-    footer {
-        padding-top: 28%;
-    }
-    
-    
-</style>

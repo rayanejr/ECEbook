@@ -103,7 +103,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
   <?php $nombre = $db->getCountforPostbyIdpost($post["id_post"]);?>
 
         
-<section style="background-color: #eee;">
+<section  style="background-color: #eee;">
   <div class="container py-5">
     <div class="row justify-content-center mb-3">
       <div class="col-md-12 col-xl-15">
@@ -211,6 +211,10 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
 
 
 
+
+
+
 </body>
+
 </html>
 
