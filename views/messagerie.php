@@ -52,7 +52,7 @@ require("../model/navbar.php");
 				var page = $(this).val();
 				$.ajax({
 					type: 'POST',
-					url: '../model/AJAX_messagerie.php',
+					url: 'AJAX_messagerie.php',
 					data: { page: page },
 					success: function(response) {
 						$('#content').html(response);
