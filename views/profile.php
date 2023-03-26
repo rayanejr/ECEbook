@@ -56,7 +56,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
   </div>
   <div class="profile-info col-md-9">
 
-        <div class="panel ">
+        <div class=" card ">
             <div class="bio-graph-heading">
                 <?=  $user["description"] ?>
             </div>
@@ -103,11 +103,11 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
   <?php $nombre = $db->getCountforPostbyIdpost($post["id_post"]);?>
 
         
-<section style="background-color: #eee;">
+<section  style="background-color: #eee;">
   <div class="container py-5">
     <div class="row justify-content-center mb-3">
       <div class="col-md-12 col-xl-15">
-        <div class="card shadow p-3 mb-5 bg-white rounded">
+        <div class="card ">
           <div class="card-body">
             <div class="row">
               <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
@@ -211,6 +211,10 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
 
 
 
+
+
+
 </body>
+
 </html>
 

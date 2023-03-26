@@ -63,6 +63,8 @@ $posts = array_values($posts);
 <style>
     body {
             background-color: #eeeeee;
+            overflow-x : hidden;
+            box-sizing: border-box;
         }
 
         .h7 {
@@ -104,7 +106,9 @@ $posts = array_values($posts);
             margin-top: 20px;
         }
 
-
+        .card{
+          box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+        }
 
         .image-post {
             
@@ -277,7 +281,7 @@ $posts = array_values($posts);
       <div style="display: none" id="comments-container-<?= $post['id_post'] ?>" class="container mt-5 mb-5">
     <div class="row height d-flex justify-content-center align-items-center">
         <div " style="width:100%">
-            <div class="card">
+            <div class="">
                 <div class="p-3">
                     <h6>Commentaire</h6>
                 </div>
@@ -297,7 +301,7 @@ $posts = array_values($posts);
             <div class="d-flex flex-row p-3">
                 <img src="../uploads/<?= $user['image'] ?>" width="40" height="40" class="rounded-circle mr-3">
                 <div class="w-100 commentaire">
-                    <span class="text-muted font-weight-bold"><?= $user['pseudo'] ?></span>
+                    <span class="text-muted font-weight-bold"><?= $user['pseudo'] ?></span> <hr>
                     <p class="text-justify comment-text mb-0"><?= $comment['contenu'] ?></p>
                 </div>
             </div>
@@ -364,7 +368,7 @@ toggleFullBtn.addEventListener('click', () => {
         });
     });
 </script>
-<?=include("footer.php")?>
+<?php require("./footer.php") ; ?>
 </body>
 
 </html>
