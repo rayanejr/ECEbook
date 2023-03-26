@@ -107,8 +107,11 @@ $posts = array_values($posts);
 
 
         .image-post {
+            
             max-width : 100%;
             min-width : 100%;
+            border-radius : 8px
+            
         }
 </style>
 
