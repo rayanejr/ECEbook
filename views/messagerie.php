@@ -79,6 +79,5 @@ require("../model/navbar.php");
         (vous pouvez parler avec toutes les personnes à qui vous êtes abonné ou qui sont abonné à vous)
         </p>
 	</div>
-    <?=include("footer.php")?>
 </body>
 </html>

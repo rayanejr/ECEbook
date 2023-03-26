@@ -34,6 +34,11 @@ require("../controller/database.php");
     //on remet le code à 0 à la fin de chaque utilisation 
     $db->updateVericiationCodeByEmail($receveur['adressemail'],"");
 
-
 ?>
+<script>
+		// Attendre une seconde avant de rediriger l'utilisateur
+		setTimeout(function() {
+			window.location.href = "../views/index2.php";
+		}, 2000);
+</script>
 
