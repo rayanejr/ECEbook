@@ -259,16 +259,18 @@ $abonnements=$db-> getAllAbonnements();
                           break;
                       }
                   }
-              ?>
+                  ?>
+                 
               <?php if($isSubscribed) : ?>
-                  <a href="../model/deleteSub.php?id_abonne=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivi</a>
-              <?php else : ?>
+                <a href="../model/deleteSub.php?id_abonne=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivi</a>
+                <?php else : ?>
                   <a href="../model/addSub.php?id_abonne=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivre</a>
-              <?php endif; ?>
-
-
-                  </div>
-                  <hr class="border-light m-0">
+                  <?php endif; ?>
+                  
+              
+                  
+                </div>
+                <hr class="border-light m-0">
                  
                   <hr class="border-light m-0">
                 
