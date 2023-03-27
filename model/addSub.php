@@ -1,18 +1,9 @@
 <?php
 
-error_reporting(E_ERROR | E_PARSE);
-
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-if(!isset($_SESSION["id_user"])){
-    header("location: ../views/connexion.php");
-}
-
 require("../controller/database.php");
     
     
-    $id_user1 = intval($_SESSION["id_user"]);
+    $id_user1 = intval($_GET["id_user"]);
     $id_user2 = intval($_GET['id_abonne']);
     $code = $_GET['code'];
 
@@ -38,7 +29,7 @@ require("../controller/database.php");
 <script>
 		// Attendre une seconde avant de rediriger l'utilisateur
 		setTimeout(function() {
-			window.location.href = "../views/index2.php";
+			window.location.href = "../views/connexion.php";
 		}, 2000);
 </script>
 

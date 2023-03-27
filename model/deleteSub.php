@@ -14,7 +14,7 @@ require("../model/navbar.php");
     
     
 $id_user1 = $_SESSION['id_user'];
-$id_user2 = $_GET['id_abonne'];
+$id_user2 = $_GET['id_abonné'];
 
 
 

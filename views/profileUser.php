@@ -262,9 +262,9 @@ $abonnements=$db-> getAllAbonnements();
                   ?>
                  
               <?php if($isSubscribed) : ?>
-                <a href="../model/deleteSub.php?id_abonne=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivi</a>
+                <a href="../model/deleteSub.php?id_abonné=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivi</a>
                 <?php else : ?>
-                  <a href="../model/addSub.php?id_abonne=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivre</a>
+                  <a href="../model/envoie_mail_subs.php?id_abonné=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivre</a>
                   <?php endif; ?>
                   
               
