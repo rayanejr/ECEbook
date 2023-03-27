@@ -95,7 +95,7 @@ $posts = array_values($posts);
             
         }
 
-        /**Reset Bootstrap*/
+      
         .dropdown-toggle::after {
             content: none;
             display: none;
@@ -114,8 +114,7 @@ $posts = array_values($posts);
             
             max-width : 100%;
             min-width : 100%;
-            border-radius : 8px
-            
+            border-radius : 8px            
         }
 </style>
 

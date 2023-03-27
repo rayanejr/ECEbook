@@ -105,7 +105,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
     foreach($posts as $post) : 
         ?>
   <?php $nombre = $db->getCountforPostbyIdpost($post["id_post"]);?>
-
+ 
         
 <section  style="background-color: #eee;">
   <div class="container py-5">
@@ -133,7 +133,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
                 <h5><?= $post["titre"] ?></h5>
                
               <hr>
-               
+                
               <p class="preview"><?= nl2br(substr($post["message"], 0, 100)) ?>...</p>
   <p class="full" style="display: none;"><?= nl2br($post["message"]) ?></p>
   <button class="btn btn-primary btn-sm toggle-preview">Voir plus</button>
