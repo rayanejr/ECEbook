@@ -132,6 +132,7 @@ body {
 
 .bio-graph-info {
     color: #89817e;
+    position: relative;
 }
 
 .bio-graph-info h1 {

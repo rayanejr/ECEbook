@@ -10,6 +10,7 @@ require("../controller/database.php");
 
 $_POST['id_post'] = $_GET['id_post'];
 
+
 $db = new Database();
 $comments = $db->GetCommentByPostId($_GET['id_post']);
 
