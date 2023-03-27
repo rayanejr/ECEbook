@@ -166,6 +166,16 @@ public function GetUserByEmail($email) {
     return $user;
 }
 
+public function GetUserByPseudo($pseudo) {
+    $database = self::getInstance();
+    $query = "SELECT * FROM utilisateur WHERE pseudo = :pseudo";
+    $statement = $database->prepare($query);
+    $statement->bindParam(":pseudo", $pseudo);
+    $statement->execute();
+    $user = $statement->fetch(PDO::FETCH_ASSOC);
+    return $user;
+}
+
 
 public function deleteUserById($user_id) {
     $database = self::getInstance();
