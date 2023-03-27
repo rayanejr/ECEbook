@@ -32,7 +32,10 @@ if(isset($_POST["submit"])){
     move_uploaded_file($filetmpname, $folder . $imagePost);
         
         if(strlen($message) > 500){
-            echo "<script>alert('Erreur : le message dépasse la limite de 500 caractères.');</script>";
+            echo '<div class="alert alert-danger" role="alert">
+            <script>alert("Erreur : le message dépasse la limite de 500 caractères.");</script>
+          </div>
+            ';
             header("location:../views/index2.php"); 
             exit();
         }

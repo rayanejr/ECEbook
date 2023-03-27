@@ -44,7 +44,9 @@ if(isset($_POST["submit"])){
                 }
             }
         } else {
-            echo "Utilisateur non trouvé ou mot de passe incorrect";
+            echo '<div class="alert alert-danger" role="alert">
+            Utilisateur non trouvé ou mot de passe incorrect
+          </div>';
             /* var_dump($password); */
         }
     } catch(PDOException $e) {

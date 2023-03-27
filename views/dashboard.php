@@ -450,6 +450,8 @@ $post_count = $db->getPostCount();
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                             <span class="input-group-text">Post</span>
                             <input class="form-control" type="text" name="message" placeholder="entrez un post" required><br><br>
+                            <label for="publique">publique :</label>
+                            <input type="checkbox" id="publique" name="publique" value="1">
                         </div>
                     </div>
                     <div class="form-group mb-3">
@@ -546,6 +548,13 @@ foreach($posts as $post):
                             <input class="form-control" type="text" name="message" placeholder="entrez un post" value="<?=  $post["message"] ?>" required><br><br>
                         </div>
                     </div>
+                    <div class="form-group mb-3">
+                        <div class="input-group input-group mb-3 w-100 flex-nowrap">
+                            <label for="publique">publique :</label>
+                            <input type="checkbox" id="publique" name="publique" value="1">
+                        </div>
+                    </div>
+                        
                     <div class="form-group mb-3">
                         <div class="input-group input-group mb-3 w-100 flex-nowrap">
                         <input type="file" class="form-control" id="customFile" name="image">

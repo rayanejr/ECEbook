@@ -14,12 +14,19 @@ require("../controller/database.php");
 
     if($receveur['code_confirmation']== $code)
     {
-        echo "<script>alert('vous avez accépter la demande d'abonnement, vous pouvez fermer cette page');</script>";
+        echo '<div class="alert alert-success" role="alert">
+        <script>alert("vous avez accépter la demande d abonnement, vous pouvez fermer cette page");</script>
+      </div>
+        ';
         $db->addSubcriber($id_user1, $id_user2);
     }
     else
     {
-        echo "<script>alert('mauvais code de confirmation, vous pouvez fermer cette page');</script>";
+        echo '
+        <div class="alert alert-danger" role="alert">
+        <script>alert("mauvais code de confirmation, vous pouvez fermer cette page");</script>
+          </div>
+        ';
     }
 
     //on remet le code à 0 à la fin de chaque utilisation 

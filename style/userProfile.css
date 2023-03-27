@@ -17,6 +17,11 @@ body {
     height: auto;
 }
 
+.small{
+    font-size: 100%;
+    
+}
+
 .row-bordered>.col::before,
 .row-bordered>[class^="col-"]::before,
 .row-bordered>[class*=" col-"]::before,
@@ -58,7 +63,6 @@ body {
 }
 
 .ui-square {
-    padding-top: 100% !important;
 }
 
 .ui-square,
@@ -69,6 +73,5 @@ body {
 .ui-rect-75 {
     position: relative !important;
     display: block !important;
-    padding-top: 100% !important;
     width: 100% !important;
 }

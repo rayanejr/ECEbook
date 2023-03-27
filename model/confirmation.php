@@ -14,16 +14,23 @@ if (isset($_GET['email']) && isset($_GET['code'])) {
         if (isset($user['confirmer']) && $user['confirmer'] == 0) {
 
             $db->ConfirmUser($email);
-            echo "Votre compte est maintenant confirmé. Vous pouvez vous connecter à ECEbook !";
+            echo '<div class="alert alert-success" role="alert">
+            "Votre compte est maintenant confirmé. Vous pouvez vous connecter à ECEbook !"
+          </div>';
             
             exit();
         } else {
-            echo "Votre compte est déjà confirmé.";
+            echo '<div class="alert alert-success" role="alert">
+            "<script>alert("Votre compte est déjà confirmé.");</script>"
+          </div>';
+            
         }
     } else {
-        echo "Le code de confirmation est incorrect.";
+        echo "<script>alert('Le code de confirmation est incorrect.');</script>
+        "; 
     }
 } else {
-    echo "Paramètres manquants.";
+    echo "<script>alert('Paramètres manquants.');</script>
+    "; 
 }
 ?>
