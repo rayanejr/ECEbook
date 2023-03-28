@@ -200,7 +200,7 @@ $posts = array_values($posts);
                     $nombre = $db->getCountforPostbyIdpost($post["id_post"]);
                     $comments = $db->GetCommentByPostId($post['id_post']); 
                     ?>
-                    <div class="card gedf-card ">
+  <div class="card gedf-card ">
                         <div class="card-header">
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex justify-content-between align-items-center">
@@ -234,7 +234,7 @@ $posts = array_values($posts);
     <p class="long-message preview-<?= $post['id_post'] ?>">
     <?php
     $message = nl2br(htmlspecialchars($post["message"]));
-    $max_length = 200; // longueur maximale du message à afficher
+    $max_length = 100; // longueur maximale du message à afficher
     if (strlen($message) > $max_length) {
         $truncated_message = substr($message, 0, $max_length) . "...";
         echo '<span class="preview">' . $truncated_message . '</span>';
@@ -246,12 +246,12 @@ $posts = array_values($posts);
     }
     ?>
 
-</p>
+ </p>
 
-<img src="../uploads/<?= $post["image"] ?>" alt="" srcset="" class="image-post">
+  <img src="../uploads/<?= $post["image"] ?>" alt="" srcset="" class="image-post">
 
 
-</div>
+  </div>
 
                         <div class="card-footer">
                         
@@ -278,7 +278,7 @@ $posts = array_values($posts);
                                 ';
                             }
                             ?>  
-<button class="toggle-comments btn btn-link" type="button" data-post-id="<?= $post['id_post'] ?>">Commentaire</button>
+ <button class="toggle-comments btn btn-link" type="button" data-post-id="<?= $post['id_post'] ?>">Commentaire</button>
 
                          
                     </div>
@@ -317,7 +317,7 @@ $posts = array_values($posts);
             </div>
         </div>
     </div>
-</div>  
+ </div>  
         
               </div>
               
@@ -329,7 +329,7 @@ $posts = array_values($posts);
             </div>
          
         </div>
-    </div>
+</div>
 
 
 

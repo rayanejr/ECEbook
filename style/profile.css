@@ -190,6 +190,11 @@ body {
     margin: 6px 0 10px 0;
 }
 
+.card {
+    height: auto;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
 .profile-activity h5 {
     font-weight: 300;
     margin-top: 0;
@@ -379,9 +384,31 @@ ul.summary-list>li:last-child {
     width: 0;
 }
 
+.avatar-post {
+    max-width: 190px;
+    min-width: 190px;
+    max-height: 190px;
+    min-height: 190px;
+    border: 2px solid #fff;
+    -moz-box-shadow: 0px 6px 5px #ccc;
+    -webkit-box-shadow: 0px 6px 5px #ccc;
+    box-shadow: 0px 6px 5px #ccc;
+    -moz-border-radius: 190px;
+    -webkit-border-radius: 190px;
+    border-radius: 190px;
+}
+
 .image-post {
-    max-width: 100%;
-    min-width: 100%;
+    max-width: 400px;
+    min-width: 400px;
+    max-height: 200px;
+    border: 2px solid #fff;
+    -moz-box-shadow: 10px 10px 5px #ccc;
+    -webkit-box-shadow: 10px 10px 5px #ccc;
+    box-shadow: 10px 10px 5px #ccc;
+    -moz-border-radius: 25px;
+    -webkit-border-radius: 25px;
+    border-radius: 25px;
 }
 
 .long-message {

@@ -107,14 +107,18 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
   <div class="container py-5">
     <div class="row justify-content-center mb-3">
       <div class="col-md-12 col-xl-15">
-        <div class="card shadow p-3 mb-5 bg-white rounded">
+  
+
+
+      <div class="container gedf-wrapper">
+      <div class="card ">
           <div class="card-body">
             <div class="row">
               <div class="col-md-12 col-lg-3 col-xl-3 mb-4 mb-lg-0">
                 <div class="bg-image hover-zoom ripple rounded ripple-surface">
                 <?php 
                   if($user["image"] != null) : ?>
-                    <img src="../uploads/<?=  $user["image"] ?>"   class="w-100" />
+                    <img src="../uploads/<?=  $user["image"] ?>"   class="w-100 avatar-post" />
                   <?php elseif ($user["image"] == null) : ?>
                     <img src="../uploads/avatar.png"  class="w-100"/>
                   <?php endif ; ?>
@@ -131,9 +135,20 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
               <hr>
                
               <p class="preview"><?= nl2br(substr($post["message"], 0, 100)) ?>...</p>
-  <p class="full" style="display: none;"><?= nl2br($post["message"]) ?></p>
-  <button class="btn btn-primary btn-sm toggle-preview">Voir plus</button>
-  <img src="../uploads/<?= $post["image"] ?>" alt="" srcset="" class="image-post">
+              <?php
+    $message = nl2br(htmlspecialchars($post["message"]));
+    $max_length = 100; // longueur maximale du message à afficher
+    if (strlen($message) > $max_length) {
+        $truncated_message = substr($message, 0, $max_length) . "...";
+        echo '<span class="preview">' . $truncated_message . '</span>';
+        echo '<span class="full" style="display: none;">' . $message . '</span>';
+        echo '<button class="toggle-preview btn btn-info" type="button" data-target="#collapseExample-' . $post['id_post'] . '">Voir plus</button>';
+        echo '<button class="toggle-full btn btn-link" type="button" style="display: none;" data-target="#collapseExample-' . $post['id_post'] . '">Voir moins</button>';
+    }
+    ?>
+  <?php if($post['image']): ?>
+            <img src="../uploads/<?= $post['image'] ?>" alt="" class="image-post">
+          <?php endif; ?>
 
               </div>
               <div class="col-md-6 col-lg-3 col-xl-3 border-sm-start-none border-start">
@@ -150,7 +165,7 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
                             if ( $db->userLikesAnnonce($_SESSION['id_user'],$post["id_post"]) == true ) {
                                 echo '
                                 <p><span>Likes </span>: '.$nombre.'</p>
-                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'" style="width: 240px" class="btn btn-danger mx-auto" style="width: 250px">  
+                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'" style="max-width: 240px" class="btn btn-danger " >  
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                                     </svg> Like '.$nombre.'
@@ -163,10 +178,10 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
 
                                 echo '
                                 <p><span>Likes </span>: '.$nombre.'</p>
-                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'"  style="width: 240px" class="btn btn-danger mx-auto" style="width: 250px">
+                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'"  style="width: 240px" class="btn btn-danger " style="width: 250px">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
-                                </svg> Dislike '.$nombre.'
+                                </svg> Dislike 
                             </a> &nbsp;&nbsp;&nbsp;
                                 ';
                             }
@@ -179,6 +194,15 @@ $posts= $db->getAllPostsByIduser($_SESSION["id_user"]);
             </div>
           </div>
         </div>
+        </div>
+
+
+
+
+
+
+
+
       </div>
     </div>
   

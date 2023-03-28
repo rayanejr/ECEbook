@@ -51,7 +51,7 @@ if(isset($_POST["submit"])){
         $_SESSION['date_post'] = $date_creation;
         header("location:../model/envoie_mail_identification.php");
     }
-
+    header("location:../views/index2.php");
     }catch(PDOException $e) {
         echo "Error adding post: " . $e->getMessage();
         die();

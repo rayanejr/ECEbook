@@ -632,7 +632,7 @@ public function getAllEmails()
             $statement->bindParam(':date', $date);
     
             $statement->execute();
-            echo "Post added successfully";
+            
         } catch(PDOException $e) {
             echo "Error adding post: " . $e->getMessage();
             die();
