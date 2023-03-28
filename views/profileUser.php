@@ -33,7 +33,7 @@ $abonnements=$db-> getAllAbonnements();
 
             <!-- Header -->
             <div class="container-m-nx container-m-ny theme-bg-white mb-4">
-              <div class="media col-md-10 col-lg-8 col-xl-7 py-5 mx-auto">
+              <div class="media col-md-10 col-lg-8 col-xl-7 py-5 ">
               <?php if($user["image"] != null) : ?>
                       <img class="d-block ui-w-100 rounded-circle" width="" 
                       src="../uploads/<?= $user_profile["image"]  ?>" alt="">
@@ -167,13 +167,13 @@ $abonnements=$db-> getAllAbonnements();
                   <div class="card-footer">
                     <?php $nombreLikes = $db->getCountforPostbyIdpost($post["id_post"]); ?>
                     <a href="javascript:void(0)" class="d-inline-block text-muted">
-                      <small class="align-middle">
+                     
                         <?php
                             
                             if ( $db->userLikesAnnonce($_SESSION['id_user'],$post["id_post"]) == true ) {
                                 echo '
                                 <p><span>Likes </span>: '.$nombre.'</p><br>
-                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'" style="width: 240px" class="btn btn-danger mx-auto" style="width: 250px">  
+                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'" style="width: 240px" class="btn btn-danger " style="width: 250px">  
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
                                     <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z"/>
                                     </svg> Like 
@@ -186,7 +186,7 @@ $abonnements=$db-> getAllAbonnements();
 
                                 echo '
                                 <p><span>Likes </span>: '.$nombre.'</p><br>
-                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'"  style="width: 240px" class="btn btn-danger mx-auto" style="width: 250px">
+                                <a href="../model/addLikeUser.php?user_id='.$_SESSION['id_user'].'&post_id='.$post["id_post"].'"  style="width: 240px" class="btn btn-danger " style="width: 250px">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heartbreak-fill" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M8.931.586 7 3l1.5 4-2 3L8 15C22.534 5.396 13.757-2.21 8.931.586ZM7.358.77 5.5 3 7 7l-1.5 3 1.815 4.537C-6.533 4.96 2.685-2.467 7.358.77Z"/>
                                 </svg> Dislike 
@@ -220,6 +220,7 @@ $abonnements=$db-> getAllAbonnements();
                 <?php if ($comments): ?>
                     <?php foreach ($comments as $comment): ?>
                         <?php $user = $db->GetUserById($comment['id_user']); ?>
+                        
         <div class="mt-2">
             <div class="d-flex flex-row p-3">
                 <img src="../uploads/<?= $user['image'] ?>" width="40" height="40" class="rounded-circle mr-3">
@@ -233,6 +234,7 @@ $abonnements=$db-> getAllAbonnements();
                 <?php else: ?>
                     <p class="p-3">Aucun commentaire pour le moment.</p>
                 <?php endif; ?>
+                
             </div>
         </div>
     </div>
@@ -255,6 +257,7 @@ $abonnements=$db-> getAllAbonnements();
                   <?php 
                   // Vérifier si l'utilisateur actuel est abonné à l'utilisateur en cours d'affichage
                   $isSubscribed = false;
+                  
                   foreach($abonnements as $abonnement){
                       if($abonnement["user1_id"] == $_SESSION['id_user'] && $abonnement["user2_id"] == $user_profile['id_user']){
                           $isSubscribed = true;
@@ -290,7 +293,7 @@ $abonnements=$db-> getAllAbonnements();
 
          
         </div>
-        <?=include("footer.php")?>   
+        <?php require("./footer.php") ?>
 
 
 
