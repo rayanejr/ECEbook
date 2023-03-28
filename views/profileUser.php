@@ -221,7 +221,17 @@ $abonnements=$db-> getAllAbonnements();
                     <h6>Commentaire</h6>
                 </div>
                 <div class="mt-3 d-flex flex-row align-items-center p-3 form-color">
-                    <img src="../uploads/<?= $_SESSION["image"] ?>" width="50" class="rounded-circle mr-2">
+
+
+                    <?php if($_SESSION["image"] != null) : ?>
+                              <img width="50" class="rounded-circle mr-2"
+                              src="../uploads/<?= $_SESSION["image"]  ?>" alt="">
+                            <?php elseif ($_SESSION["image"] == null) : ?>
+                              <img width="50" class="rounded-circle mr-2"
+                              src="../uploads/avatar.png" alt="">
+                            <?php endif ; ?>
+
+
                     <form style="display:flex;width : 100%" action="../model/addComment.php?id_post=<?= $post['id_post'] ?>" method="post">
                         <input type="hidden" name="id_post" value="<?= $post['id_post'] ?>">
                         <input type="text" class="form-control" name="comment" placeholder="Entrez votre commentaire...">
@@ -235,7 +245,15 @@ $abonnements=$db-> getAllAbonnements();
                         
         <div class="mt-2">
             <div class="d-flex flex-row p-3">
-                <img src="../uploads/<?= $user['image'] ?>" width="40" height="40" class="rounded-circle mr-3">
+
+
+            <?php if($user["image"] != null) : ?>
+                              <img width="40" height="40" class="rounded-circle mr-3"
+                              src="../uploads/<?= $user["image"]  ?>" alt="">
+                            <?php elseif ($user["image"] == null) : ?>
+                              <img width="40" height="40" class="rounded-circle mr-3"
+                              src="../uploads/avatar.png" alt="">
+                            <?php endif ; ?>
                 <div class="w-100 commentaire">
                     <span class="text-muted font-weight-bold"><?= $user['pseudo'] ?></span>
                     <p class="text-justify comment-text mb-0"><?= $comment['contenu'] ?></p>
@@ -279,7 +297,7 @@ $abonnements=$db-> getAllAbonnements();
                   ?>
                  
               <?php if($isSubscribed) : ?>
-                <a href="../model/deleteSub.php?id_abonné=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivi</a>
+                <a href="../model/deleteSub.php?id_abonné=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">-&nbsp; Suivi</a>
                 <?php else : ?>
                   <a href="../model/envoie_mail_subs.php?id_abonné=<?= $user_profile["id_user"] ?>" class="btn btn-primary rounded-pill">+&nbsp; Suivre</a>
                   <?php endif; ?>

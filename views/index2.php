@@ -284,13 +284,19 @@ $posts = array_values($posts);
                     </div>
       <div style="display: none" id="comments-container-<?= $post['id_post'] ?>" class="container mt-5 mb-5">
     <div class="row height d-flex justify-content-center align-items-center">
-        <div " style="width:100%">
+        <div  style="width:100%">
             <div class="">
                 <div class="p-3">
                     <h6>Commentaire</h6>
                 </div>
                 <div class="mt-3 d-flex flex-row align-items-center p-3 form-color">
-                    <img src="../uploads/<?= $_SESSION["image"] ?>" width="50" class="rounded-circle mr-2">
+                <?php if($_SESSION["image"] != null) : ?>
+                              <img width="50" class="rounded-circle mr-2"
+                              src="../uploads/<?= $_SESSION["image"]  ?>" alt="">
+                            <?php elseif ($_SESSION["image"]== null) : ?>
+                              <img width="50" class="rounded-circle mr-2"
+                              src="../uploads/avatar.png" alt="">
+                            <?php endif ; ?>
                     <form style="display:flex;width : 100%" action="../model/addComment.php?id_post=<?= $post['id_post'] ?>" method="post">
                         <input type="hidden" name="id_post" value="<?= $post['id_post'] ?>">
                         <input type="text" class="form-control" name="comment" placeholder="Entrez votre commentaire...">
@@ -303,7 +309,13 @@ $posts = array_values($posts);
                         <?php $user = $db->GetUserById($comment['id_user']); ?>
         <div class="mt-2">
             <div class="d-flex flex-row p-3">
-                <img src="../uploads/<?= $user['image'] ?>" width="40" height="40" class="rounded-circle mr-3">
+            <?php if( $user['image'] != null) : ?>
+                              <img width="40" height="40" class="rounded-circle mr-3"
+                              src="../uploads/<?= $user['image']   ?>" alt="">
+                            <?php elseif ($user["image"] == null) : ?>
+                              <img width="40" height="40" class="rounded-circle mr-3"
+                              src="../uploads/avatar.png" alt="">
+                            <?php endif ; ?>
                 <div class="w-100 commentaire">
                     <span class="text-muted font-weight-bold"><?= $user['pseudo'] ?></span> <hr>
                     <p class="text-justify comment-text mb-0"><?= $comment['contenu'] ?></p>

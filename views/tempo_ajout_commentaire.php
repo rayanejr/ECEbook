@@ -38,7 +38,14 @@ $comments = $db->GetCommentByPostId($_GET['id_post']);
                             <div class="d-flex justify-content-between align-items-center">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div class="mr-2">
-                                        <img class="rounded-circle" width="45" src="../uploads/<?= $user["image"]  ?>" alt="">
+                                        
+                                    <?php if($user["image"] != null) : ?>
+                                                    <img class="rounded-circle" width="45"
+                                                    src="../uploads/<?= $user["image"]  ?>" alt="">
+                                                    <?php elseif ($user["image"] == null) : ?>
+                                                    <img class="rounded-circle" width="45"
+                                                    src="../uploads/avatar.png" alt="">
+                                                    <?php endif ; ?>
                                     </div>
                                     <div class="ml-2">
                                         <div class="h5 m-0"><?=  $user["nom"] ?></div>
