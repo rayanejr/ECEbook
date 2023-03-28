@@ -17,6 +17,7 @@ if(isset($_POST["submit"])){
 
                 $_SESSION["id_user"] = $user["id_user"];
                 $_SESSION["admin"] = true;
+                $_SESSION["pseudo"] = $user["pseudo"];
                 header("location: ../views/dashboard.php");
             }
             else{

@@ -19,6 +19,8 @@ try {
        
         $imagePost = $_FILES['image']['name'];
         $filetmpname = $_FILES['image']['tmp_name'];
+        $publique = $_POST["publique"];
+
 
         $folder = '../uploads/';
         move_uploaded_file($filetmpname, $folder . $imagePost);
@@ -29,7 +31,7 @@ try {
             exit();
         }
 
-        $db->updatePostById($post_id,$titreP,$messageP,$imagePost);
+        $db->updatePostById($post_id,$titreP,$messageP,$imagePost,$publique);
     
         header("location: ../views/dashboard.php");
     }

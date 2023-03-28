@@ -287,14 +287,15 @@ public function GetPostByUserId($id_user) {
 
 
 
-public function updatePostById($id_post, $titre, $message, $image) {
+public function updatePostById($id_post, $titre, $message, $image,$publique) {
     $database = self::getInstance();
-    $query = "UPDATE post SET titre=:titre, message=:message, image=:image WHERE id_post=:id";
+    $query = "UPDATE post SET titre=:titre, message=:message, image=:image, publique=:publique WHERE id_post=:id";
     $statement = $database->prepare($query);
     $statement->bindParam(":id", $id_post);
     $statement->bindParam(':titre', $titre);
     $statement->bindParam(':message', $message);
     $statement->bindParam(':image', $image);
+    $statement->bindParam(':publique', $publique);
     $statement->execute();
     return $statement->fetch();
 }

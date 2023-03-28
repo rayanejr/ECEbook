@@ -221,6 +221,7 @@ $post_count = $db->getPostCount();
                                     <th scope="col">publié par </th>
                                     <th scope="col">image</th>
                                     <th scope="col">date</th>
+                                    <th scope="col">publique</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -248,6 +249,19 @@ $post_count = $db->getPostCount();
                                              <?= $post["date"] ?>
                                         </span>
                                     </td>
+
+                                    <td>
+                                    <?php if($post["publique"] == 1) : ?>
+                                        <span class="badge badge-lg badge-dot">
+                                            <i class="bg-success"></i>
+                                        </span>
+                                        <?php else : ?>
+                                            <span class="badge badge-lg badge-dot">
+                                            <i class="bg-danger"></i>
+                                        </span>
+                                        <?php  endif ;  ?>
+                                    </td>
+
                                     <td class="text-end">
                                     <a class="btn btn-sm btn-neutral" data-toggle="modal" href="#modifierP-<?= $post["id_post"] ?>">modifier</a>
                                        
