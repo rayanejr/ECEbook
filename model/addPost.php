@@ -26,7 +26,6 @@ if(isset($_POST["submit"])){
     preg_match_all($pattern, $message, $matches);
     $names = $matches[1];
 
-    // afficher les noms trouvés
    
     $folder = '../uploads/';
     move_uploaded_file($filetmpname, $folder . $imagePost);

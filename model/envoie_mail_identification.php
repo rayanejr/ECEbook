@@ -88,12 +88,24 @@ foreach($names as $name)
     }
     //Closing smtp connection
     $mail->smtpClose();
+
+    
 }
 ?>
 
+<?php if($_SESSION["admin"]) :?>
 <script>
 		// Attendre une seconde avant de rediriger l'utilisateur
 		setTimeout(function() {
-			window.location.href = "../views/index2.php";
+            window.location.href = "../views/dashboard.php";
 		}, 2000);
 </script>
+
+<?php else : ?>
+    <script>
+		// Attendre une seconde avant de rediriger l'utilisateur
+		setTimeout(function() {
+            window.location.href = "../views/index2.php";
+		}, 2000);
+</script>
+<?php endif;?>
