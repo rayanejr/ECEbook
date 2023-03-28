@@ -246,7 +246,7 @@ $posts = array_values($posts);
     }
     ?>
 
- </p>
+</p>
 
   <img src="../uploads/<?= $post["image"] ?>" alt="" srcset="" class="image-post">
 
@@ -333,27 +333,34 @@ $posts = array_values($posts);
 
 
 
-    <script>
-// Afficher/cacher le reste du message en cliquant sur le bouton
-const preview = document.querySelector('.preview');
-const full = document.querySelector('.full');
-const togglePreviewBtn = document.querySelector('.toggle-preview');
-const toggleFullBtn = document.querySelector('.toggle-full');
 
-togglePreviewBtn.addEventListener('click', () => {
-  preview.style.display = 'none';
-  full.style.display = 'block';
-  togglePreviewBtn.style.display = 'none';
-  toggleFullBtn.style.display = 'inline';
-});
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const previews = document.querySelectorAll('.preview');
+    const fulls = document.querySelectorAll('.full');
+    const togglePreviewBtns = document.querySelectorAll('.toggle-preview');
+    const toggleFullBtns = document.querySelectorAll('.toggle-full');
 
-toggleFullBtn.addEventListener('click', () => {
-  full.style.display = 'none';
-  preview.style.display = 'block';
-  toggleFullBtn.style.display = 'none';
-  togglePreviewBtn.style.display = 'inline';
-});
+    togglePreviewBtns.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        previews[i].style.display = 'none';
+        fulls[i].style.display = 'block';
+        togglePreviewBtns[i].style.display = 'none';
+        toggleFullBtns[i].style.display = 'inline';
+      });
+    });
+
+    toggleFullBtns.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        fulls[i].style.display = 'none';
+        previews[i].style.display = 'block';
+        toggleFullBtns[i].style.display = 'none';
+        togglePreviewBtns[i].style.display = 'inline';
+      });
+    });
+  });
 </script>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const toggleCommentsButtons = document.querySelectorAll('.toggle-comments');

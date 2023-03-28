@@ -154,10 +154,22 @@ $abonnements=$db-> getAllAbonnements();
                           <div ><p><?=  $post["date"] ?></p></div>
                         </div>
                       </div>
-                      <p><p class="preview"><?= nl2br(substr($post["message"], 0, 100)) ?>...</p>
-                        <p class="full" style="display: none;"><?= nl2br($post["message"]) ?></p>
-                        <button class="btn btn-primary btn-sm toggle-preview">Voir plus</button>
-                      </p>
+                      <p class="long-message preview-<?= $post['id_post'] ?>">
+    <?php
+    $message = nl2br(htmlspecialchars($post["message"]));
+    $max_length = 100; // longueur maximale du message à afficher
+    if (strlen($message) > $max_length) {
+        $truncated_message = substr($message, 0, $max_length) . "...";
+        echo '<span class="preview">' . $truncated_message . '</span>';
+        echo '<span class="full" style="display: none;">' . $message . '</span>';
+        echo '<button class="toggle-preview btn btn-link" type="button" data-target="#collapseExample-' . $post['id_post'] . '">Voir plus</button>';
+        echo '<button class="toggle-full btn btn-link" type="button" style="display: none;" data-target="#collapseExample-' . $post['id_post'] . '">Voir moins</button>';
+    } else {
+        echo '<span class="preview">' . $message . '</span>';
+    }
+    ?>
+
+</p>
                       <?php if($post["image"] != null) : ?>
                         
                       <img  src="../uploads/<?=  $post["image"] ?>" alt="" srcset="" class="ui-rect ui-bg-cover">
@@ -300,27 +312,31 @@ $abonnements=$db-> getAllAbonnements();
 
 
         <script>
-// Afficher/cacher le reste du message en cliquant sur le bouton
-const preview = document.querySelector('.preview');
-const full = document.querySelector('.full');
-const togglePreviewBtn = document.querySelector('.toggle-preview');
-const toggleFullBtn = document.querySelector('.toggle-full');
+  document.addEventListener("DOMContentLoaded", function() {
+    const previews = document.querySelectorAll('.preview');
+    const fulls = document.querySelectorAll('.full');
+    const togglePreviewBtns = document.querySelectorAll('.toggle-preview');
+    const toggleFullBtns = document.querySelectorAll('.toggle-full');
 
-togglePreviewBtn.addEventListener('click', () => {
-  preview.style.display = 'none';
-  full.style.display = 'block';
-  togglePreviewBtn.style.display = 'none';
-  toggleFullBtn.style.display = 'inline';
-});
+    togglePreviewBtns.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        previews[i].style.display = 'none';
+        fulls[i].style.display = 'block';
+        togglePreviewBtns[i].style.display = 'none';
+        toggleFullBtns[i].style.display = 'inline';
+      });
+    });
 
-toggleFullBtn.addEventListener('click', () => {
-  full.style.display = 'none';
-  preview.style.display = 'block';
-  toggleFullBtn.style.display = 'none';
-  togglePreviewBtn.style.display = 'inline';
-});
+    toggleFullBtns.forEach((btn, i) => {
+      btn.addEventListener('click', () => {
+        fulls[i].style.display = 'none';
+        previews[i].style.display = 'block';
+        toggleFullBtns[i].style.display = 'none';
+        togglePreviewBtns[i].style.display = 'inline';
+      });
+    });
+  });
 </script>
-
 
 
 <script>
